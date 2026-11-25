@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Editar produto — Painel Matuto Motos</title>
+<link rel="stylesheet" href="../assets/css/base.css">
+<link rel="stylesheet" href="../assets/css/painel.css">
+<style>@media (max-width: 767px) { .conteudo { padding-bottom: 150px; } }</style>
+</head>
+<body class="painel" data-pagina="produto-editar" data-titulo="Editar produto" data-base="../">
+<main class="conteudo" id="conteudo">
+  <div class="pg-topo">
+    <div><div class="migalha-adm"><a href="index.html">Início</a><span>/</span><a href="produtos.html">Produtos</a><span>/</span>Editar</div>
+      <h1>Protetor de motor Titan 160</h1><p>Cód. PR-0401 · atualizado em 24/11 às 16:20 por Matuto · <span class="st st-ok" style="vertical-align:1px">Ativo na loja</span></p></div>
+    <div class="pg-acoes so-desk" id="acoes"></div>
+  </div>
+
+  <div class="form-grid">
+    <div class="form-col">
+      <section class="card">
+        <div class="card-cab"><h2>Informações do produto</h2></div>
+        <div class="card-corpo campos">
+          <label class="campo c6"><span>Nome do produto</span><input class="input" value="Protetor de motor Titan 160"></label>
+          <label class="campo c2"><span>Código interno</span><input class="input" value="PR-0401"></label>
+          <label class="campo c2"><span>Código do fabricante</span><input class="input" value="PMT-160"></label>
+          <label class="campo c2 m-full"><span>Código de barras (EAN)</span><div class="campo-ic"><input class="input" id="ean"><button type="button" aria-label="Ler código de barras" id="btn-ean"></button></div></label>
+          <label class="campo c3"><span>Marca</span><select class="select"><option>Padrão original</option><option>Riffel</option><option>Mobil</option><option>Cobreq</option></select></label>
+          <label class="campo c3"><span>Categoria</span><select class="select"><option>Protetores</option><option>Rodas</option><option>Suspensão</option></select></label>
+          <div class="campo c6"><span>Descrição</span>
+            <div class="editor"><div class="editor-bar" id="ed-bar"></div>
+              <div class="editor-txt">Protetor de motor para Titan 160, fabricado em aço tubular de alta resistência. Protege o motor contra danos em quedas e impactos do dia a dia.
+                <ul><li>Estrutura reforçada em aço tubular</li><li>Pintura eletrostática preta</li><li>Encaixe perfeito, sem adaptações</li></ul></div></div></div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-cab"><h2>Fotos</h2><span class="fraco" style="font-size:12.5px">Arraste para mudar a ordem · a primeira é a capa</span></div>
+        <div class="card-corpo" style="display:flex;flex-direction:column;gap:12px">
+          <div class="fotos-up" id="fotos"></div>
+          <div class="so-mob-flex" style="gap:8px"><button class="btn btn-preto btn-camera btn-p" type="button" style="flex:1;min-width:0" id="btn-cam"></button><button class="btn btn-claro btn-p" type="button" style="flex:1;min-width:0" id="btn-gal"></button></div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-cab"><h2>Preços</h2></div>
+        <div class="card-corpo campos">
+          <label class="campo c2"><span>Preço</span><div class="campo-pref"><span>R$</span><input value="160,00"></div></label>
+          <label class="campo c2"><span>Preço promocional</span><div class="campo-pref"><span>R$</span><input value="125,00"></div></label>
+          <label class="campo c2"><span>Preço no Pix <small>(−5%, automático)</small></span><div class="campo-pref calc"><span>R$</span><input value="118,75" readonly></div></label>
+          <label class="campo c2"><span>Preço de atacado (CNPJ)</span><div class="campo-pref"><span>R$</span><input value="112,00"></div></label>
+          <label class="campo c2"><span>Custo</span><div class="campo-pref"><span>R$</span><input value="68,00"></div></label>
+          <div class="campo c2 m-full"><span>Margem</span><div class="margem" id="margem"></div></div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-cab"><h2>Compatibilidade</h2><span class="fraco" style="font-size:12.5px">3 motos · aparece na tabela da loja e no filtro “Minha moto”</span></div>
+        <div class="card-corpo" style="display:flex;flex-direction:column;gap:12px">
+          <div class="compat-lista" id="compat"></div>
+          <div class="compat-add">
+            <label class="campo"><span>Marca</span><select class="select"><option>Honda</option><option>Yamaha</option></select></label>
+            <label class="campo"><span>Modelo</span><select class="select"><option>CG 160 Cargo</option><option>CG 160 Titan</option></select></label>
+            <label class="campo"><span>Ano inicial</span><select class="select"><option>2016</option></select></label>
+            <label class="campo"><span>Ano final</span><select class="select"><option>2026</option></select></label>
+            <button class="btn btn-preto btn-p" type="button" id="btn-add"></button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="form-col">
+      <section class="card">
+        <div class="card-cab"><h2>Status e visibilidade</h2></div>
+        <div class="card-corpo">
+          <label class="campo" style="margin-bottom:6px"><span>Status</span><select class="select"><option>Ativo — à venda na loja</option><option>Rascunho</option><option>Desativado</option></select></label>
+          <div class="toggle-lin"><div><b>Visível na loja</b><small>Aparece na busca e nas categorias</small></div><span class="switch on"></span></div>
+          <div class="toggle-lin"><div><b>Destaque na página inicial</b><small>Entra em “Ofertas que vieram pra tora”</small></div><span class="switch on"></span></div>
+          <div class="toggle-lin"><div><b>Vender para oficinas (CNPJ)</b><small>Mostra o preço de atacado</small></div><span class="switch on"></span></div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-cab"><h2>Estoque</h2><a href="estoque.html">Movimentar</a></div>
+        <div class="card-corpo" style="display:flex;flex-direction:column;gap:14px">
+          <div class="est-resumo"><div><small>Em estoque</small><b>14</b></div><div><small>Reservado</small><b>1</b></div><div><small>Disponível</small><b>13</b></div></div>
+          <div class="campos" style="grid-template-columns:1fr 1fr">
+            <label class="campo"><span>Estoque mínimo</span><input class="input" value="5"></label>
+            <label class="campo"><span>Local na prateleira</span><input class="input" value="A3-2"></label>
+          </div>
+          <p class="fraco" style="font-size:12.5px;line-height:1.45" id="nota-est"></p>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-cab"><h2>Na loja</h2><a href="../produto.html">Ver página</a></div>
+        <div class="card-corpo" id="previa"></div>
+      </section>
+    </div>
+  </div>
+
+  <div class="salvar-barra" id="salvar"></div>
+</main>
+
+<script src="../assets/js/dados.js"></script>
+<script src="../assets/js/icones.js"></script>
+<script src="../assets/js/painel.js"></script>
+<script>
+(function () {
+  const M = MATUTO, I = ICON, P = PN;
+  const p = M.porId['protetor-titan160'];
+  document.getElementById('acoes').innerHTML =
+    '<a class="btn btn-claro btn-p" href="../produto.html">' + I('external', 'p') + 'Ver na loja</a>' +
+    '<button class="btn btn-claro btn-p" type="button">' + I('copy') + 'Duplicar</button>' +
+    '<button class="btn btn-amarelo btn-p" type="button">' + I('check') + 'Salvar alterações</button>';
+  document.getElementById('ean').value = p.ean;
+  document.getElementById('btn-ean').innerHTML = I('scan');
+  document.getElementById('ed-bar').innerHTML = ['<b>B</b>', '<i>I</i>', I('list'), I('image'), I('external')].map((x) => '<span>' + x + '</span>').join('');
+  const fotos = [['produtos/protetor-titan160.webp', true, ''], ['loja/balcao-pneus.jpg', false, 'cover'], ['videos/story-protetor-titan.jpg', false, 'cover'], ['videos/story-protetor-motor.jpg', false, 'cover']];
+  document.getElementById('fotos').innerHTML = fotos.map((f) => '<div class="foto-up"><img class="' + f[2] + '" src="' + P.img(f[0]) + '" alt="">' + (f[1] ? '<span class="capa">Capa</span>' : '') + '<span class="rm">' + I('close') + '</span></div>').join('') +
+    '<div class="foto-up dropzone">' + I('upload') + '<b>Arraste fotos aqui</b><span class="dz-desk">ou clique para escolher · JPG ou PNG</span></div>';
+  document.getElementById('btn-cam').innerHTML = I('camera') + 'Tirar foto';
+  document.getElementById('btn-gal').innerHTML = I('image') + 'Galeria';
+  document.getElementById('margem').innerHTML = I('trend') + '<span>Na promoção: <b>45,6%</b><br>R$ 57,00 por unidade</span>';
+  document.getElementById('compat').innerHTML = p.motos.map((m) => '<div class="compat-lin"><span>' + m[0] + '</span><b>' + m[1] + '</b><span class="tag-ano">' + I('calendar', 'pp') + m[2].replace(' a ', ' – ') + '</span><span class="ic-btn" title="Remover">' + I('trash') + '</span></div>').join('');
+  document.getElementById('btn-add').innerHTML = I('plus') + 'Adicionar moto';
+  document.getElementById('nota-est').innerHTML = 'Para mudar a quantidade, registre uma entrada, um ajuste ou uma venda no balcão em <a class="link" href="estoque.html">Controle de estoque</a>. No cadastro de um produto novo, este campo vira <b>Estoque inicial</b>.';
+  document.getElementById('previa').innerHTML = '<div class="prod-cel">' + P.thumb(p) + '<div><b>' + p.nome + '</b><small>de R$ 160,00 por <b style="display:inline;color:var(--texto)">R$ 125,00</b> · R$ 118,75 no Pix</small></div></div>' +
+    '<div style="display:flex;gap:6px;margin-top:10px;flex-wrap:wrap"><span class="st st-ok">' + I('check') + 'Retira hoje</span><span class="st st-separar">−22%</span><span class="st st-rasc">4,9 ★ · 37 avaliações</span></div>';
+  document.getElementById('salvar').innerHTML = '<span class="sb-txt"><b>Alterações não salvas:</b> preço promocional e fotos</span><div style="display:flex;gap:10px;flex:1;justify-content:flex-end"><button class="btn btn-claro btn-p" type="button">Descartar</button><button class="btn btn-amarelo btn-p" type="button">' + I('check') + 'Salvar alterações</button></div>';
+})();
+</script>
+</body>
+</html>

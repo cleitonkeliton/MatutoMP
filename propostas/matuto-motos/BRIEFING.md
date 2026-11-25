@@ -31,6 +31,23 @@ finalizado e profissional.
   Cidade/UF: ___ | Endereço: ___ | WhatsApp: ___ | Pagamentos aceitos: ___
   Assinatura da proposta (meu nome/empresa): ___
 
+### Atualização do cliente (25/11/2026) — vale sobre os campos acima
+- **Endereço (como o cliente escreveu):** "Rod Br 10, s/n - Km 71,9 - Jardim São Paulo, Recife -
+  PE, 52050-310". Nas telas: "Rod. BR-101, s/n, Km 71,9 — Jardim São Paulo, Recife/PE — CEP
+  52050-310" ("Br 10" interpretado como BR-101; confirmar rodovia e CEP — ver PENDENCIAS.md).
+- **Horário:** segunda a sexta, das 8h às 18h (sábado e domingo fechado).
+- **Cidade/UF:** Recife/PE (confirmado pelo endereço).
+- **WhatsApp:** (81) 98164-4155 (do logo; a confirmar como número de vendas).
+- **Pagamentos aceitos e assinatura da proposta:** não informados → placeholders.
+- **OK para construir** dado pelo cliente após o resumo do inventário ("pode fazer"), sem
+  objeções às propostas apresentadas:
+  - paleta das artes (preto #111111, amarelo #FCDD08, vermelho #DC0405, dourado #BB9212, fundo
+    #F5F4F0, verde #148A3B), fontes Barlow Condensed + Inter + Kaushan Script (só no bordão do
+    logo), redesenho vetorial provisório do selo;
+  - 15 categorias; tela 02 = categoria "Rodas"; tela 03 = "Protetor de motor Titan 160";
+  - valores de exemplo: separação em até 2 h, retirada em até 3 dias úteis, 5% de desconto no
+    Pix, até 3x sem juros (todos listados nas pendências).
+
 ## Regra principal: não há entrega, só RETIRADA NA LOJA
 É uma loja online completa, mas todo pedido é retirado no balcão. Isso tem que ficar claro e
 bem resolvido no site inteiro:

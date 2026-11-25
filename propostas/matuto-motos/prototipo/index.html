@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Matuto Motos — Peças de moto com retirada na loja em Recife</title>
+<meta name="description" content="Distribuidora de peças de moto em Recife. Compre pelo site e retire no balcão: rodas, kit relação, amortecedores, protetores, pneus, óleos e mais.">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/loja.css">
+</head>
+<body data-pagina="home">
+<div id="topo"></div>
+
+<main>
+  <!-- Banner principal + ofertas laterais -->
+  <section class="hero"><div class="wrap">
+    <div class="hero-grid">
+      <article class="banner">
+        <div class="banner-painel"></div>
+        <img class="banner-img-rodas" src="assets/img/produtos/rodas-titan160-2026.webp" alt="Jogo de rodas liga leve Titan 160 2026/2027">
+        <img class="banner-img-moto" src="assets/img/produtos/moto-titan160-2026.webp" alt="">
+        <div class="banner-texto">
+          <div class="banner-kicker"><span class="selo-tag" style="background:var(--amarelo);color:var(--preto)">Oferta da semana</span><span class="script">Cuida e acelera!</span></div>
+          <h1>Rodas liga leve <em>Titan 160 2026/2027</em></h1>
+          <ul class="banner-lista">
+            <li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Jogo completo, com freio a disco nas duas</li>
+            <li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Padrão original, com selo do INMETRO</li>
+            <li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Separado em até 2 h: retire hoje no balcão</li>
+          </ul>
+          <div class="preco-arte">
+            <div class="pa-col">
+              <span class="pa-label">Por apenas</span>
+              <span class="pa-valor"><small>R$</small><strong>799</strong><sup>,00</sup><em>o par</em></span>
+            </div>
+            <div class="pa-extra"><span class="pix-linha" id="hero-pix"></span>ou <b>3x de R$ 266,33</b> <br>sem juros no cartão</div>
+          </div>
+          <div class="banner-botoes">
+            <a class="btn btn-amarelo btn-g" href="produto.html?id=rodas-titan160-2026"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1.2 12.1a1 1 0 0 1-1 .9H7.2a1 1 0 0 1-1-.9L5 8z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg>Comprar e retirar</a>
+            <a class="banner-link" href="categoria.html?c=rodas">Ver todas as rodas <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
+        <div class="banner-nav"><i class="on"></i><i></i><i></i><i></i></div>
+      </article>
+
+      <div class="hero-lado">
+        <a class="mini-banner mb-amarelo" href="categoria.html?c=transmissao">
+          <div>
+            <h3>Kit relação aço 1045</h3>
+            <p>Coroa, pinhão e corrente com selo INMETRO para Titan, Bros, Pop e Biz.</p>
+          </div>
+          <div class="mini-preco"><small>A partir de</small><b>R$ 48,90</b><s>R$ 75,00</s></div>
+          <img src="assets/img/produtos/kit-relacao-titan-b.webp" alt="">
+        </a>
+        <a class="mini-banner mb-azul" href="produto.html?id=oleo-mobil-10w30">
+          <div>
+            <h3>Óleo Mobil Super Moto 10W-30</h3>
+            <p>Semissintético, 1 litro. Mais proteção e performance pra sua moto.</p>
+          </div>
+          <div class="mini-preco"><small>Por apenas</small><b>R$ 35,90</b><s>R$ 40,00</s></div>
+          <img src="assets/img/produtos/oleo-mobil-10w30.webp" alt="">
+        </a>
+      </div>
+    </div>
+
+    <!-- Peças para a minha moto -->
+    <form class="minha-moto" action="categoria.html">
+      <div class="mm-tit">
+        <span class="mm-ic" id="mm-ic"></span>
+        <div><h2>Peças para a minha moto</h2><p>Escolha a moto e veja só o que serve nela.</p></div>
+      </div>
+      <div class="mm-form">
+        <label class="campo"><span>Marca</span><select class="select" id="mm-marca" name="marca"></select></label>
+        <label class="campo"><span>Modelo</span><select class="select" id="mm-modelo" name="modelo"></select></label>
+        <label class="campo"><span>Ano</span><select class="select" id="mm-ano" name="ano"></select></label>
+        <button class="btn btn-amarelo" type="submit" id="mm-btn"></button>
+        <div class="mm-extra">
+          <label class="check"><input type="checkbox" checked><span>Salvar na <b>Minha garagem</b></span></label>
+          <div class="chips" id="mm-chips"></div>
+        </div>
+      </div>
+    </form>
+
+    <!-- Benefícios -->
+    <div class="beneficios" id="beneficios"></div>
+  </div></section>
+
+  <!-- Categorias -->
+  <section class="sec"><div class="wrap">
+    <div class="sec-topo">
+      <div><span class="kicker">Tudo pra sua moto</span><h2 class="titulo">Procure por categoria</h2></div>
+      <a class="ver-todos" href="categoria.html">Ver todas</a>
+    </div>
+    <div class="cats" id="cats"></div>
+  </div></section>
+
+  <!-- Ofertas -->
+  <section class="sec"><div class="wrap">
+    <div class="sec-topo">
+      <div><span class="kicker">Promoção boa é assim</span><h2 class="titulo">Ofertas que vieram pra tora</h2></div>
+      <div class="setas-car" id="setas-ofertas"></div>
+    </div>
+    <div class="grade grade-home" data-grade="rodas-titan150-160, amortecedor-titan, kit-relacao-titan, oleo-mobil-10w30, protetor-titan160"></div>
+  </div></section>
+
+  <!-- Retirada em 3 passos -->
+  <section class="retirada"><div class="wrap">
+    <div class="ret-grid">
+      <div>
+        <span class="kicker">Retirada na loja</span>
+        <h2 class="titulo">Não precisa ficar avechado: <em>sua peça te espera no balcão</em></h2>
+        <p class="ret-sub">Aqui não tem frete nem espera de entrega. Você compra pelo site, a gente separa e avisa no WhatsApp quando estiver pronto.</p>
+        <div class="passos" id="passos"></div>
+      </div>
+      <div class="ret-loja">
+        <div class="ret-foto"><img src="assets/img/loja/dono-na-loja.jpg" alt="O Matuto dentro da loja"><span class="selo-tag">Te esperamos na loja</span></div>
+        <div class="ret-info" id="ret-info"></div>
+      </div>
+    </div>
+  </div></section>
+
+  <!-- Mais vendidos -->
+  <section class="sec"><div class="wrap">
+    <div class="sec-topo">
+      <div><span class="kicker">Saindo ligeiro do balcão</span><h2 class="titulo">Mais vendidos da semana</h2></div>
+      <a class="ver-todos" href="categoria.html?ordem=vendidos">Ver todos</a>
+    </div>
+    <div class="grade grade-home" data-grade="protetor-bros160, kit-riffel, capacete-aberto, pneu-traseiro-bros, rodas-dabroy-bros160"></div>
+  </div></section>
+
+  <!-- Marcas -->
+  <section class="sec"><div class="wrap">
+    <div class="sec-topo">
+      <div><span class="kicker">Distribuidora de verdade</span><h2 class="titulo">Marcas que a gente trabalha</h2></div>
+    </div>
+    <div class="marcas">
+      <div class="marca"><span class="m-mobil">Mobil</span></div>
+      <div class="marca"><span class="m-motul">MOTUL</span></div>
+      <div class="marca"><span class="m-riffel">RIFFEL</span></div>
+      <div class="marca"><span class="m-cobreq">COBREQ</span></div>
+      <div class="marca"><span class="m-dabroy">DABROY</span></div>
+      <div class="marca"><span class="m-ngk">NGK</span></div>
+    </div>
+  </div></section>
+
+  <!-- Oficinas -->
+  <section class="sec"><div class="wrap">
+    <div class="oficinas">
+      <div class="of-txt">
+        <span class="kicker">Oficinas e revendedores</span>
+        <h2>Tem oficina? Aqui o preço é de distribuidora.</h2>
+        <ul class="of-lista" id="of-lista"></ul>
+        <div class="of-botoes">
+          <a class="btn btn-preto btn-g" href="oficinas.html" id="of-btn"></a>
+          <small>Cadastro com CNPJ, sujeito a aprovação. Leva menos de 2 minutos.</small>
+        </div>
+      </div>
+      <div class="of-foto"><img src="assets/img/loja/balcao-pneus.jpg" alt="Estoque de pneus e peças na loja"><span class="selo-tag">Pedido separado na hora</span></div>
+    </div>
+  </div></section>
+
+  <!-- Instagram -->
+  <section class="sec"><div class="wrap">
+    <div class="insta-topo">
+      <div>
+        <span class="kicker">Direto do Instagram</span>
+        <h2 class="titulo">Visto nos vídeos do Matuto</h2>
+      </div>
+      <div class="insta-perfil">
+        <span class="insta-avatar"><span id="insta-selo"></span></span>
+        <div><b>@matutomotospecas <span class="verificado" id="verif"></span></b><small><b style="display:inline">204 mil seguidores</b> · 1.355 posts</small></div>
+        <a class="btn btn-preto btn-p insta-seguir" href="https://instagram.com/matutomotospecas" id="btn-seguir"></a>
+      </div>
+    </div>
+    <div class="reels" id="reels"></div>
+  </div></section>
+
+  <!-- WhatsApp -->
+  <section><div class="wrap">
+    <div class="zap-ofertas">
+      <span class="zap-ic" id="zap-ic"></span>
+      <div>
+        <h2>Receba as ofertas no WhatsApp</h2>
+        <p>Toda semana tem promoção que veio pra tora. Entre na lista e fique sabendo primeiro.</p>
+      </div>
+      <form class="zap-form" onsubmit="return false">
+        <div class="zap-linha">
+          <input class="input" type="tel" placeholder="Seu WhatsApp com DDD" aria-label="Seu WhatsApp">
+          <button class="btn btn-zap" type="submit" id="zap-btn"></button>
+        </div>
+        <small id="zap-nota"></small>
+      </form>
+    </div>
+  </div></section>
+</main>
+
+<div id="rodape"></div>
+
+<script src="assets/js/dados.js"></script>
+<script src="assets/js/icones.js"></script>
+<script src="assets/js/loja.js"></script>
+<script>
+(function () {
+  const M = MATUTO, I = ICON, T = MT, L = M.loja;
+  document.getElementById('hero-pix').innerHTML = PIX + ' R$ 759,05 no Pix';
+  document.getElementById('mm-ic').innerHTML = I('moto');
+
+  /* Peças para a minha moto */
+  const marca = document.getElementById('mm-marca'), modelo = document.getElementById('mm-modelo'), ano = document.getElementById('mm-ano');
+  marca.innerHTML = Object.keys(M.motos).map((m) => '<option' + (m === 'Honda' ? ' selected' : '') + '>' + m + '</option>').join('');
+  function modelos() { modelo.innerHTML = M.motos[marca.value].map((m) => '<option' + (m === 'CG 160 Titan' ? ' selected' : '') + '>' + m + '</option>').join(''); }
+  modelos(); marca.addEventListener('change', modelos);
+  let anos = ''; for (let a = 2026; a >= 2005; a--) anos += '<option' + (a === 2022 ? ' selected' : '') + '>' + a + '</option>';
+  ano.innerHTML = anos;
+  document.getElementById('mm-btn').innerHTML = I('search') + '<span class="so-desk">Ver peças que servem</span><span class="so-mob">Ver peças</span>';
+  document.getElementById('mm-chips').innerHTML = '<span>Mais buscadas:</span>' + ['CG 160 Titan', 'Bros 160', 'Pop 110i', 'Biz 125', 'Factor 150']
+    .map((m, i) => '<a class="chip' + (i === 0 ? ' on' : '') + '" href="categoria.html?moto=' + encodeURIComponent(m) + '">' + I('moto') + m + '</a>').join('');
+
+  /* Benefícios */
+  document.getElementById('beneficios').innerHTML = [
+    [I('store'), 'Retirada grátis', 'No balcão, em Recife'],
+    [I('clock'), 'Pronto em até 2 h', 'Aviso no WhatsApp'],
+    [PIX, '5% off no Pix', 'Desconto na hora'],
+    [I('card'), '3x sem juros', 'Em todos os cartões'],
+    [I('insta'), '204 mil seguidores', 'Confiam no Matuto'],
+  ].map((b) => '<div class="benef">' + b[0] + '<div><b>' + b[1] + '</b><span>' + b[2] + '</span></div></div>').join('');
+
+  /* Categorias */
+  const sub = { rodas: 'Liga leve e pé de galinha', transmissao: 'Kit, coroa e pinhão', suspensao: 'Amortecedores', protetores: 'Motor, cárter e carenagem', pneus: 'On e off-road',
+    oleos: 'Lubrificantes e filtros', retrovisores: 'Originais e esportivos', capacetes: 'Abertos e fechados', freios: 'Pastilhas e patins', motor: 'Pistão, juntas e cabeçote',
+    eletrica: 'Baterias, velas e relés', iluminacao: 'Lâmpadas e faróis', carenagens: 'Laterais e paralamas', cabos: 'Cabos e manetes', acessorios: 'Baús, capas e mais' };
+  document.getElementById('cats').innerHTML = M.categorias.map((c) => '<a class="cat" href="categoria.html?c=' + c.id + '"><span class="cat-ic">' + I(c.icone) + '</span><span>' + c.nome + '<small>' + sub[c.id] + '</small></span></a>').join('') +
+    '<a class="cat cat-todas" href="categoria.html"><span class="cat-ic">' + I('grid') + '</span><span>Ver todas<small style="color:#5c4b00">e ofertas</small></span></a>';
+
+  document.getElementById('setas-ofertas').innerHTML = '<button type="button" aria-label="Anterior">' + I('left', 'p') + '</button><button type="button" class="on" aria-label="Próximo">' + I('right', 'p') + '</button>';
+
+  /* Retirada */
+  document.getElementById('passos').innerHTML = [
+    ['1', I('bag'), 'Compre pelo site', 'Escolha as peças, pague no Pix ou no cartão. Sem frete, sem CEP.'],
+    ['2', I('whatsapp'), 'Pedido pronto, ligeiro', 'A gente separa em até 2 h e avisa no seu WhatsApp.'],
+    ['3', I('store'), 'Retire no balcão', 'Mostre o código de retirada e um documento com foto. Pronto!'],
+  ].map((p) => '<div class="passo"><span class="passo-n">' + p[0] + '</span>' + p[1] + '<h3>' + p[2] + '</h3><p>' + p[3] + '</p></div>').join('');
+  document.getElementById('ret-info').innerHTML = '<h3>Matuto Motos</h3>' +
+    '<div class="linha-ic">' + I('pin') + '<span><b>' + L.endereco + '</b><br>' + L.bairro + ', ' + L.cidade + ' · CEP ' + L.cep + '</span></div>' +
+    '<div class="linha-ic">' + I('clock') + '<span><b>' + L.horarioLongo + '</b><br>Retirada no balcão, sem agendamento</span></div>' +
+    '<div style="display:flex;gap:10px;margin-top:4px"><a class="btn btn-amarelo btn-p" href="como-funciona.html">Como funciona</a><a class="btn btn-borda btn-p" href="contato.html">' + I('route') + 'Como chegar</a></div>';
+
+  /* Oficinas */
+  document.getElementById('of-lista').innerHTML = ['Preço de atacado para CNPJ', 'Pedido separado na hora', 'Nota fiscal no CNPJ da oficina', 'Atendimento direto no WhatsApp']
+    .map((t) => '<li>' + I('checkCircle') + t + '</li>').join('');
+  document.getElementById('of-btn').innerHTML = I('wrench') + 'Cadastrar minha oficina';
+
+  /* Instagram */
+  document.getElementById('insta-selo').innerHTML = SELO();
+  document.getElementById('verif').innerHTML = I('check');
+  document.getElementById('btn-seguir').innerHTML = I('insta') + 'Seguir';
+  document.getElementById('reels').innerHTML = [
+    ['videos/story-protetor-tubular.jpg', 'Protetor de motor tubular por R$ 119', 'protetor-tubular'],
+    ['videos/story-capacete.jpg', 'Capacete aberto em 8 cores por R$ 98', 'capacete-aberto'],
+    ['videos/story-dono-na-loja.jpg', 'Chegou mercadoria: protetor tubular', 'protetor-tubular'],
+    ['videos/story-protetor-titan.jpg', 'Protetor Titan 160: de R$ 160 por R$ 125', 'protetor-titan160'],
+    ['videos/story-rodas-dabroy.jpg', 'Rodas Dabroy Bros 160 com disco nas duas', 'rodas-dabroy-bros160'],
+    ['videos/story-protetor-bros.jpg', 'Protetor Bros 160: promoção por tempo limitado', 'protetor-bros160'],
+  ].map((r) => '<a class="reel" href="produto.html?id=' + r[2] + '"><img src="' + T.img(r[0]) + '" alt=""><span class="reel-tag">' + I('play') + 'Reels</span><span class="reel-play">' + I('play') + '</span><span class="reel-txt">' + r[1] + '<small>' + I('bag') + 'Ver produto</small></span></a>').join('');
+
+  /* WhatsApp */
+  document.getElementById('zap-ic').innerHTML = I('whatsapp');
+  document.getElementById('zap-btn').innerHTML = I('whatsapp') + 'Quero receber';
+  document.getElementById('zap-nota').innerHTML = I('lock') + 'Seu número fica só com a gente. Para sair da lista, é só pedir.';
+})();
+</script>
+</body>
+</html>

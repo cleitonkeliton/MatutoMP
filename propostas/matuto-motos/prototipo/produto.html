@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Protetor de motor Titan 160 — Matuto Motos</title>
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/loja.css">
+</head>
+<body data-pagina="produto" class="pagina-produto">
+<div id="topo"></div>
+
+<main><div class="wrap">
+  <nav class="migalhas" id="migalhas"></nav>
+
+  <div class="prod">
+    <div class="galeria">
+      <div class="miniaturas" id="miniaturas"></div>
+      <div class="foto-principal" id="foto-principal"></div>
+    </div>
+
+    <div class="p-info">
+      <div class="p-cab">
+        <div class="p-meta" id="p-meta"></div>
+        <h1 id="p-nome"></h1>
+        <div class="p-aval" id="p-aval"></div>
+      </div>
+      <div class="serve" id="serve"></div>
+      <div class="p-preco" id="p-preco"></div>
+      <div id="p-cores-wrap"></div>
+      <div class="p-compra" id="p-compra"></div>
+      <div class="p-retirada" id="p-retirada"></div>
+      <div class="p-confianca" id="p-confianca"></div>
+    </div>
+  </div>
+
+  <div class="p-detalhes">
+    <div style="display:flex;flex-direction:column;gap:24px">
+      <section class="bloco" id="descricao"></section>
+      <section class="bloco" id="ficha"></section>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:24px">
+      <section class="bloco" id="compat"></section>
+      <section class="bloco" id="avaliacoes"></section>
+    </div>
+  </div>
+
+  <section class="sec">
+    <div class="sec-topo"><div><span class="kicker">Aproveite a viagem até o balcão</span><h2 class="titulo">Quem levou, levou também</h2></div></div>
+    <div class="grade" id="relacionados"></div>
+  </section>
+</div></main>
+
+<div class="barra-compra fixo-captura" id="barra-compra"></div>
+<div id="rodape"></div>
+
+<script src="assets/js/dados.js"></script>
+<script src="assets/js/icones.js"></script>
+<script src="assets/js/loja.js"></script>
+<script>
+(function () {
+  const M = MATUTO, I = ICON, T = MT, L = M.loja;
+  const id = new URLSearchParams(location.search).get('id') || 'protetor-titan160';
+  const p = M.porId[id] || M.porId['protetor-titan160'];
+  const cat = T.catDe(p.cat);
+  const v = T.valor(p);
+  const zerado = p.estoque === 0;
+  document.title = p.nome + ' — Matuto Motos';
+
+  document.getElementById('migalhas').innerHTML = '<a href="index.html">Início</a>' + I('right') + '<a href="categoria.html?c=' + p.cat + '">' + cat.nome + '</a>' + I('right') + '<b>' + p.nome + '</b>';
+
+  /* galeria */
+  const fotos = (p.galeria || [p.img]).filter(Boolean);
+  const video = { 'protetor-titan160': 'videos/story-dono-na-loja.jpg', 'protetor-bros160': 'videos/story-protetor-tubular.jpg', 'capacete-aberto': 'videos/story-capacete.jpg' }[p.id];
+  const ehCorte = (f) => f.indexOf('produtos/') === 0;
+  document.getElementById('miniaturas').innerHTML = fotos.map((f, i) => '<button type="button" class="' + (i === 0 ? 'on' : '') + '" data-foto="' + f + '"><img class="' + (ehCorte(f) ? 'contain' : '') + '" src="' + T.img(f) + '" alt=""></button>').join('') +
+    (video ? '<button type="button" data-foto="' + video + '"><img src="' + T.img(video) + '" alt=""><span class="mini-video">' + I('play') + '</span></button>' : '');
+  const principal = document.getElementById('foto-principal');
+  function mostrar(f) {
+    principal.innerHTML = (p.img ? '<img src="' + T.img(f) + '" alt="' + p.nome + '" style="' + (ehCorte(f) ? '' : 'left:0;top:0;width:100%;height:100%;object-fit:cover;filter:none') + '">' : '<span class="sem-foto">' + I(cat.icone) + 'Foto em breve</span>') +
+      '<span class="cp-tags">' + (p.promo ? '<span class="tag-desc">−' + Math.round((1 - p.promo / p.preco) * 100) + '%</span>' : '') + (!zerado ? '<span class="selo-tag tag-retira">' + I('check') + 'Retira hoje</span>' : '') + '</span>' +
+      '<div class="foto-acoes"><button type="button" aria-label="Favoritar">' + I('heart', 'p') + '</button><button type="button" aria-label="Compartilhar">' + I('share', 'p') + '</button></div>' +
+      (ehCorte(f) ? '<span class="foto-nota">' + I('info') + 'Imagem ilustrativa. Fotos da loja nas miniaturas.</span>' : '');
+  }
+  mostrar(fotos[0]);
+  document.getElementById('miniaturas').addEventListener('click', (e) => {
+    const b = e.target.closest('button'); if (!b) return;
+    document.querySelectorAll('#miniaturas button').forEach((x) => x.classList.toggle('on', x === b));
+    mostrar(b.dataset.foto);
+  });
+
+  /* cabeçalho do produto */
+  document.getElementById('p-meta').innerHTML = '<span>Marca: <b>' + (p.marca || 'Padrão original') + '</b></span><span>Cód.: <b>' + p.cod + '</b></span><span>Ref. fabricante: <b>' + p.codFab + '</b></span>';
+  document.getElementById('p-nome').textContent = p.nome;
+  document.getElementById('p-aval').innerHTML = p.aval ? T.estrelas(p.aval) + '<b>' + T.nota(p.aval) + '</b><a href="#avaliacoes">' + p.navals + ' avaliações</a><span class="fraco">·</span><span>' + p.vendidos + ' vendidos</span>' : '';
+  const serveNaMinha = p.fam.indexOf('CG 160 Titan') >= 0;
+  const serve = document.getElementById('serve');
+  if (serveNaMinha) serve.innerHTML = I('checkCircle') + '<span><b>Serve na sua ' + T.motoTxt.replace('Honda ', '') + '</b> (da sua garagem)</span><a href="#compat">Ver compatibilidade</a>';
+  else serve.remove();
+
+  /* preço */
+  document.getElementById('p-preco').innerHTML =
+    '<div>' + (p.promo ? '<div class="p-preco-de"><s>' + T.fmt(p.preco) + '</s><span class="tag-desc">−' + Math.round((1 - p.promo / p.preco) * 100) + '%</span></div>' : '') +
+    '<div class="p-preco-por"><small>R$</small>' + v.toFixed(2).replace('.', ',') + '</div></div>' +
+    '<div class="p-estoque">' + (zerado ? '<b style="color:var(--vermelho)">Indisponível</b>Sem estoque no momento' : '<b>' + I('check', 'pp') + ' Em estoque</b>' + p.disponivel + ' unidades para retirada') + '</div>' +
+    '<div style="grid-column:1/-1;display:flex;flex-direction:column;gap:2px">' +
+      '<span class="p-pix">' + PIX + T.fmt(T.pix(v)) + ' no Pix <span class="selo-tag tag-retira" style="height:22px">5% de desconto</span></span>' +
+      '<span class="p-parc">ou em até <b>' + L.parcelas + 'x de ' + T.fmt(T.parc(v)) + '</b> sem juros no cartão</span></div>';
+
+  /* cores (capacete) */
+  if (p.cores) {
+    document.getElementById('p-cores-wrap').innerHTML = '<div class="rotulo" style="margin-bottom:8px">Cor: <b style="color:var(--texto)">' + p.cores[0][0] + '</b></div><div class="p-cores">' +
+      p.cores.map((c, i) => '<button type="button" class="' + (i === 0 ? 'on' : '') + '" style="background:' + c[2] + '" title="' + c[0] + '" aria-label="' + c[0] + '"></button>').join('') + '</div>';
+  }
+
+  /* compra */
+  const msg = encodeURIComponent('Olá, Matuto! Tenho uma dúvida sobre o produto: ' + p.nome + ' (cód. ' + p.cod + ').');
+  document.getElementById('p-compra').innerHTML = zerado
+    ? '<a class="btn btn-zap btn-g btn-bloco" style="grid-column:1/-1" href="' + L.whatsLink + '?text=' + encodeURIComponent('Olá, Matuto! Me avise quando chegar: ' + p.nome) + '">' + I('whatsapp') + 'Avise-me quando chegar</a>'
+    : '<div class="qtd"><button type="button" aria-label="Menos">' + I('minus', 'p') + '</button><span>1</span><button type="button" aria-label="Mais">' + I('plus', 'p') + '</button></div>' +
+      '<a class="btn btn-amarelo btn-g" href="carrinho.html">' + I('bag') + 'Adicionar ao carrinho</a>' +
+      '<a class="btn btn-zap-borda" href="' + L.whatsLink + '?text=' + msg + '">' + I('whatsapp') + 'Tirar dúvida no WhatsApp</a>';
+
+  /* retirada (no lugar do frete) */
+  document.getElementById('p-retirada').innerHTML =
+    '<div class="pr-topo">' + I('store') + '<b>Retirada na loja</b><span>Grátis</span></div>' +
+    '<div class="pr-corpo">' +
+      '<div class="linha-ic">' + I('zap') + '<span><b>Separado em até 2 h</b><br>Pague até as 16h e retire hoje</span></div>' +
+      '<div class="linha-ic">' + I('clock') + '<span><b>' + L.horario + '</b><br>Até 3 dias úteis para retirar</span></div>' +
+      '<div class="linha-ic" style="grid-column:1/-1">' + I('pin') + '<span><b>' + L.endereco + '</b> — ' + L.bairro + ', ' + L.cidade + '</span></div>' +
+      '<div class="pr-aviso">' + I('info') + '<span>Não fazemos entregas: todo pedido é retirado no balcão.</span><a href="como-funciona.html">Como funciona</a></div>' +
+    '</div>';
+
+  document.getElementById('p-confianca').innerHTML = [
+    [I('shield'), 'Garantia contra defeito de fabricação'], [I('swap'), 'Troca em até 7 dias no balcão'], [I('lock'), 'Pagamento seguro']
+  ].map((c) => '<div>' + c[0] + '<span>' + c[1] + '</span></div>').join('');
+
+  /* descrição */
+  const descricoes = {
+    'protetor-titan160': {
+      texto: 'Protetor de motor para Titan 160, fabricado em aço tubular de alta resistência. Protege o motor contra danos em quedas e impactos do dia a dia e encaixa sem adaptação nos pontos de fixação originais da moto. Acabamento com pintura eletrostática, que dura mais e deixa o visual esportivo.',
+      bens: [['shield', 'Protege o motor', 'Evita danos em quedas e impactos.'], ['wrench', 'Estrutura reforçada', 'Fabricado em aço tubular de alta resistência.'], ['sparkle', 'Acabamento premium', 'Pintura eletrostática: mais durabilidade e visual esportivo.'], ['check', 'Fácil instalação', 'Encaixe perfeito, sem adaptações.']],
+      specs: [['Material', 'Aço tubular'], ['Acabamento', 'Pintura eletrostática preta'], ['Instalação', 'Parafusada, sem adaptação'], ['Itens inclusos', 'Protetor + kit de fixação'], ['Garantia', '90 dias contra defeito de fabricação']],
+    },
+  };
+  const d = descricoes[p.id] || {
+    texto: p.nome + '. Peça com qualidade de distribuidora, conferida antes da separação. Na dúvida sobre a compatibilidade, chame no WhatsApp antes de comprar.',
+    bens: [['shield', 'Qualidade original', 'Peça conferida pela equipe do Matuto.'], ['moto', 'Compatibilidade clara', 'Veja na tabela os modelos e anos.'], ['store', 'Retire hoje', 'Separado em até 2 h no balcão.'], ['whatsapp', 'Atendimento direto', 'Tire dúvidas no WhatsApp.']],
+    specs: [['Categoria', cat.nome], ['Garantia', '90 dias contra defeito de fabricação']],
+  };
+  document.getElementById('descricao').innerHTML = '<h2>Descrição</h2><p>' + d.texto + '</p><ul class="beneficios-lista">' +
+    d.bens.map((b) => '<li><span class="bi">' + I(b[0]) + '</span><div><b>' + b[1] + '</b><span>' + b[2] + '</span></div></li>').join('') + '</ul>';
+  document.getElementById('ficha').innerHTML = '<h2>Ficha técnica</h2><div class="specs">' +
+    [['Código interno', p.cod], ['Ref. do fabricante', p.codFab], ['Código de barras', p.ean], ['Marca', p.marca || 'Padrão original']].concat(d.specs).map((s) => '<div>' + s[0] + '</div><div>' + s[1] + '</div>').join('') + '</div>';
+
+  /* compatibilidade */
+  document.getElementById('compat').innerHTML = '<h2>Compatibilidade</h2><p style="margin-bottom:14px">Confira modelo e ano antes de comprar. Ficou na dúvida? A gente confere pelo WhatsApp.</p>' +
+    '<table class="tabela tab-compat"><thead><tr><th>Marca</th><th>Modelo</th><th>Anos</th><th>Sua moto</th></tr></thead><tbody>' +
+    p.motos.map((m) => '<tr><td>' + m[0] + '</td><td><b>' + m[1] + '</b></td><td>' + m[2] + '</td><td>' + (m[1] === 'CG 160 Titan' ? '<span class="ok-ic">' + I('checkCircle') + 'Serve</span>' : '<span class="fraco">—</span>') + '</td></tr>').join('') +
+    '</tbody></table>';
+
+  /* avaliações (exemplos) */
+  const avs = [
+    ['Rafael S.', '18/11/2026', 'CG 160 Titan 2021', 5, 'Encaixou perfeito, sem precisar furar nada. Comprei de manhã pelo site e às 11h já tava pronto no balcão.'],
+    ['Joseane F.', '09/11/2026', 'CG 160 Fan 2023', 5, 'Peça bem acabada e o preço é o melhor de Recife mesmo. O atendimento no WhatsApp tirou minha dúvida rapidinho.'],
+    ['Edvaldo M.', '27/10/2026', 'CG 160 Start 2020', 4, 'Muito bom, protege bem. Só achei os parafusos um pouco curtos, mas o pessoal da loja trocou na hora.'],
+  ];
+  document.getElementById('avaliacoes').innerHTML = '<h2>Avaliações</h2>' +
+    '<div class="aval-resumo"><div class="aval-nota"><b>' + T.nota(p.aval || 4.9) + '</b>' + T.estrelas(p.aval || 4.9) + '<small>' + (p.navals || 37) + ' avaliações</small></div>' +
+    '<div class="barras">' + [[5, 89], [4, 8], [3, 3], [2, 0], [1, 0]].map((b) => '<div><span>' + b[0] + '★</span><i style="--p:' + b[1] + '%"></i><span>' + b[1] + '%</span></div>').join('') + '</div></div>' +
+    avs.map((a) => '<div class="avaliacao"><div class="av-topo"><span class="av-avatar">' + a[0][0] + '</span><div><b>' + a[0] + '</b><small>' + a[1] + ' · Compra verificada</small></div>' + T.estrelas(a[3]) + '</div><p>' + a[4] + '</p><span class="av-moto">' + I('moto') + a[2] + '</span></div>').join('');
+
+  /* relacionados */
+  const rel = ['protetor-bros160', 'protetor-tubular', 'kit-relacao-titan', 'oleo-mobil-10w30', 'amortecedor-titan'].filter((x) => x !== p.id).slice(0, 5);
+  document.getElementById('relacionados').innerHTML = rel.map((x) => T.card(M.porId[x])).join('');
+
+  /* barra fixa (mobile) */
+  document.getElementById('barra-compra').innerHTML = zerado
+    ? '<div class="bc-preco"><b>' + T.fmt(v) + '</b><small style="color:var(--vermelho)">Indisponível</small></div><a class="btn btn-zap" href="' + L.whatsLink + '">' + I('whatsapp') + 'Avise-me</a>'
+    : '<div class="bc-preco"><b>' + T.fmt(v) + '</b><small>' + T.fmt(T.pix(v)) + ' no Pix</small></div><a class="btn btn-amarelo" href="carrinho.html">' + I('bag') + 'Adicionar ao carrinho</a>';
+})();
+</script>
+</body>
+</html>

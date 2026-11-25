@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Carrinho — Matuto Motos</title>
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/loja.css">
+</head>
+<body data-pagina="carrinho">
+<div id="topo"></div>
+
+<main><div class="wrap">
+  <nav class="migalhas"><a href="index.html">Início</a><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg><b>Carrinho</b></nav>
+  <div class="pagina-tit">
+    <div><h1>Seu carrinho</h1><p id="cart-sub"></p></div>
+  </div>
+
+  <div class="carrinho">
+    <div>
+      <div class="itens">
+        <div class="itens-cab"><span>Produto</span><span>Quantidade</span><span>Preço unit.</span><span style="text-align:right">Total</span></div>
+        <div id="itens"></div>
+        <div class="itens-rodape"><a href="categoria.html" id="continuar"></a><span class="muted" id="reserva-txt"></span></div>
+      </div>
+
+      <div class="cross">
+        <h3>Já que vai passar no balcão, leve também</h3>
+        <div class="cross-itens" id="cross"></div>
+      </div>
+    </div>
+
+    <aside class="resumo" id="resumo"></aside>
+  </div>
+</div></main>
+
+<div id="rodape"></div>
+
+<script src="assets/js/dados.js"></script>
+<script src="assets/js/icones.js"></script>
+<script src="assets/js/loja.js"></script>
+<script>
+(function () {
+  const M = MATUTO, I = ICON, T = MT, L = M.loja;
+  const itens = T.carrinhoItens;
+  const sub = T.subtotal;
+  const subCheio = itens.reduce((a, c) => a + c.p.preco * c.qtd, 0);
+  const qtd = itens.reduce((a, c) => a + c.qtd, 0);
+  document.getElementById('cart-sub').innerHTML = qtd + ' itens · tudo disponível para retirar hoje na loja';
+  document.getElementById('itens').innerHTML = itens.map((c) => {
+    const v = T.valor(c.p);
+    return '<div class="item">' +
+      '<div class="item-prod"><a class="item-img" href="produto.html?id=' + c.p.id + '"><img src="' + T.img(c.p.img) + '" alt=""></a>' +
+        '<div><a class="item-nome" href="produto.html?id=' + c.p.id + '">' + c.p.nome + '</a>' +
+        '<div class="item-sub"><span>Cód. ' + c.p.cod + '</span><span class="ok-ic">' + I('check', 'pp') + 'Retira hoje</span></div>' +
+        '<div class="item-acoes"><button type="button">' + I('heart') + 'Salvar</button><button type="button">' + I('trash') + 'Remover</button></div></div></div>' +
+      '<div class="item-qtd"><div class="qtd p"><button type="button" aria-label="Menos">' + I('minus', 'pp') + '</button><span>' + c.qtd + '</span><button type="button" aria-label="Mais">' + I('plus', 'pp') + '</button></div></div>' +
+      '<div class="item-preco">' + (c.p.promo ? '<s>' + T.fmt(c.p.preco) + '</s>' : '') + T.fmt(v) + '</div>' +
+      '<div class="item-total">' + T.fmt(v * c.qtd) + '</div>' +
+    '</div>';
+  }).join('');
+  document.getElementById('continuar').innerHTML = I('left', 'p') + 'Continuar comprando';
+  document.getElementById('reserva-txt').textContent = 'Os itens ficam reservados para você quando o pedido é feito.';
+
+  const cross = ['patins-freio', 'coxim-coroa', 'retrovisor-quadrado'].map((id) => M.porId[id]);
+  document.getElementById('cross').innerHTML = cross.map((p) => '<div class="mini-prod">' + (p.img ? '<img src="' + T.img(p.img) + '" alt="">' : '<span class="item-img" style="width:64px;height:64px">' + I(T.catDe(p.cat).icone, 'g') + '</span>') +
+    '<div><b>' + p.nome.split(' — ')[0] + '</b><span>' + T.fmt(T.valor(p)) + '</span></div><button type="button" aria-label="Adicionar">' + I('plus', 'p') + '</button></div>').join('');
+
+  const cupom = 0;
+  const total = sub - cupom;
+  document.getElementById('resumo').innerHTML =
+    '<h2>Resumo do pedido</h2>' +
+    '<label class="campo"><span>Cupom de desconto</span><div class="cupom"><input class="input" placeholder="Digite o cupom" aria-label="Cupom"><button class="btn btn-preto btn-p" type="button">Aplicar</button></div></label>' +
+    '<span class="fraco" style="font-size:12.5px;margin-top:-6px;display:flex;gap:6px;align-items:center">' + I('tag', 'pp') + 'Viu um cupom nos stories do Matuto? Use aqui.</span>' +
+    '<div class="linhas">' +
+      '<div><span>Subtotal (' + qtd + ' itens)</span><span>' + T.fmt(subCheio) + '</span></div>' +
+      '<div class="desc"><span>Descontos das ofertas</span><span>− ' + T.fmt(subCheio - sub) + '</span></div>' +
+      '<div class="l-retirada"><span>' + I('store') + 'Retirada na loja</span><span class="gratis">Grátis</span></div>' +
+    '</div>' +
+    '<div class="total"><span>Total</span><b>' + T.fmt(total) + '</b></div>' +
+    '<div class="total-parc">ou em até 3x de ' + T.fmt(T.parc(total)) + ' sem juros</div>' +
+    '<div class="total-pix">' + PIX + '<span>No Pix sai por <b>' + T.fmt(T.pix(total)) + '</b> (5% de desconto)</span></div>' +
+    '<a class="btn btn-amarelo btn-g btn-bloco" href="checkout.html">' + I('lock') + 'Fechar pedido</a>' +
+    '<div class="resumo-retirada">' + I('store') + '<span><b>Retire na loja, sem frete.</b> ' + L.endereco + ' — ' + L.bairro + ', ' + L.cidade + '. ' + L.horario + '. Pedido separado em até 2 h.</span></div>' +
+    '<div class="seguro-linha">' + I('shield') + 'Compra 100% segura · dados protegidos</div>';
+})();
+</script>
+</body>
+</html>

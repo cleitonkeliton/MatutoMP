@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Minha conta — Matuto Motos</title>
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/loja.css">
+</head>
+<body data-pagina="conta">
+<div id="topo"></div>
+
+<main><div class="wrap">
+  <nav class="migalhas"><a href="index.html">Início</a><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg><b>Minha conta</b></nav>
+  <div class="conta">
+    <aside class="conta-menu">
+      <div class="cm-perfil"><span class="cm-avatar">C</span><div><b>Carlos Eduardo Lima</b><small>Cliente desde março de 2025</small></div></div>
+      <nav class="cm-links" id="cm-links"></nav>
+    </aside>
+
+    <div class="conta-main">
+      <div class="ola"><h1>Olá, Carlos!</h1><p>Seu pedido está pronto no balcão. Pode vir buscar, ligeiro.</p></div>
+
+      <section class="pedido-destaque">
+        <div class="pd-topo" id="pd-topo"></div>
+        <div class="pd-corpo">
+          <div class="pd-qr"><img src="assets/img/qr-pedido.svg" alt="QR code de retirada" style="width:100%;height:100%"></div>
+          <div class="pd-cod"><small>Código de retirada</small><b>7K4-Q29</b><p>Mostre no balcão com um documento com foto.</p></div>
+          <div class="pd-dados" id="pd-dados"></div>
+        </div>
+        <div class="tl compacta" id="tl" style="--progresso:60%;--progresso-v:66%"></div>
+        <div class="pd-itens" id="pd-itens"></div>
+      </section>
+
+      <section class="lista-pedidos">
+        <div class="lp-cab"><h2>Pedidos anteriores</h2><a class="ver-todos" href="#">Ver todos</a></div>
+        <div id="lista"></div>
+      </section>
+
+      <div class="conta-duas">
+        <section class="bloco" id="garagem">
+          <h2>Minha garagem</h2>
+          <div id="motos"></div>
+          <a class="add-moto" href="#" id="add-moto"></a>
+        </section>
+        <section class="bloco" id="favoritos">
+          <h2>Favoritos</h2>
+          <div class="favs" id="favs"></div>
+        </section>
+      </div>
+    </div>
+  </div>
+</div></main>
+
+<div id="rodape"></div>
+
+<script src="assets/js/dados.js"></script>
+<script src="assets/js/icones.js"></script>
+<script src="assets/js/loja.js"></script>
+<script>
+(function () {
+  const M = MATUTO, I = ICON, T = MT, L = M.loja, C = M.cliente;
+  document.getElementById('cm-links').innerHTML =
+    '<a class="on" href="#">' + I('receipt') + 'Meus pedidos<small>1</small></a>' +
+    '<a href="#garagem">' + I('moto') + 'Minha garagem</a>' +
+    '<a href="#favoritos">' + I('heart') + 'Favoritos</a>' +
+    '<a href="#">' + I('user') + 'Meus dados</a>' +
+    '<a href="#">' + I('bell') + 'Avisos no WhatsApp</a>' +
+    '<hr><a class="sair" href="login.html">' + I('logout') + 'Sair</a>';
+
+  document.getElementById('pd-topo').innerHTML = I('checkCircle') + '<b>Pronto para retirada</b><span>Pedido MT-10482 · separado às 12:31</span>';
+  document.getElementById('pd-dados').innerHTML =
+    '<div class="linha-ic">' + I('user') + '<span>Quem retira: <b>Marcos Vinícius Lima</b></span></div>' +
+    '<div class="linha-ic">' + I('calendar') + '<span>Retire até <b>seg., 30/11, às 18h</b></span></div>' +
+    '<div class="linha-ic">' + I('pin') + '<span><b>' + L.endereco + '</b> — ' + L.bairro + '</span></div>' +
+    '<div class="linha-ic">' + PIX + '<span>Pago no Pix: <b>' + T.fmt(T.pix(T.subtotal)) + '</b></span></div>';
+  const passos = [['feito', 'check', 'Recebido', '10:42'], ['feito', 'check', 'Pagamento aprovado', '10:43'], ['feito', 'check', 'Em separação', '10:50'], ['atual', 'store', 'Pronto para retirada', 'Desde 12:31'], ['', 'hand', 'Retirado', 'Aguardando você']];
+  document.getElementById('tl').innerHTML = passos.map((p) => '<div class="tl-passo ' + p[0] + '"><i>' + I(p[1]) + '</i><div><b>' + p[2] + '</b><small>' + p[3] + '</small></div></div>').join('');
+  document.getElementById('pd-itens').innerHTML = T.carrinhoItens.map((c) => '<img src="' + T.img(c.p.img) + '" alt="' + c.p.nome + '" title="' + c.p.nome + '">').join('') +
+    '<a class="btn btn-amarelo btn-p" href="pedido-confirmado.html">' + I('qr') + 'Ver código de retirada</a>';
+
+  const st = { retirado: ['st-retirado', 'Retirado'], cancelado: ['st-cancelado', 'Cancelado'] };
+  document.getElementById('lista').innerHTML = M.historico.map((h) => '<div class="lp-item">' +
+    '<div><b>' + h.numero + '</b><small>' + h.data + '</small></div>' +
+    '<div class="lp-imgs">' + h.itens.map((i) => '<img src="' + T.img(M.porId[i.id].img) + '" alt="">').join('') + '<span>' + h.itens.map((i) => M.porId[i.id].nome.split(' — ')[0]).join(', ') + '</span></div>' +
+    '<div><span class="status ' + st[h.status][0] + '">' + st[h.status][1] + '</span></div>' +
+    '<div class="lp-total"><b>' + T.fmt(h.total) + '</b><small>' + h.info + '</small></div>' +
+    '<a class="lp-seta" href="#" aria-label="Ver pedido">' + I('right') + '</a></div>').join('');
+
+  document.getElementById('motos').innerHTML = C.garagem.map((g) => '<div class="garagem-moto' + (g.principal ? ' principal' : '') + '"><span class="gm-ic">' + I('moto') + '</span><div><b>' + g.marca + ' ' + g.modelo + ' ' + g.ano + '</b><small>' + g.apelido + (g.principal ? ' · moto principal' : '') + '</small></div><a href="categoria.html?moto=' + encodeURIComponent(g.modelo) + '">Ver peças</a></div>').join('');
+  document.getElementById('add-moto').innerHTML = I('plus', 'p') + 'Adicionar outra moto';
+  document.getElementById('favs').innerHTML = C.favoritos.map((id) => { const p = M.porId[id]; return '<a class="fav" href="produto.html?id=' + id + '"><img src="' + T.img(p.img) + '" alt=""><div><b>' + p.nome + '</b><span>' + T.fmt(T.valor(p)) + '</span></div></a>'; }).join('');
+})();
+</script>
+</body>
+</html>

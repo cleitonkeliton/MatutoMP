@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Controle de estoque — Painel Matuto Motos</title>
+<link rel="stylesheet" href="../assets/css/base.css">
+<link rel="stylesheet" href="../assets/css/painel.css">
+</head>
+<body class="painel" data-pagina="estoque" data-titulo="Estoque" data-base="../">
+<main class="conteudo" id="conteudo">
+  <div class="pg-topo">
+    <div><div class="migalha-adm so-desk"><a href="index.html">Início</a><span>/</span>Estoque</div><h1>Controle de estoque</h1><p>Disponível = em estoque − reservado em pedidos do site ainda não retirados</p></div>
+    <div class="pg-acoes" id="acoes"></div>
+  </div>
+
+  <section class="est-kpis" id="kpis"></section>
+
+  <section class="card">
+    <div class="abas" id="abas"></div>
+    <div class="ferramentas">
+      <label class="tb-busca">
+        <svg class="ic p" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
+        <input placeholder="Buscar produto, código ou bipar o código de barras" aria-label="Buscar no estoque"></label>
+      <select class="select" aria-label="Categoria"><option>Todas as categorias</option></select>
+      <select class="select" aria-label="Local"><option>Todos os locais</option></select>
+    </div>
+    <table class="tab-adm so-desk">
+      <thead><tr><th>Produto</th><th>Local</th><th class="num">Em estoque</th><th class="num">Reservado</th><th class="num">Disponível</th><th class="num">Mínimo</th><th>Situação</th><th style="text-align:right">Ações</th></tr></thead>
+      <tbody id="linhas"></tbody>
+    </table>
+    <div class="cards-m" id="cards"></div>
+    <div class="regras" id="regras"></div>
+  </section>
+
+  <section class="card">
+    <div class="card-cab"><div class="hist-cab" id="hist-cab"></div><div style="display:flex;gap:8px" class="so-desk"><button class="btn btn-claro btn-pp" type="button" data-modal="entrada" id="h-ent"></button><button class="btn btn-claro btn-pp" type="button" id="h-aj"></button></div></div>
+    <table class="tab-adm so-desk"><thead><tr><th>Data</th><th>Movimentação</th><th class="num">Quantidade</th><th class="num">Saldo</th><th>Responsável</th><th>Pedido / nota / motivo</th></tr></thead><tbody id="hist"></tbody></table>
+    <div class="cards-m" id="hist-m"></div>
+  </section>
+</main>
+
+
+<!-- Modal: entrada de mercadoria -->
+<div class="modal-fundo" id="modal-entrada">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="me-tit" style="max-width:860px">
+    <div class="modal-cab"><span class="mi" id="me-ic"></span><div><h2 id="me-tit">Entrada de mercadoria</h2><p>Registre a nota do fornecedor: o estoque e o custo médio são atualizados na hora</p></div><button class="fechar" type="button" data-fechar aria-label="Fechar" id="me-x"></button></div>
+    <div class="modal-corpo">
+      <div class="campos">
+        <label class="campo c3"><span>Fornecedor</span><select class="select"><option>Nordeste Motopeças Distribuidora</option><option>Riffel (direto da fábrica)</option></select></label>
+        <label class="campo c2"><span>Nota fiscal nº</span><input class="input" value="18.517"></label>
+        <label class="campo c1" style="grid-column:span 1"><span>Data</span><input class="input" value="25/11/2026"></label>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center">
+        <label class="tb-busca" style="max-width:none;flex:1;background:#fff"><svg class="ic p" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg><input placeholder="Adicionar produto: nome, código ou bipe o código de barras" aria-label="Adicionar produto"></label>
+        <button class="btn btn-preto btn-p" type="button" id="me-scan"></button>
+      </div>
+      <div class="card itens-ent" style="overflow:hidden">
+        <table class="tab-adm"><thead><tr><th>Produto</th><th class="num" style="width:110px">Quantidade</th><th class="num" style="width:130px">Custo unit.</th><th class="num" style="width:110px">Subtotal</th><th class="num" style="width:120px">Estoque depois</th><th></th></tr></thead><tbody id="me-itens"></tbody></table>
+      </div>
+      <label class="campo"><span>Observação (opcional)</span><input class="input" value="Conferido por Josué na chegada da mercadoria"></label>
+    </div>
+    <div class="modal-rodape"><span class="tot">3 produtos · 78 unidades · total da nota <b>R$ 2.185,20</b></span><div style="display:flex;gap:10px"><button class="btn btn-claro btn-p" type="button" data-fechar>Cancelar</button><button class="btn btn-amarelo btn-p" type="button" id="me-ok"></button></div></div>
+  </div>
+</div>
+
+<script src="../assets/js/dados.js"></script>
+<script src="../assets/js/icones.js"></script>
+<script src="../assets/js/painel.js"></script>
+<script>
+(function () {
+  const M = MATUTO, I = ICON, P = PN, porId = M.porId;
+  document.getElementById('acoes').innerHTML =
+    '<button class="btn btn-preto btn-bloco so-mob-flex" type="button">' + I('scan') + 'Ler código de barras</button>' +
+    '<button class="btn btn-amarelo btn-p" type="button" data-modal="entrada">' + I('entrada') + '<span>Entrada<span class="so-desk"> de mercadoria</span></span></button>' +
+    '<button class="btn btn-claro btn-p" type="button">' + I('ajuste') + 'Ajuste</button>' +
+    '<button class="btn btn-claro btn-p" type="button">' + I('saida') + '<span class="so-desk">Venda no balcão</span><span class="so-mob">Balcão</span></button>';
+
+  const prods = M.produtos;
+  const unid = prods.reduce((a, p) => a + p.estoque, 0);
+  const res = prods.reduce((a, p) => a + p.reservado, 0);
+  const valor = prods.reduce((a, p) => a + p.estoque * p.custo, 0);
+  const nb = prods.filter((p) => p.situacao === 'baixo').length, nz = prods.filter((p) => p.situacao === 'zerado').length;
+  document.getElementById('kpis').innerHTML =
+    '<div class="kpi"><span class="kpi-rot"><span class="ki">' + I('box') + '</span>Valor em estoque (custo)</span><span class="kpi-val">' + P.fmt(valor).replace('R$ ', 'R$ ') + '</span><span class="kpi-sub">' + unid.toLocaleString('pt-BR') + ' unidades em ' + prods.length + ' produtos</span></div>' +
+    '<div class="kpi"><span class="kpi-rot"><span class="ki">' + I('receipt') + '</span>Reservado</span><span class="kpi-val">' + res + '<small>un.</small></span><span class="kpi-sub">em 8 pedidos do site</span></div>' +
+    '<div class="kpi"><span class="kpi-rot"><span class="ki">' + I('alert') + '</span>Estoque baixo</span><span class="kpi-val">' + nb + '</span><span class="kpi-chip chip-alerta" style="background:var(--laranja-claro);color:#8A4B00">' + I('alert') + 'Repor</span></div>' +
+    '<div class="kpi"><span class="kpi-rot"><span class="ki">' + I('close') + '</span>Zerados</span><span class="kpi-val">' + nz + '</span><span class="kpi-chip chip-alerta">Indisponíveis na loja</span></div>' +
+    '<div class="kpi"><span class="kpi-rot"><span class="ki">' + I('refresh') + '</span>Movimentações hoje</span><span class="kpi-val">20</span><span class="kpi-sub">12 reservas · 5 retiradas · 3 no balcão</span></div>';
+
+  document.getElementById('abas').innerHTML =
+    '<span class="aba on">Todos <span class="n">' + prods.length + '</span></span><span class="aba">Estoque baixo <span class="n">' + nb + '</span></span><span class="aba">Zerados <span class="n">' + nz + '</span></span><span class="aba">Com reserva <span class="n">' + prods.filter((p) => p.reservado).length + '</span></span>';
+
+  const ordem = ['protetor-titan160', 'oleo-mobil-20w50', 'pastilha-cobreq', 'protetor-bros160', 'amortecedor-cb300r', 'rodas-dabroy-bros160', 'rodas-cg150-2014', 'oleo-motul-5000', 'kit-relacao-titan', 'oleo-mobil-10w30', 'patins-freio', 'capacete-aberto'];
+  const lista = ordem.map((id) => porId[id]);
+  document.getElementById('linhas').innerHTML = lista.map((p, i) =>
+    '<tr class="' + (i === 0 ? 'sel' : '') + '"><td><div class="prod-cel">' + P.thumb(p) + '<div style="min-width:0"><b>' + p.nome.split(' — ')[0] + '</b><small>' + p.cod + ' · EAN ' + p.ean + '</small></div></div></td>' +
+    '<td><span class="st st-rasc">' + p.local + '</span></td>' +
+    '<td class="num">' + p.estoque + '</td><td class="num">' + (p.reservado ? '<span class="qtd-res">' + p.reservado + '</span>' : '<span class="fraco">0</span>') + '</td>' +
+    '<td class="num"><b>' + p.disponivel + '</b></td><td class="num">' + p.minimo + '</td><td>' + P.estoqueSit(p) + '</td>' +
+    '<td><div class="acoes-lin"><button class="btn btn-claro btn-pp" type="button" data-modal="entrada">' + I('entrada', 'pp') + 'Entrada</button><span class="ic-btn" title="Ajustar">' + I('ajuste') + '</span><span class="ic-btn" title="Histórico">' + I('list') + '</span></div></td></tr>').join('');
+  document.getElementById('cards').innerHTML = lista.slice(0, 6).map((p) =>
+    '<div class="cm"><div class="cm-topo">' + P.thumb(p) + '<div><b>' + p.nome.split(' — ')[0] + '</b><small>' + p.cod + ' · prateleira ' + p.local + '</small></div>' + P.estoqueSit(p) + '</div>' +
+    '<div class="cm-info"><div><small>Estoque</small><b>' + p.estoque + '</b></div><div><small>Reservado</small><b>' + p.reservado + '</b></div><div><small>Disponível</small><b>' + p.disponivel + '</b> <span class="fraco" style="font-size:11px">mín. ' + p.minimo + '</span></div></div>' +
+    '<div class="cm-acoes"><button class="btn btn-claro" type="button">' + I('ajuste') + 'Ajustar</button><button class="btn btn-amarelo" type="button">' + I('entrada') + 'Entrada</button></div></div>').join('');
+  document.getElementById('regras').innerHTML =
+    '<span>' + I('receipt') + 'Pedido do site reserva o estoque</span><span>' + I('hand') + 'A baixa acontece na retirada no balcão</span><span>' + I('refresh') + 'Não retirou no prazo? A reserva é liberada sozinha</span><span>' + I('alert') + 'Abaixo do mínimo gera alerta · zerado fica “Indisponível” na loja</span>';
+
+  const p0 = porId['protetor-titan160'];
+  document.getElementById('hist-cab').innerHTML = P.thumb(p0) + '<div><h2 style="font-family:var(--f-titulo);font-weight:800;font-size:20px;text-transform:uppercase">Histórico · Protetor de motor Titan 160</h2><small class="fraco">PR-0401 · prateleira A3-2 · 14 em estoque · 1 reservado · 13 disponíveis</small></div>';
+  document.getElementById('h-ent').innerHTML = I('entrada', 'pp') + 'Entrada';
+  document.getElementById('h-aj').innerHTML = I('ajuste', 'pp') + 'Ajuste';
+  const tipoCls = { 'Entrada': ['mt-ent', 'entrada', 'qtd-pos'], 'Reserva': ['mt-res', 'receipt', 'qtd-res'], 'Venda balcão': ['mt-sai', 'saida', 'qtd-neg'], 'Baixa (retirada)': ['mt-sai', 'hand', 'qtd-neg'], 'Ajuste (avaria)': ['mt-aj', 'ajuste', 'qtd-neg'] };
+  document.getElementById('hist').innerHTML = M.movimentos.map((m) => { const t = tipoCls[m.tipo];
+    return '<tr><td class="num" style="text-align:left">' + m.data + '</td><td><span class="mov-tipo"><i class="' + t[0] + '">' + I(t[1]) + '</i>' + m.tipo + '</span></td><td class="num"><span class="' + t[2] + '">' + m.qtd + '</span></td><td class="num">' + m.saldo + '</td><td>' + m.resp + '</td><td>' + m.doc + '</td></tr>'; }).join('');
+  document.getElementById('hist-m').innerHTML = M.movimentos.slice(0, 5).map((m) => { const t = tipoCls[m.tipo];
+    return '<div class="cm" style="flex-direction:row;align-items:center;gap:12px"><span class="mov-tipo"><i class="' + t[0] + '">' + I(t[1]) + '</i></span><div style="flex:1;min-width:0"><b>' + m.tipo + '</b><br><small class="fraco">' + m.data + ' · ' + m.resp + ' · ' + m.doc + '</small></div><div style="text-align:right"><span class="' + t[2] + '">' + m.qtd + '</span><br><small class="fraco">saldo ' + m.saldo.split(' ')[0] + '</small></div></div>'; }).join('');
+
+  /* modal entrada */
+  document.getElementById('me-ic').innerHTML = I('entrada');
+  document.getElementById('me-x').innerHTML = I('close');
+  document.getElementById('me-scan').innerHTML = I('scan') + 'Bipar';
+  const ent = [['protetor-titan160', 10, 68.00], ['kit-relacao-titan', 20, 27.50], ['oleo-mobil-20w50', 48, 19.90]];
+  document.getElementById('me-itens').innerHTML = ent.map((e) => { const p = porId[e[0]];
+    return '<tr><td><div class="prod-cel">' + P.thumb(p) + '<div><b>' + p.nome.split(' — ')[0] + '</b><small>' + p.cod + ' · prateleira ' + p.local + '</small></div></div></td>' +
+      '<td class="num"><input class="input" value="' + e[1] + '"></td><td class="num"><input class="input" value="' + e[2].toFixed(2).replace('.', ',') + '"></td>' +
+      '<td class="num">' + P.fmt(e[1] * e[2]) + '</td><td class="num"><b>' + (p.estoque + e[1]) + '</b> <small class="fraco">(' + p.estoque + ' + ' + e[1] + ')</small></td><td><span class="ic-btn">' + I('trash') + '</span></td></tr>'; }).join('');
+  document.getElementById('me-ok').innerHTML = I('check') + 'Registrar entrada';
+})();
+</script>
+</body>
+</html>

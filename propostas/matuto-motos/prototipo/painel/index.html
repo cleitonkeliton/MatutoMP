@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Início — Painel Matuto Motos</title>
+<link rel="stylesheet" href="../assets/css/base.css">
+<link rel="stylesheet" href="../assets/css/painel.css">
+</head>
+<body class="painel" data-pagina="inicio" data-titulo="Início" data-base="../">
+<main class="conteudo" id="conteudo">
+  <div class="pg-topo">
+    <div><h1>Bom dia, Matuto!</h1><p>Quarta-feira, 25 de novembro · 11:05 · loja aberta até as 18h</p></div>
+    <div class="pg-acoes" id="acoes"></div>
+  </div>
+
+  <section class="kpis" id="kpis"></section>
+
+  <div class="grid-2">
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <section class="card">
+        <div class="card-cab"><h2 id="t-separar"></h2><a href="pedidos.html">Ver todos os pedidos</a></div>
+        <table class="tab-adm so-desk"><thead><tr><th>Pedido</th><th>Cliente</th><th>Itens</th><th>Separar até</th><th></th></tr></thead><tbody id="separar"></tbody></table>
+        <div class="cards-m" id="separar-m"></div>
+      </section>
+      <section class="card">
+        <div class="card-cab"><h2 id="t-prontos"></h2><a href="pedidos.html">Ver todos</a></div>
+        <table class="tab-adm so-desk"><thead><tr><th>Pedido</th><th>Cliente</th><th>Código</th><th>Retirar até</th><th></th></tr></thead><tbody id="prontos"></tbody></table>
+        <div class="cards-m" id="prontos-m"></div>
+      </section>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <section class="card">
+        <div class="card-cab"><h2 id="t-alertas"></h2><a href="estoque.html">Ir para o estoque</a></div>
+        <div class="alertas" id="alertas"></div>
+      </section>
+      <section class="card">
+        <div class="card-cab"><h2 id="t-ranking"></h2><span class="fraco" style="font-size:12.5px">Últimos 7 dias</span></div>
+        <div class="ranking" id="ranking"></div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<script src="../assets/js/dados.js"></script>
+<script src="../assets/js/icones.js"></script>
+<script src="../assets/js/painel.js"></script>
+<script>
+(function () {
+  const M = MATUTO, I = ICON, P = PN;
+  const porId = M.porId;
+  document.getElementById('acoes').innerHTML =
+    '<a class="btn btn-preto btn-p" href="pedidos.html#conferir">' + I('qr') + 'Conferir código</a>' +
+    '<a class="btn btn-amarelo btn-p" href="produto-editar.html">' + I('plus') + 'Novo produto</a>';
+
+  const separar = M.pedidosPainel.filter((p) => p.status === 'separar').sort((a, b) => a.prazo.localeCompare(b.prazo));
+  const prontos = M.pedidosPainel.filter((p) => p.status === 'pronto');
+  const retirados = M.pedidosPainel.filter((p) => p.status === 'retirado');
+
+  /* KPIs */
+  const dias = [['qui', 1842], ['sex', 2315], ['sáb', 612], ['dom', 388], ['seg', 2904], ['ter', 2488], ['hoje', 2147]];
+  const max = 3000;
+  const mini = '<div class="mini-col" aria-label="Vendas dos últimos 7 dias"><div class="mc-tit">Vendas · últimos 7 dias</div><div class="mc-area">' +
+    dias.map((d, i) => { const h = Math.round(d[1] / max * 100) + '%'; const hoje = i === dias.length - 1;
+      return '<div class="mc-bar' + (hoje ? ' hoje' : '') + '" style="--h:' + h + '" title="' + d[0] + ': R$ ' + d[1].toLocaleString('pt-BR') + '"><i style="height:' + h + '"></i>' + (hoje ? '<span class="mc-val">2,1 mil</span>' : '') + '</div>'; }).join('') +
+    '</div><div class="mc-dias">' + dias.map((d, i) => i === dias.length - 1 ? '<b>' + d[0] + '</b>' : '<span>' + d[0] + '</span>').join('') + '</div></div>';
+  document.getElementById('kpis').innerHTML =
+    '<div class="kpi kpi-heroi"><div class="kh-txt"><span class="kpi-rot"><span class="ki">' + I('trend') + '</span>Vendas hoje</span>' +
+      '<span class="kpi-val">R$ 2.147,00</span>' +
+      '<span class="kpi-sub"><span class="delta-bom">' + I('up') + '18%</span> vs. ontem no mesmo horário</span>' +
+      '<span class="kpi-sub">R$ 1.589,41 no site · R$ 557,59 no balcão</span></div>' + mini + '</div>' +
+    '<a class="kpi" href="pedidos.html"><span class="kpi-rot"><span class="ki">' + I('box') + '</span>Pedidos a separar</span><span class="kpi-val">' + separar.length + '</span><span class="kpi-chip chip-alerta">' + I('clock') + '1 vence em 47 min</span></a>' +
+    '<a class="kpi" href="pedidos.html"><span class="kpi-rot"><span class="ki">' + I('store') + '</span>Prontos para retirada</span><span class="kpi-val">' + prontos.length + '</span><span class="kpi-chip chip-info">' + I('whatsapp') + 'Clientes avisados</span></a>' +
+    '<a class="kpi" href="pedidos.html"><span class="kpi-rot"><span class="ki">' + I('hand') + '</span>Retirados hoje</span><span class="kpi-val">' + retirados.length + '</span><span class="kpi-chip chip-ok">' + I('check') + 'Estoque baixado</span></a>';
+
+  /* separar agora */
+  document.getElementById('t-separar').innerHTML = I('box') + 'Separar agora';
+  const prazoTxt = { 'MT-10478': ['11:52', 'vence em 47 min', true], 'MT-10479': ['12:05', 'em 1 h', false], 'MT-10481': ['12:31', 'em 1 h 26 min', false], 'MT-10482': ['12:43', 'em 1 h 38 min', false] };
+  const itensThumb = (p) => '<div class="thumbs"' + (p.itens.length > 1 ? ' data-mais="+' + (p.itens.length - 1) + '"' : '') + '>' + p.itens.slice(0, 3).map((it) => P.thumb(porId[it[0]])).join('') + '</div>';
+  const nItens = (n) => n + (n === 1 ? ' item' : ' itens');
+  const qtd = (p) => p.itens.reduce((a, it) => a + it[1], 0);
+  document.getElementById('separar').innerHTML = separar.map((p) => { const t = prazoTxt[p.numero];
+    return '<tr><td class="nowrap"><b>' + p.numero + '</b><br><small class="fraco">' + p.hora + ' · ' + p.pagamento + '</small></td>' +
+      '<td><b>' + p.cliente + '</b>' + (p.tipo === 'Oficina' ? ' <span class="st st-rasc" style="height:20px">CNPJ</span>' : '') + '<br><small class="fraco">' + nItens(qtd(p)) + ' · ' + P.fmt(p.total) + '</small></td>' +
+      '<td>' + itensThumb(p) + '</td>' +
+      '<td class="prazo-cel' + (t[2] ? ' urgente' : '') + '">' + t[0] + '<small>' + t[1] + '</small></td>' +
+      '<td><div class="acoes-lin"><a class="btn btn-amarelo btn-pp" href="pedidos.html">' + I('whatsapp', 'pp') + 'Marcar pronto</a></div></td></tr>'; }).join('');
+  document.getElementById('separar-m').innerHTML = separar.map((p) => { const t = prazoTxt[p.numero];
+    return '<div class="cm"><div class="cm-topo">' + itensThumb(p) + '<div><b>' + p.numero + ' · ' + p.cliente + '</b><small>' + nItens(qtd(p)) + ' · ' + P.fmt(p.total) + ' · ' + p.pagamento + '</small></div>' +
+      '<span class="prazo-cel' + (t[2] ? ' urgente' : '') + '" style="text-align:right">' + t[0] + '<small>' + t[1] + '</small></span></div>' +
+      '<div class="cm-acoes"><a class="btn btn-claro" href="pedidos.html">' + I('printer') + 'Lista</a><a class="btn btn-amarelo" href="pedidos.html">' + I('whatsapp') + 'Marcar pronto</a></div></div>'; }).join('');
+
+  /* prontos */
+  document.getElementById('t-prontos').innerHTML = I('store') + 'Aguardando retirada';
+  document.getElementById('prontos').innerHTML = prontos.map((p) =>
+    '<tr><td class="nowrap"><b>' + p.numero + '</b><br><small class="fraco">Pronto · ' + p.hora + '</small></td><td><b>' + p.cliente + '</b><br><small class="fraco">' + nItens(qtd(p)) + ' · ' + P.fmt(p.total) + '</small></td>' +
+    '<td class="nowrap"><b style="font-family:var(--f-titulo);font-size:19px;letter-spacing:.06em">' + p.codigo + '</b></td><td class="prazo-cel">' + p.limite + '<small>até 18h</small></td>' +
+    '<td><div class="acoes-lin"><span class="ic-btn" title="Lembrar no WhatsApp">' + I('whatsapp') + '</span><a class="btn btn-preto btn-pp" href="pedidos.html#conferir">' + I('qr', 'pp') + 'Conferir</a></div></td></tr>').join('');
+  document.getElementById('prontos-m').innerHTML = prontos.map((p) =>
+    '<div class="cm"><div class="cm-topo">' + itensThumb(p) + '<div><b>' + p.numero + ' · ' + p.cliente + '</b><small>Código <b style="display:inline;font-family:var(--f-titulo);font-size:15px;letter-spacing:.06em">' + p.codigo + '</b> · retirar até ' + p.limite + '</small></div></div></div>').join('');
+
+  /* alertas */
+  document.getElementById('t-alertas').innerHTML = I('alert') + 'Alertas';
+  const baixos = M.produtos.filter((p) => p.situacao === 'baixo').sort((a, b) => a.disponivel / a.minimo - b.disponivel / b.minimo);
+  const zerados = M.produtos.filter((p) => p.situacao === 'zerado');
+  const semFoto = M.produtos.filter((p) => !p.img);
+  document.getElementById('alertas').innerHTML =
+    '<div class="alerta"><span class="al-ic al-baixo">' + I('alert') + '</span><div style="flex:1;min-width:0"><b>Estoque baixo · ' + baixos.length + ' produtos</b><p>Disponível no mínimo ou abaixo dele.</p><ul>' +
+      baixos.slice(0, 4).map((p) => '<li><span>' + p.nome.split(' — ')[0] + '</span><span>' + p.disponivel + ' / mín. ' + p.minimo + '</span></li>').join('') + '</ul><a class="link" href="estoque.html">Ver todos e repor</a></div></div>' +
+    '<div class="alerta"><span class="al-ic al-zero">' + I('box') + '</span><div style="flex:1;min-width:0"><b>Sem estoque · ' + zerados.length + ' produtos</b><p>Aparecem como “Indisponível” na loja, com “Avise-me quando chegar”.</p><ul>' +
+      zerados.map((p) => '<li><span>' + p.nome.split(' — ')[0] + '</span><span>9 avisos</span></li>').join('').replace('9 avisos', '12 avisos').replace('9 avisos', '4 avisos') + '</ul></div></div>' +
+    '<div class="alerta"><span class="al-ic al-foto">' + I('imageOff') + '</span><div style="flex:1"><b>Produtos sem foto · ' + semFoto.length + '</b><p>Produto com foto vende mais. Dá pra tirar pelo celular, direto no cadastro.</p><a class="link" href="produtos.html">Adicionar fotos</a></div></div>';
+
+  /* ranking */
+  document.getElementById('t-ranking').innerHTML = I('trend') + 'Mais vendidos';
+  const rk = [['oleo-mobil-10w30', 46], ['kit-relacao-titan', 31], ['protetor-titan160', 18], ['retrovisor-quadrado', 15], ['capacete-aberto', 11]];
+  document.getElementById('ranking').innerHTML = rk.map((r, i) => { const p = porId[r[0]];
+    return '<div class="rk"><span>' + (i + 1) + '</span>' + P.thumb(p) + '<div style="min-width:0"><b>' + p.nome.split(' — ')[0] + '</b><small>' + p.cod + '</small></div><div class="rk-q">' + r[1] + ' un.<small>' + P.fmt(r[1] * P.valor(p)) + '</small></div></div>'; }).join('');
+})();
+</script>
+</body>
+</html>

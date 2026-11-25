@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Entrar ou criar conta — Matuto Motos</title>
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/loja.css">
+</head>
+<body data-pagina="login">
+<div id="topo"></div>
+
+<main><div class="wrap">
+  <nav class="migalhas"><a href="index.html">Início</a><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg><b>Entrar</b></nav>
+  <div class="login">
+    <section class="login-card">
+      <h1>Já sou cliente</h1>
+      <label class="campo"><span>E-mail ou celular</span><input class="input" value="carlos.lima@email.com"></label>
+      <label class="campo"><span>Senha</span><input class="input" type="password" value="matuto2026"></label>
+      <a href="#" style="font-size:13px;font-weight:650;text-decoration:underline;margin-top:-6px">Esqueci minha senha</a>
+      <a class="btn btn-amarelo btn-g btn-bloco" href="minha-conta.html">Entrar</a>
+      <div class="login-alt">ou</div>
+      <a class="btn btn-zap-borda btn-bloco" href="minha-conta.html" id="btn-zap-login"></a>
+    </section>
+    <section class="login-card">
+      <h2>Primeira vez aqui?</h2>
+      <p class="muted">Crie sua conta em 1 minuto e acompanhe seus pedidos de retirada.</p>
+      <ul class="login-beneficios" id="login-ben"></ul>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <label class="campo" style="grid-column:1/-1"><span>Nome completo</span><input class="input" placeholder="Seu nome"></label>
+        <label class="campo"><span>CPF</span><input class="input" placeholder="000.000.000-00"></label>
+        <label class="campo"><span>Celular (WhatsApp)</span><input class="input" placeholder="(81) 90000-0000"></label>
+        <label class="campo" style="grid-column:1/-1"><span>E-mail</span><input class="input" placeholder="voce@email.com"></label>
+      </div>
+      <label class="check"><input type="checkbox" checked><span>Quero receber as ofertas no WhatsApp</span></label>
+      <a class="btn btn-preto btn-g btn-bloco" href="minha-conta.html">Criar minha conta</a>
+      <p class="fraco" style="font-size:12.5px">Não pedimos endereço: a compra é retirada na loja.</p>
+    </section>
+  </div>
+</div></main>
+
+<div id="rodape"></div>
+<script src="assets/js/dados.js"></script>
+<script src="assets/js/icones.js"></script>
+<script src="assets/js/loja.js"></script>
+<script src="assets/js/inst.js"></script>
+<script>
+document.getElementById('btn-zap-login').innerHTML = ICON('whatsapp') + 'Receber código no WhatsApp';
+document.getElementById('login-ben').innerHTML = ['Acompanhe o pedido até a retirada', 'Código de retirada sempre à mão', 'Salve suas motos na Minha garagem', 'Favoritos e ofertas para a sua moto']
+  .map((t) => '<li>' + ICON('checkCircle') + t + '</li>').join('');
+</script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pedidos para retirada — Painel Matuto Motos</title>
+<link rel="stylesheet" href="../assets/css/base.css">
+<link rel="stylesheet" href="../assets/css/painel.css">
+</head>
+<body class="painel" data-pagina="pedidos" data-titulo="Pedidos" data-base="../">
+<main class="conteudo" id="conteudo">
+  <div class="pg-topo">
+    <div><div class="migalha-adm so-desk"><a href="index.html">Início</a><span>/</span>Pedidos</div><h1>Pedidos para retirada</h1><p>Pedidos do site · hoje, quarta-feira 25/11 · atualizado às 11:05</p></div>
+    <div class="pg-acoes" id="acoes"></div>
+  </div>
+
+  <section class="card conferir" id="conferir">
+    <div class="cf-entrada">
+      <h2 id="cf-tit"></h2>
+      <p class="muted" style="font-size:13px">Peça o código ao cliente (ou leia o QR code do celular dele) e confira o documento com foto.</p>
+      <div class="cod-input"><input class="input" value="H2M-81C" aria-label="Código de retirada"><button class="btn btn-preto" type="button">Conferir</button></div>
+      <button class="btn btn-claro" type="button" id="btn-qr"></button>
+    </div>
+    <div class="cf-res" id="cf-res"></div>
+  </section>
+
+  <div class="faixa-aguard" id="faixa-aguard"></div>
+
+  <div class="abas so-mob-flex card" id="abas-m" style="border-radius:12px"></div>
+
+  <section class="quadro" id="quadro"></section>
+</main>
+
+<script src="../assets/js/dados.js"></script>
+<script src="../assets/js/icones.js"></script>
+<script src="../assets/js/painel.js"></script>
+<script>
+(function () {
+  const M = MATUTO, I = ICON, P = PN, porId = M.porId;
+  document.getElementById('acoes').innerHTML =
+    '<button class="btn btn-claro btn-p" type="button">' + I('printer') + 'Imprimir separação</button>' +
+    '<button class="btn btn-claro btn-p so-desk" type="button">' + I('download') + 'Exportar</button>';
+  document.getElementById('cf-tit').innerHTML = I('qr') + 'Conferir código de retirada';
+  document.getElementById('btn-qr').innerHTML = I('camera') + 'Ler QR code com a câmera';
+
+  const ped = M.pedidosPainel.find((p) => p.numero === 'MT-10476');
+  const nItens = (n) => n + (n === 1 ? ' item' : ' itens');
+  const qtd = (p) => p.itens.reduce((a, it) => a + it[1], 0);
+  document.getElementById('cf-res').innerHTML =
+    '<div class="cf-ok">' + I('checkCircle') + 'Código H2M-81C confere · pedido ' + ped.numero + '</div>' +
+    '<div class="cf-dados">' +
+      '<span>Cliente: <b>' + ped.cliente + '</b></span><span>Quem retira: <b>a própria cliente</b></span>' +
+      '<span>Pagamento: <b>Pix · ' + P.fmt(ped.total) + ' (pago)</b></span><span>Reserva válida até: <b>30/11, 18h</b></span>' +
+    '</div>' +
+    '<div class="ped-itens">' + ped.itens.map((it) => { const p = porId[it[0]]; return '<div class="ped-item">' + P.thumb(p) + '<span>' + p.nome.split(' — ')[0] + '</span><em>' + it[1] + ' un. · ' + p.local + '</em></div>'; }).join('') + '</div>' +
+    '<div class="cf-acoes"><button class="btn btn-amarelo" type="button">' + I('hand') + 'Marcar como retirado</button><button class="btn btn-claro" type="button">' + I('idCard') + 'Documento conferido</button></div>';
+
+  const ag = M.pedidosPainel.find((p) => p.status === 'aguardando');
+  document.getElementById('faixa-aguard').innerHTML = I('clock') + '<span><b>1 pedido aguardando pagamento:</b> ' + ag.numero + ' · ' + ag.cliente + ' · ' + P.fmt(ag.total) + ' · ' + ag.info + '. O estoque já está reservado.</span>';
+
+  const separar = M.pedidosPainel.filter((p) => p.status === 'separar').sort((a, b) => a.prazo.localeCompare(b.prazo));
+  const prontos = M.pedidosPainel.filter((p) => p.status === 'pronto');
+  const retirados = M.pedidosPainel.filter((p) => p.status === 'retirado');
+  document.getElementById('abas-m').innerHTML =
+    '<span class="aba on">A separar <span class="n">' + separar.length + '</span></span><span class="aba">Prontos <span class="n">' + prontos.length + '</span></span><span class="aba">Retirados <span class="n">' + retirados.length + '</span></span>';
+
+  const prazo = { 'MT-10478': 'vence em 47 min', 'MT-10479': 'em 1 h', 'MT-10481': 'em 1 h 26 min', 'MT-10482': 'em 1 h 38 min' };
+  const itens = (p, max) => '<div class="ped-itens">' + p.itens.slice(0, max || 4).map((it) => { const x = porId[it[0]]; return '<div class="ped-item">' + P.thumb(x) + '<span>' + x.nome.split(' — ')[0] + '</span><em>' + it[1] + 'x · ' + x.local + '</em></div>'; }).join('') + '</div>';
+  const colA = separar.map((p) => '<article class="ped' + (p.numero === 'MT-10478' ? ' urgente' : '') + '">' +
+    '<div class="ped-topo"><div><b>' + p.numero + '</b><small>Pago ' + p.hora + ' · ' + p.pagamento + '</small></div><span class="prazo-cel' + (p.numero === 'MT-10478' ? ' urgente' : '') + '" style="text-align:right">até ' + p.prazo + '<small>' + prazo[p.numero] + '</small></span></div>' +
+    '<div class="ped-cli"><b>' + p.cliente + '</b>' + (p.tipo === 'Oficina' ? ' · CNPJ' : '') + (p.retirante ? '<br>Retira: ' + p.retirante : '') + (p.obs ? '<br>' + p.obs : '') + '</div>' +
+    itens(p) +
+    '<div class="ped-rod"><span class="ic-btn" title="Imprimir lista">' + I('printer') + '</span><button class="btn btn-amarelo" type="button">' + I('whatsapp', 'pp') + 'Marcar como pronto</button></div></article>').join('');
+  const colB = prontos.map((p) => '<article class="ped">' +
+    '<div class="ped-topo"><div><b>' + p.numero + '</b><small>Pronto · ' + p.hora + '</small></div><span class="ped-cod">' + p.codigo + '</span></div>' +
+    '<div class="ped-cli"><b>' + p.cliente + '</b>' + (p.tipo === 'Oficina' ? ' · CNPJ' : '') + '<br>' + nItens(qtd(p)) + ' · ' + P.fmt(p.total) + ' · ' + p.pagamento + '</div>' +
+    '<div class="ped-meta"><span>' + I('whatsapp', 'pp').replace('class="ic pp"', 'class="ic pp" style="display:inline;vertical-align:-3px;color:var(--zap-escuro)"') + ' Cliente avisado</span><span>Retirar até <b>' + p.limite + '</b></span></div>' +
+    '<div class="ped-rod"><span class="ic-btn" title="Lembrar no WhatsApp">' + I('whatsapp') + '</span><button class="btn btn-preto" type="button">' + I('hand', 'pp') + 'Marcar como retirado</button></div></article>').join('');
+  const colC = retirados.map((p) => '<article class="ped feito">' +
+    '<div class="ped-topo"><div><b>' + p.numero + '</b><small>' + p.cliente + '</small></div><span class="st st-retirado">' + I('check') + p.hora + '</span></div>' +
+    '<div class="ped-meta"><span>' + nItens(qtd(p)) + ' · ' + P.fmt(p.total) + '</span><span>Baixa no estoque <b>feita</b></span></div></article>').join('');
+  document.getElementById('quadro').innerHTML =
+    '<div class="coluna"><div class="col-cab"><i style="background:#E3B800"></i><b>A separar</b><span class="n">' + separar.length + '</span><small>prazo de 2 h</small></div>' + colA + '</div>' +
+    '<div class="coluna"><div class="col-cab"><i style="background:var(--verde)"></i><b>Prontos para retirada</b><span class="n">' + prontos.length + '</span></div>' + colB + '</div>' +
+    '<div class="coluna"><div class="col-cab"><i style="background:#9A968C"></i><b>Retirados hoje</b><span class="n">' + retirados.length + '</span></div>' + colC + '</div>';
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rodas para moto — Matuto Motos</title>
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/loja.css">
+</head>
+<body data-pagina="categoria" data-cat="rodas">
+<div id="topo"></div>
+
+<main><div class="wrap">
+  <nav class="migalhas" id="migalhas"></nav>
+
+  <div class="cat-topo">
+    <div>
+      <h1 id="cat-nome">Rodas</h1>
+      <p id="cat-desc">Jogos de rodas liga leve e pé de galinha, padrão original e com selo do INMETRO.</p>
+    </div>
+  </div>
+
+  <div class="cat-faixa" id="cat-faixa"></div>
+
+  <div class="listagem">
+    <aside class="filtros" id="filtros" aria-label="Filtros">
+      <div class="filtros-topo"><b id="ft-tit"></b><button type="button" data-acao="fechar-filtros" aria-label="Fechar filtros" id="ft-fechar"></button></div>
+      <div class="f-retira" id="f-retira"></div>
+      <div class="f-bloco"><div class="f-tit">Categoria</div><div id="f-cat"></div></div>
+      <div class="f-bloco"><div class="f-tit">Moto compatível</div>
+        <input class="input" style="height:40px;font-size:14px;margin-bottom:8px" placeholder="Buscar modelo" aria-label="Buscar modelo de moto">
+        <div id="f-moto"></div></div>
+      <div class="f-bloco"><div class="f-tit">Marca da peça</div><div id="f-marca"></div></div>
+      <div class="f-bloco"><div class="f-tit">Preço</div>
+        <div class="range"><i style="left:0;right:0"></i><b style="left:0"></b><b style="left:100%"></b></div>
+        <div class="faixa-preco"><input class="input" id="f-min" inputmode="numeric" aria-label="Preço mínimo"><span class="fraco">até</span><input class="input" id="f-max" inputmode="numeric" aria-label="Preço máximo"></div>
+      </div>
+      <div class="f-bloco"><div class="f-tit">Tipo de freio</div><div id="f-freio"></div></div>
+      <button class="btn btn-preto btn-bloco f-aplicar" type="button" id="f-limpar">Limpar filtros</button>
+      <div class="filtros-acoes"><button class="btn btn-claro" type="button" id="fa-limpar">Limpar</button><button class="btn btn-amarelo" type="button" data-acao="fechar-filtros" id="fa-ver"></button></div>
+    </aside>
+
+    <section>
+      <div class="barra-lista">
+        <button class="btn btn-claro btn-filtros" type="button" data-acao="filtros" id="btn-filtros"></button>
+        <span class="lista-res" id="lista-res"></span>
+        <div class="chips" id="chips-ativos"></div>
+        <label class="ordenar"><span>Ordenar por</span>
+          <select class="select" id="ordem" aria-label="Ordenar">
+            <option value="vendidos">Mais vendidos</option>
+            <option value="menor">Menor preço</option>
+            <option value="maior">Maior preço</option>
+            <option value="desconto">Maior desconto</option>
+            <option value="aval">Mais bem avaliados</option>
+          </select>
+        </label>
+      </div>
+      <div class="grade grade-4" id="grade"></div>
+      <div class="seo-cat" id="seo-cat"></div>
+    </section>
+  </div>
+</div></main>
+
+<div id="rodape"></div>
+
+<script src="assets/js/dados.js"></script>
+<script src="assets/js/icones.js"></script>
+<script src="assets/js/loja.js"></script>
+<script>
+(function () {
+  const M = MATUTO, I = ICON, T = MT, L = M.loja;
+  const q = new URLSearchParams(location.search);
+  const catId = q.get('c') || (q.get('q') ? '' : 'rodas');
+  const busca = q.get('q') || '';
+  const cat = catId && catId !== 'ofertas' ? T.catDe(catId) : null;
+
+  let base = M.produtos.filter((p) => p.status !== 'rascunho');
+  if (catId === 'ofertas') base = base.filter((p) => p.promo);
+  else if (cat) base = base.filter((p) => p.cat === catId);
+  if (busca) {
+    const n = (s) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+    const termos = n(busca).split(/\s+/).filter(Boolean);
+    base = M.produtos.filter((p) => termos.every((t) => n(p.nome + ' ' + p.cod + ' ' + p.compat + ' ' + p.fam.join(' ')).indexOf(t) >= 0));
+  }
+  const titulo = busca ? 'Resultados para “' + busca + '”' : (catId === 'ofertas' ? 'Ofertas' : (cat ? cat.nome : 'Todas as peças'));
+  document.title = titulo + ' — Matuto Motos';
+  document.getElementById('cat-nome').textContent = titulo;
+  if (catId !== 'rodas') document.getElementById('cat-desc').textContent = busca ? 'Peças encontradas pelo nome, código ou modelo da moto.' : 'Peças com preço de distribuidora e retirada grátis na loja.';
+  document.body.dataset.cat = catId;
+
+  document.getElementById('migalhas').innerHTML = '<a href="index.html">Início</a>' + I('right') + (cat ? '<a href="categoria.html">Peças</a>' + I('right') : '') + '<b>' + titulo + '</b>';
+  document.getElementById('cat-faixa').innerHTML = I('moto') + '<span>Na sua garagem: <b>' + T.motoTxt + '</b>. Quer ver só o que serve nela?</span>' +
+    '<button class="btn btn-amarelo btn-pp" type="button" id="so-minha">' + I('check', 'p') + 'Só peças da minha moto</button>';
+
+  /* estado dos filtros */
+  const st = { cats: new Set(cat ? [catId] : []), motos: new Set(), marcas: new Set(), freios: new Set(), retira: false, min: null, max: null, ordem: 'vendidos' };
+  const precos = base.map(T.valor);
+  const pmin = Math.floor(Math.min.apply(null, precos)), pmax = Math.ceil(Math.max.apply(null, precos));
+
+  function conta(lista, chave) {
+    const m = new Map();
+    lista.forEach((p) => [].concat(chave(p)).filter(Boolean).forEach((v) => m.set(v, (m.get(v) || 0) + 1)));
+    return Array.from(m.entries()).sort((a, b) => b[1] - a[1]);
+  }
+  function opcoes(id, pares, set, nomeDe) {
+    document.getElementById(id).innerHTML = pares.map(([v, n]) => '<label class="f-op"><input type="checkbox" value="' + v + '"' + (set.has(v) ? ' checked' : '') + '>' + (nomeDe ? nomeDe(v) : v) + '<small>' + n + '</small></label>').join('');
+    document.getElementById(id).querySelectorAll('input').forEach((inp) => inp.addEventListener('change', () => { inp.checked ? set.add(inp.value) : set.delete(inp.value); render(); }));
+  }
+  const todasCats = conta(M.produtos.filter((p) => p.status !== 'rascunho'), (p) => p.cat).slice(0, 6);
+  opcoes('f-cat', todasCats, st.cats, (v) => T.catDe(v).nome);
+  opcoes('f-moto', conta(base, (p) => p.fam).slice(0, 8), st.motos);
+  opcoes('f-marca', conta(base, (p) => p.marca || 'Padrão original'), st.marcas);
+  const freios = conta(base, (p) => p.freio);
+  if (freios.length) opcoes('f-freio', freios, st.freios); else document.getElementById('f-freio').closest('.f-bloco').remove();
+  document.getElementById('f-min').value = 'R$ ' + pmin;
+  document.getElementById('f-max').value = 'R$ ' + pmax;
+  document.getElementById('f-retira').innerHTML = '<div><b>' + I('check', 'p') + 'Retira hoje</b><small>Pague até as 16h e retire hoje</small></div><button class="switch" type="button" id="sw-retira" aria-label="Só produtos para retirar hoje"></button>';
+  document.getElementById('sw-retira').addEventListener('click', () => { st.retira = !st.retira; render(); });
+  document.getElementById('ordem').addEventListener('change', (e) => { st.ordem = e.target.value; render(); });
+  document.getElementById('so-minha').addEventListener('click', () => { st.motos = new Set(['CG 160 Titan']); opcoes('f-moto', conta(base, (p) => p.fam).slice(0, 8), st.motos); render(); });
+  const limpar = () => { st.motos.clear(); st.marcas.clear(); st.freios.clear(); st.retira = false; document.querySelectorAll('.filtros input[type=checkbox]').forEach((i) => { if (!document.getElementById('f-cat').contains(i)) i.checked = false; }); render(); };
+  document.getElementById('f-limpar').addEventListener('click', limpar);
+  document.getElementById('fa-limpar').addEventListener('click', limpar);
+  document.getElementById('ft-tit').innerHTML = I('filter') + 'Filtrar';
+  document.getElementById('ft-fechar').innerHTML = I('close');
+
+  function render() {
+    let lista = M.produtos.filter((p) => p.status !== 'rascunho');
+    if (busca) lista = base.slice();
+    else if (catId === 'ofertas') lista = lista.filter((p) => p.promo);
+    else if (st.cats.size) lista = lista.filter((p) => st.cats.has(p.cat));
+    if (st.motos.size) lista = lista.filter((p) => p.fam.some((f) => st.motos.has(f)));
+    if (st.marcas.size) lista = lista.filter((p) => st.marcas.has(p.marca || 'Padrão original'));
+    if (st.freios.size) lista = lista.filter((p) => st.freios.has(p.freio));
+    if (st.retira) lista = lista.filter((p) => p.disponivel > 0);
+    const ord = {
+      vendidos: (a, b) => b.vendidos - a.vendidos, menor: (a, b) => T.valor(a) - T.valor(b), maior: (a, b) => T.valor(b) - T.valor(a),
+      desconto: (a, b) => ((b.promo ? 1 - b.promo / b.preco : 0) - (a.promo ? 1 - a.promo / a.preco : 0)), aval: (a, b) => b.aval - a.aval,
+    }[st.ordem];
+    lista.sort((a, b) => ((a.estoque === 0) - (b.estoque === 0)) || ord(a, b));
+    const grade = document.getElementById('grade');
+    grade.innerHTML = lista.map(T.card).join('') + (catId === 'rodas' && !busca ? tile() : '');
+    document.getElementById('sw-retira').classList.toggle('on', st.retira);
+    const ativos = [];
+    st.cats.forEach((v) => ativos.push([T.catDe(v).nome, 'cat']));
+    st.motos.forEach((v) => ativos.push([v, 'moto']));
+    st.marcas.forEach((v) => ativos.push([v, 'marca']));
+    st.freios.forEach((v) => ativos.push([v, 'freio']));
+    if (st.retira) ativos.push(['Retira hoje', 'retira']);
+    document.getElementById('chips-ativos').innerHTML = ativos.map((a) => '<span class="chip chip-x">' + a[0] + I('close') + '</span>').join('');
+    document.getElementById('lista-res').innerHTML = '<b>' + lista.length + ' produtos</b> · retirada grátis na loja';
+    const nf = ativos.length;
+    document.getElementById('btn-filtros').innerHTML = I('filter') + 'Filtros' + (nf ? ' (' + nf + ')' : '');
+    document.getElementById('fa-ver').textContent = 'Ver ' + lista.length + ' produtos';
+  }
+  function tile() {
+    return '<article class="tile-zap">' +
+      '<span class="tz-ic">' + I('whatsapp') + '</span>' +
+      '<h3>Não achou a roda da sua moto?</h3>' +
+      '<p>Manda o modelo e o ano no WhatsApp que o Matuto procura pra você. Se tiver no estoque, já separa ligeiro.</p>' +
+      '<a class="btn btn-zap btn-p btn-bloco" href="' + L.whatsLink + '">' + I('whatsapp') + 'Chamar no WhatsApp</a>' +
+      '</article>';
+  }
+  render();
+
+  document.getElementById('seo-cat').innerHTML = I('shield') + '<div><b>Roda certa, sem dor de cabeça.</b> Todas as rodas da Matuto Motos são padrão original e trazem a compatibilidade por modelo e ano. Na dúvida, chame no WhatsApp antes de comprar: a gente confere com você. Compre pelo site e retire na loja, na ' + L.endereco + ', ' + L.bairro + ' — ' + L.horario + '.</div>';
+})();
+</script>
+</body>
+</html>

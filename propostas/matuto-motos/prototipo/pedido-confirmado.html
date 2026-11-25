@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pedido confirmado — Matuto Motos</title>
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/loja.css">
+</head>
+<body data-pagina="confirmado">
+<div id="topo"></div>
+
+<main><div class="wrap">
+  <div class="etapas" style="margin-top:22px" id="etapas"></div>
+
+  <section class="conf-topo">
+    <span class="conf-ok" id="conf-ok"></span>
+    <div>
+      <span class="script">Cuida e acelera!</span>
+      <h1>Pedido confirmado, pagamento aprovado</h1>
+      <p>Já estamos separando suas peças. Quando estiver tudo no balcão, avisamos no WhatsApp: é só passar na loja com o código abaixo.</p>
+    </div>
+    <div class="conf-num">Pedido<b>MT-10482</b>25/11/2026 · 10:42</div>
+  </section>
+
+  <div class="conf-grid">
+    <div>
+      <section class="codigo-card">
+        <div class="qr"><img src="assets/img/qr-pedido.svg" alt="QR code de retirada do pedido MT-10482" style="width:100%;height:100%"></div>
+        <div class="codigo-info">
+          <div><span class="rotulo">Código curto</span><div class="codigo-curto">7K4-Q29</div></div>
+          <p>Mostre o QR code ou diga o código no balcão. Quem retira: <b style="color:var(--texto)">Marcos Vinícius Lima</b> (outra pessoa).</p>
+          <div class="levar" id="levar"></div>
+          <div class="prazo" id="prazo"></div>
+          <div class="codigo-botoes" id="cod-botoes"></div>
+        </div>
+      </section>
+
+      <section class="timeline">
+        <h2>Acompanhe seu pedido</h2>
+        <div class="tl" id="tl" style="--progresso:40%;--progresso-v:42%"></div>
+        <div class="zap-aviso" id="zap-aviso"></div>
+      </section>
+    </div>
+
+    <aside>
+      <section class="lado-bloco">
+        <div class="lb-tit" id="lb-ret"></div>
+        <div class="mapa" data-mapa style="min-height:170px"></div>
+        <div class="lb-corpo" id="lb-loja"></div>
+      </section>
+      <section class="lado-bloco">
+        <div class="lb-tit">Resumo do pedido</div>
+        <div class="lb-corpo" id="lb-resumo"></div>
+      </section>
+    </aside>
+  </div>
+</div></main>
+
+<div id="rodape"></div>
+
+<script src="assets/js/dados.js"></script>
+<script src="assets/js/icones.js"></script>
+<script src="assets/js/loja.js"></script>
+<script>
+(function () {
+  const M = MATUTO, I = ICON, T = MT, L = M.loja;
+  const itens = T.carrinhoItens, sub = T.subtotal, pixV = T.pix(sub);
+  document.getElementById('etapas').innerHTML =
+    '<div class="etapa feita"><i>' + I('check') + '</i><span>Identificação</span></div><div class="etapa-linha feita"></div>' +
+    '<div class="etapa feita"><i>' + I('check') + '</i><span>Retirada</span></div><div class="etapa-linha feita"></div>' +
+    '<div class="etapa feita"><i>' + I('check') + '</i><span>Pagamento</span></div><div class="etapa-linha feita"></div>' +
+    '<div class="etapa atual"><i>4</i><span>Confirmação</span></div>';
+  document.getElementById('conf-ok').innerHTML = I('check');
+  document.getElementById('levar').innerHTML =
+    '<div>' + I('idCard') + '<span><b>Documento com foto</b>RG ou CNH de quem retira</span></div>' +
+    '<div>' + I('qr') + '<span><b>Código do pedido</b>QR code ou 7K4-Q29</span></div>';
+  document.getElementById('prazo').innerHTML = I('calendar') + '<span>Retire até <b>segunda-feira, 30/11, às 18h</b>. Depois disso, a reserva é liberada e o valor é estornado.</span>';
+  document.getElementById('cod-botoes').innerHTML =
+    '<a class="btn btn-zap btn-p" href="' + L.whatsLink + '">' + I('whatsapp') + 'Enviar código no WhatsApp</a>' +
+    '<button class="btn btn-claro btn-p" type="button">' + I('download') + 'Salvar código</button>';
+
+  const passos = [
+    ['feito', 'check', 'Pedido recebido', 'Hoje, 10:42'],
+    ['feito', 'check', 'Pagamento aprovado', 'Pix · 10:43'],
+    ['atual', 'box', 'Em separação', 'Pronto até as 12:43'],
+    ['', 'store', 'Pronto para retirada', 'Aviso no WhatsApp'],
+    ['', 'hand', 'Retirado', 'No balcão da loja'],
+  ];
+  document.getElementById('tl').innerHTML = passos.map((p) => '<div class="tl-passo ' + p[0] + '"><i>' + I(p[1]) + '</i><div><b>' + p[2] + '</b><small>' + p[3] + '</small></div></div>').join('');
+  document.getElementById('zap-aviso').innerHTML = '<span class="zap-mini">' + I('whatsapp') + '</span><span>Vamos avisar no WhatsApp <b>(81) 99652-3318</b> e no de quem vai retirar quando o pedido estiver pronto.</span>' +
+    '<div class="zap-msg">✅ <b>Pedido pronto, ligeiro!</b> O pedido MT-10482 já está no balcão da Matuto Motos. Código: 7K4-Q29.<small>12:31 ✓✓</small></div>';
+
+  document.getElementById('lb-ret').innerHTML = I('store') + 'Onde retirar';
+  document.getElementById('lb-loja').innerHTML =
+    '<div class="linha-ic">' + I('pin') + '<span><b>' + L.endereco + '</b><br>' + L.bairro + ', ' + L.cidade + ' · CEP ' + L.cep + '</span></div>' +
+    '<div class="linha-ic">' + I('clock') + '<span><b>' + L.horarioLongo + '</b></span></div>' +
+    '<a class="btn btn-borda btn-p" href="contato.html">' + I('route') + 'Como chegar</a>';
+  document.getElementById('lb-resumo').innerHTML =
+    '<div class="resumo-itens">' + itens.map((c) => '<div class="ri"><span class="ri-img"><img src="' + T.img(c.p.img) + '" alt=""><i>' + c.qtd + '</i></span><b>' + c.p.nome + '</b><span>' + T.fmt(T.valor(c.p) * c.qtd) + '</span></div>').join('') + '</div>' +
+    '<div class="linhas">' +
+      '<div><span>Produtos</span><span>' + T.fmt(sub) + '</span></div>' +
+      '<div class="desc"><span>Desconto Pix (5%)</span><span>− ' + T.fmt(sub - pixV) + '</span></div>' +
+      '<div class="l-retirada"><span>' + I('store') + 'Retirada na loja</span><span class="gratis">Grátis</span></div>' +
+    '</div>' +
+    '<div class="total"><span>Total pago</span><b>' + T.fmt(pixV) + '</b></div>' +
+    '<div class="linha-ic">' + PIX + '<span>Pago com <b>Pix</b> em 25/11/2026 às 10:43</span></div>' +
+    '<a class="btn btn-preto btn-p btn-bloco" href="minha-conta.html">' + I('receipt') + 'Ver em Meus pedidos</a>';
+})();
+</script>
+</body>
+</html>

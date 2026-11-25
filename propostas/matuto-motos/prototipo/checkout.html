@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fechar pedido — Matuto Motos</title>
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/loja.css">
+</head>
+<body data-pagina="checkout">
+<div id="topo"></div>
+
+<main><div class="wrap">
+  <div class="pagina-tit" style="padding-top:22px">
+    <div><h1>Fechar pedido</h1><p>Retirada grátis na loja · nada de frete ou endereço de entrega.</p></div>
+    <span class="seguro-linha" id="seguro-topo"></span>
+  </div>
+
+  <div class="etapas" id="etapas"></div>
+
+  <div class="checkout">
+    <div>
+      <!-- 1. Identificação (concluída) -->
+      <section class="passo-ck">
+        <div class="pck-topo"><span class="pck-n ok" id="ok1"></span><h2>Identificação</h2><a href="login.html">Alterar</a></div>
+        <div class="ident-resumo" id="ident"></div>
+      </section>
+
+      <!-- 2. Retirada -->
+      <section class="passo-ck">
+        <div class="pck-topo"><span class="pck-n ok" id="ok2"></span><h2>Retirada na loja</h2><span class="selo-tag tag-retira" style="margin-left:auto">Grátis</span></div>
+        <div class="pck-corpo">
+          <div class="loja-card">
+            <div class="loja-card-info" id="loja-info"></div>
+            <div class="mapa" data-mapa><a class="mapa-link" href="contato.html" id="mapa-link"></a></div>
+          </div>
+
+          <div>
+            <div class="sub-tit" style="margin-bottom:10px">Quando você vai retirar? <small>A loja abre de segunda a sexta</small></div>
+            <div class="dias" id="dias"></div>
+          </div>
+
+          <div>
+            <div class="sub-tit" style="margin-bottom:10px">Quem vai retirar?</div>
+            <div class="quem" id="quem"></div>
+          </div>
+          <div class="form-outro">
+            <label class="campo"><span>Nome completo de quem vai retirar</span><input class="input" value="Marcos Vinícius Lima"></label>
+            <label class="campo"><span>Documento com foto (RG ou CNH)</span><input class="input" value="RG 8.524.913"></label>
+            <label class="campo"><span>Celular de quem vai retirar (opcional)</span><input class="input" value="(81) 98877-1203"></label>
+            <label class="campo"><span>Parentesco ou relação</span><select class="select"><option>Irmão</option><option>Funcionário da oficina</option><option>Amigo</option></select></label>
+            <span class="aviso-doc" id="aviso-doc"></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. Pagamento -->
+      <section class="passo-ck">
+        <div class="pck-topo"><span class="pck-n">3</span><h2>Pagamento</h2></div>
+        <div class="pck-corpo">
+          <div class="pagtos" id="pagtos"></div>
+          <label class="check ck-termos"><input type="checkbox" checked><span>Li e concordo com os <a href="termos.html">Termos de uso</a> e a <a href="trocas.html">Política de trocas</a>. Sei que o pedido é <b>retirado na loja</b> e que não há entrega.</span></label>
+        </div>
+      </section>
+    </div>
+
+    <aside class="resumo" id="resumo"></aside>
+  </div>
+</div></main>
+
+<div id="rodape"></div>
+
+<script src="assets/js/dados.js"></script>
+<script src="assets/js/icones.js"></script>
+<script src="assets/js/loja.js"></script>
+<script>
+(function () {
+  const M = MATUTO, I = ICON, T = MT, L = M.loja, C = M.cliente;
+  const itens = T.carrinhoItens, sub = T.subtotal;
+  const subCheio = itens.reduce((a, c) => a + c.p.preco * c.qtd, 0);
+  document.getElementById('seguro-topo').innerHTML = I('lock') + 'Ambiente seguro';
+  document.getElementById('etapas').innerHTML =
+    '<div class="etapa feita"><i>' + I('check') + '</i><span>Identificação</span></div><div class="etapa-linha feita"></div>' +
+    '<div class="etapa feita"><i>' + I('check') + '</i><span>Retirada</span></div><div class="etapa-linha feita"></div>' +
+    '<div class="etapa atual"><i>3</i><span>Pagamento</span></div><div class="etapa-linha"></div>' +
+    '<div class="etapa"><i>4</i><span>Confirmação</span></div>';
+  document.getElementById('ok1').innerHTML = I('check');
+  document.getElementById('ok2').innerHTML = I('check');
+  document.getElementById('ident').innerHTML = '<span><b>' + C.nome + '</b></span><span>' + C.email + '</span><span>' + C.fone + ' (WhatsApp)</span><span>CPF ' + C.cpf + '</span>';
+
+  document.getElementById('loja-info').innerHTML =
+    '<h3>' + I('store') + 'Matuto Motos<span class="selo-tag tag-preto">Loja de retirada</span></h3>' +
+    '<div class="linha-ic">' + I('pin') + '<span><b>' + L.endereco + '</b><br>' + L.bairro + ', ' + L.cidade + ' · CEP ' + L.cep + '</span></div>' +
+    '<div class="linha-ic">' + I('clock') + '<span><b>' + L.horarioLongo + '</b><br>Retirada no balcão, sem agendamento</span></div>' +
+    '<div class="linha-ic">' + I('zap') + '<span><b>Pronto em até 2 h</b> depois do pagamento aprovado</span></div>';
+  document.getElementById('mapa-link').innerHTML = I('route') + 'Ver rota no mapa';
+
+  document.getElementById('dias').innerHTML = [
+    ['Hoje, qua 25/11', 'Pronto a partir das 12h45', 'on'], ['Qui, 26/11', 'Das 8h às 18h', ''], ['Sex, 27/11', 'Das 8h às 18h', ''], ['Seg, 30/11', 'Último dia para retirar', ''],
+  ].map((d) => '<button type="button" class="dia ' + d[2] + '"><b>' + d[0] + '</b><span>' + d[1] + '</span></button>').join('');
+
+  document.getElementById('quem').innerHTML =
+    '<label class="radio-card"><input type="radio" name="quem"><div><b>Eu mesmo</b><span>' + C.nome + '</span></div></label>' +
+    '<label class="radio-card ativo"><input type="radio" name="quem" checked><div><b>Outra pessoa</b><span>Um parente, amigo ou alguém da oficina</span></div></label>';
+  document.getElementById('aviso-doc').innerHTML = I('idCard') + 'Na retirada, a pessoa mostra o código do pedido e um documento com foto. O código também vai para o WhatsApp dela.';
+
+  const pixV = T.pix(sub);
+  document.getElementById('pagtos').innerHTML =
+    '<label class="pagto on"><input type="radio" name="pg" checked><span class="pagto-ic">' + PIX + '</span><div><b>Pix</b><small>Aprovação na hora · pedido vai direto para separação</small></div><div class="pagto-valor">' + T.fmt(pixV) + '<small>5% de desconto</small></div>' +
+      '<div class="pagto-det">' + I('checkCircle') + 'O QR Code e o “copia e cola” aparecem na próxima tela. Você tem 30 minutos para pagar.</div></label>' +
+    '<label class="pagto"><input type="radio" name="pg"><span class="pagto-ic">' + I('card') + '</span><div><b>Cartão de crédito</b><small>Visa, Mastercard, Elo e Hipercard</small></div><div class="pagto-valor">' + T.fmt(sub) + '<small style="color:var(--texto-2)">até 3x sem juros</small></div></label>' +
+    '<label class="pagto"><input type="radio" name="pg"><span class="pagto-ic">' + I('store') + '</span><div><b>Pagar na retirada</b><small>Pix, cartão ou dinheiro no balcão · reserva por 1 dia útil</small></div><div class="pagto-valor">' + T.fmt(sub) + '<small style="color:var(--texto-2)">sem desconto</small></div></label>';
+
+  document.getElementById('resumo').innerHTML =
+    '<h2>Seu pedido</h2>' +
+    '<div class="resumo-itens">' + itens.map((c) => '<div class="ri"><span class="ri-img"><img src="' + T.img(c.p.img) + '" alt=""><i>' + c.qtd + '</i></span><b>' + c.p.nome + '</b><span>' + T.fmt(T.valor(c.p) * c.qtd) + '</span></div>').join('') + '</div>' +
+    '<div class="linhas">' +
+      '<div><span>Subtotal</span><span>' + T.fmt(subCheio) + '</span></div>' +
+      '<div class="desc"><span>Descontos das ofertas</span><span>− ' + T.fmt(subCheio - sub) + '</span></div>' +
+      '<div class="desc"><span>Desconto Pix (5%)</span><span>− ' + T.fmt(sub - pixV) + '</span></div>' +
+      '<div class="l-retirada"><span>' + I('store') + 'Retirada na loja</span><span class="gratis">Grátis</span></div>' +
+    '</div>' +
+    '<div class="total"><span>Total no Pix</span><b>' + T.fmt(pixV) + '</b></div>' +
+    '<a class="btn btn-amarelo btn-g btn-bloco" href="pedido-confirmado.html">' + I('lock') + 'Confirmar pedido</a>' +
+    '<div class="resumo-retirada">' + I('calendar') + '<span><b>Retirada: hoje, a partir das 12h45</b><br>Quem retira: Marcos Vinícius Lima, com documento com foto e o código do pedido.</span></div>' +
+    '<div class="seguro-linha">' + I('shield') + 'Seus dados estão protegidos</div>';
+})();
+</script>
+</body>
+</html>

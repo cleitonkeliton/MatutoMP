@@ -10,10 +10,10 @@ antes de publicar.
 
 | # | Item | O que as fotos mostram | No protótipo |
 |---|---|---|---|
-| 1 | Endereço completo, ponto de referência e link do mapa | Não aparece | `[ENDEREÇO]` e mapa ilustrativo |
+| 1 | Endereço: o cliente informou "Rod Br 10, s/n - Km 71,9 - Jardim São Paulo, Recife - PE, 52050-310" | Não aparece nas fotos | "Rod. BR-101, s/n, Km 71,9 — Jardim São Paulo, Recife/PE — CEP 52050-310". Confirmar: (a) "Br 10" é mesmo a BR-101? (b) o CEP 52050-310 confere com Jardim São Paulo? (c) ponto de referência e link do Google Maps (o mapa das telas é ilustrativo) |
 | 2 | WhatsApp de vendas | (81) 98164-4155, no logo com o ícone do WhatsApp | Usado como WhatsApp da loja |
 | 3 | CNPJ e razão social | Não aparece | `[CNPJ]` |
-| 4 | Dias de funcionamento | Bio: "de 8hr a 18hr", sem os dias | Só "8h às 18h" |
+| 4 | Dias de funcionamento | Cliente informou: segunda a sexta, 8h às 18h | "Seg. a sex., 8h às 18h". Confirmar se abre em feriados e se há plantão aos sábados |
 | 5 | Nome usado no site | "Matuto Motos" (perfil) × "Moto Matuto Peças — Distribuidora" (logo) × "Motopeça Matuto" (algumas artes) | "Matuto Motos" nos textos, com o selo como logo |
 | 6 | Domínio do site | — | Sugestão ilustrativa na moldura do navegador; verificar disponibilidade |
 
@@ -21,10 +21,10 @@ antes de publicar.
 
 | # | Item | Proposta usada no protótipo |
 |---|---|---|
-| 7 | Prazo de separação ("separado em até X h") | A definir na construção; valor sugerido marcado como exemplo |
-| 8 | Prazo para retirar (depois a reserva é liberada) | A definir; o que acontece com o valor pago se o cliente não retirar |
-| 9 | Desconto no Pix | Percentual sugerido, marcado como exemplo |
-| 10 | Parcelamento no cartão | Nº de parcelas sem juros e parcela mínima a confirmar |
+| 7 | Prazo de separação ("separado em até X h") | Exemplo: **em até 2 h** (dentro do horário da loja). "Retira hoje" = pedido pago até as 16h de um dia útil |
+| 8 | Prazo para retirar (depois a reserva é liberada) | Exemplo: **até 3 dias úteis**. Definir o que acontece com o valor pago se o cliente não retirar (estorno? crédito?) |
+| 9 | Desconto no Pix | Exemplo: **5%** |
+| 10 | Parcelamento no cartão | Exemplo: **até 3x sem juros**. Confirmar nº de parcelas, juros e parcela mínima |
 | 11 | "Pagar na retirada" | Mostrado como opção a validar (aceita? para quem? com limite de valor?) |
 | 12 | Retirada por outra pessoa | Nome, documento com foto e código de retirada (confirmar exigências) |
 | 13 | Aviso no WhatsApp quando o pedido fica pronto | Ilustrativo (exige integração na versão real) |

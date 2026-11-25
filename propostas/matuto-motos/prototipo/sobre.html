@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sobre o Matuto — Matuto Motos</title>
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/loja.css">
+</head>
+<body data-pagina="sobre">
+<div id="topo"></div>
+
+<main><div class="wrap">
+  <nav class="migalhas"><a href="index.html">Início</a><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg><b>Sobre o Matuto</b></nav>
+  <section class="sobre-hero">
+    <img src="assets/img/loja/dono-tubular.jpg" alt="O Matuto mostrando um protetor de motor">
+    <div class="sobre-txt">
+      <span class="kicker" style="color:var(--amarelo)">Sobre o Matuto</span>
+      <h1>Cuida e acelera: <em>peça boa, preço de distribuidora</em></h1>
+      <p>A Matuto Motos é distribuidora de peças de moto em Recife. O que começou no balcão virou um dos perfis de peças mais seguidos do Nordeste: são 204 mil pessoas acompanhando as ofertas e os vídeos do Matuto no Instagram.</p>
+      <p>Agora a loja ganha um site para você comprar com calma, ver o que serve na sua moto e retirar no balcão, ligeiro e sem pagar frete.</p>
+    </div>
+  </section>
+  <section class="sec">
+    <div class="numeros">
+      <div class="numero"><b>204 mil</b><span>seguidores no Instagram</span></div>
+      <div class="numero"><b>1.355</b><span>posts com ofertas e dicas</span></div>
+      <div class="numero"><b>2 h</b><span>para separar o seu pedido</span></div>
+      <div class="numero"><b>R$ 0</b><span>de frete: a retirada é grátis</span></div>
+    </div>
+  </section>
+  <section class="sec">
+    <div class="sec-topo"><div><span class="kicker">Direto do balcão</span><h2 class="titulo">A loja por dentro</h2></div></div>
+    <div class="reels" id="fotos-loja"></div>
+  </section>
+</div></main>
+
+<div id="rodape"></div>
+<script src="assets/js/dados.js"></script>
+<script src="assets/js/icones.js"></script>
+<script src="assets/js/loja.js"></script>
+<script src="assets/js/inst.js"></script>
+<script>
+document.getElementById('fotos-loja').innerHTML = [['loja/dono-na-loja.jpg', 'Estoque de peças e lubrificantes'], ['loja/balcao-pneus.jpg', 'Pneus e protetores no balcão'], ['loja/prateleiras.jpg', 'Prateleiras organizadas por modelo'], ['loja/dono-capacete.jpg', 'Capacetes em várias cores'], ['videos/story-protetor-tubular.jpg', 'Ofertas toda semana'], ['videos/story-rodas-dabroy.jpg', 'Rodas para Bros e XRE']]
+  .map((f) => '<div class="reel"><img src="' + MT.img(f[0]) + '" alt=""><span class="reel-txt">' + f[1] + '</span></div>').join('');
+</script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Como funciona a retirada — Matuto Motos</title>
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/loja.css">
+</head>
+<body data-pagina="como-funciona">
+<div id="topo"></div>
+
+<main><div class="wrap">
+  <nav class="migalhas"><a href="index.html">Início</a><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg><b>Como funciona a retirada</b></nav>
+
+  <section class="cf-hero">
+    <div class="cf-txt">
+      <span class="kicker">Retirada na loja</span>
+      <h1>Compre pelo site, <em>retire no balcão</em></h1>
+      <p>Na Matuto Motos não tem frete nem espera de entrega. Você escolhe as peças, paga pelo site e a gente separa tudo. Não precisa ficar avechado: sua peça te espera no balcão.</p>
+      <div class="cf-chips" id="cf-chips"></div>
+    </div>
+    <div class="cf-foto">
+      <img src="assets/img/loja/dono-na-loja.jpg" alt="O Matuto dentro da loja">
+      <div class="cf-balao" id="cf-balao"></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-topo"><div><span class="kicker">Passo a passo</span><h2 class="titulo">Do clique ao balcão em 4 passos</h2></div></div>
+    <div class="cf-passos" id="cf-passos"></div>
+  </section>
+
+  <section class="sec">
+    <div class="cf-duas">
+      <div style="display:flex;flex-direction:column;gap:24px">
+        <div class="bloco">
+          <h2>O que levar no dia</h2>
+          <ul class="levar-lista" id="levar"></ul>
+        </div>
+        <div class="bloco" style="padding:0;overflow:hidden">
+          <div class="mapa" data-mapa style="min-height:220px"></div>
+          <div style="padding:20px 22px;display:flex;flex-direction:column;gap:12px" id="loja"></div>
+        </div>
+      </div>
+      <div>
+        <span class="kicker">Perguntas frequentes</span>
+        <h2 class="titulo" style="margin:8px 0 18px">Tira-dúvidas da retirada</h2>
+        <div class="faq" id="faq"></div>
+      </div>
+    </div>
+  </section>
+</div></main>
+
+<div id="rodape"></div>
+
+<script src="assets/js/dados.js"></script>
+<script src="assets/js/icones.js"></script>
+<script src="assets/js/loja.js"></script>
+<script>
+(function () {
+  const M = MATUTO, I = ICON, T = MT, L = M.loja;
+  document.getElementById('cf-chips').innerHTML = [['store', 'Retirada grátis'], ['zap', 'Pronto em até 2 h'], ['clock', 'Seg. a sex., 8h às 18h'], ['pin', 'Jardim São Paulo, Recife']]
+    .map((c) => '<span>' + I(c[0]) + c[1] + '</span>').join('');
+  document.getElementById('cf-balao').innerHTML = '<b>' + I('whatsapp') + 'Matuto Motos · 12:31</b>✅ Pedido pronto, ligeiro! Seu pedido MT-10482 já está no balcão.';
+
+  document.getElementById('cf-passos').innerHTML = [
+    ['1', 'bag', 'Escolha e compre', 'Monte o carrinho pelo site. Use “Peças para a minha moto” para ver só o que serve.'],
+    ['2', 'card', 'Pague do seu jeito', 'Pix com 5% de desconto ou cartão em até 3x sem juros. Sem frete: a retirada é grátis.'],
+    ['3', 'whatsapp', 'Receba o aviso', 'Separamos em até 2 h e avisamos no WhatsApp com o código de retirada.'],
+    ['4', 'store', 'Retire no balcão', 'Mostre o código e um documento com foto. Confere a peça na hora e pronto: cuida e acelera!'],
+  ].map((p) => '<div class="cf-passo"><span class="passo-n">' + p[0] + '</span><span class="cf-ic">' + I(p[1]) + '</span><h3>' + p[2] + '</h3><p>' + p[3] + '</p></div>').join('');
+
+  document.getElementById('levar').innerHTML = [
+    ['qr', 'Código de retirada', 'O QR code ou o código curto (ex.: 7K4-Q29). Ele chega no e-mail e no WhatsApp.'],
+    ['idCard', 'Documento com foto', 'RG, CNH ou outro documento oficial de quem vai retirar.'],
+    ['users', 'Retirando por alguém?', 'Informe o nome e o documento da pessoa no checkout. Ela recebe o código também.'],
+  ].map((l) => '<li><span class="li-ic">' + I(l[0]) + '</span><div><b>' + l[1] + '</b><span>' + l[2] + '</span></div></li>').join('');
+
+  document.getElementById('loja').innerHTML = '<h3 style="font-family:var(--f-titulo);font-weight:800;text-transform:uppercase;font-size:24px">Matuto Motos</h3>' +
+    '<div class="linha-ic">' + I('pin') + '<span><b>' + L.endereco + '</b><br>' + L.bairro + ', ' + L.cidade + ' · CEP ' + L.cep + '</span></div>' +
+    '<div class="linha-ic">' + I('clock') + '<span><b>' + L.horarioLongo + '</b><br>Sábado, domingo e feriados: fechado</span></div>' +
+    '<div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn btn-amarelo btn-p" href="contato.html">' + I('route') + 'Como chegar</a><a class="btn btn-zap-borda btn-p" href="' + L.whatsLink + '">' + I('whatsapp') + L.whatsapp + '</a></div>';
+
+  const faq = [
+    ['Vocês entregam?', 'Não. Pelo site, todas as compras são <b>retiradas na loja</b>, no Jardim São Paulo, em Recife. Por isso não tem frete, não tem CEP e o pedido fica pronto em até 2 horas.'],
+    ['Outra pessoa pode retirar por mim?', 'Pode. No checkout, escolha “Outra pessoa” e informe o nome e o documento de quem vai retirar. No balcão, ela mostra o <b>código do pedido</b> e um <b>documento com foto</b>.'],
+    ['Quanto tempo a peça fica separada?', 'Depois do aviso de “pronto para retirada”, a peça fica reservada por <b>3 dias úteis</b>. Se não for retirada nesse prazo, a reserva é liberada e o valor é estornado.'],
+    ['Posso pagar na hora de retirar?', 'Sim, escolhendo “Pagar na retirada” no checkout. Nesse caso a reserva vale por 1 dia útil e o desconto do Pix não se aplica.'],
+    ['Moro em outra cidade. Posso comprar?', 'Por enquanto, as compras pelo site são só com retirada na loja, em Recife. Se você é de outra cidade, chama no WhatsApp que a gente vê a melhor forma de te atender.'],
+    ['E se a peça não servir na minha moto?', 'Confira na hora, no balcão. Se não servir, a troca é feita em até 7 dias, com a peça sem uso e na embalagem. Veja a <a href="trocas.html" style="text-decoration:underline">política de trocas</a>.'],
+  ];
+  document.getElementById('faq').innerHTML = faq.map((f, i) => '<details' + (i < 3 ? ' open' : '') + '><summary><i>?</i>' + f[0] + I('down') + '</summary><div>' + f[1] + '</div></details>').join('');
+})();
+</script>
+</body>
+</html>

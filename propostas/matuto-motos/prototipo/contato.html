@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contato — Matuto Motos</title>
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/loja.css">
+</head>
+<body data-pagina="contato">
+<div id="topo"></div>
+
+<main><div class="wrap">
+  <nav class="migalhas"><a href="index.html">Início</a><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg><b>Contato</b></nav>
+  <div class="pagina-tit"><div><h1>Fale com o Matuto</h1><p>Dúvida sobre peça, pedido ou retirada? O caminho mais rápido é o WhatsApp.</p></div></div>
+  <div class="contato-grid" style="margin-top:0">
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <section class="bloco" id="contato-info"></section>
+      <section class="bloco">
+        <h2>Mande uma mensagem</h2>
+        <div style="display:grid;gap:12px">
+          <label class="campo"><span>Nome</span><input class="input" placeholder="Seu nome"></label>
+          <label class="campo"><span>WhatsApp</span><input class="input" placeholder="(81) 90000-0000"></label>
+          <label class="campo"><span>Mensagem</span><textarea class="input" placeholder="Ex.: tem kit relação para Fazer 250 2019?"></textarea></label>
+          <button class="btn btn-preto" type="button">Enviar mensagem</button>
+        </div>
+      </section>
+    </div>
+    <div class="mapa g" data-mapa><a class="mapa-link" href="#" id="rota"></a></div>
+  </div>
+</div></main>
+
+<div id="rodape"></div>
+<script src="assets/js/dados.js"></script>
+<script src="assets/js/icones.js"></script>
+<script src="assets/js/loja.js"></script>
+<script src="assets/js/inst.js"></script>
+<script>
+const L = MATUTO.loja, I = ICON;
+document.getElementById('contato-info').innerHTML = '<h2>Matuto Motos</h2><div style="display:flex;flex-direction:column;gap:12px">' +
+  '<div class="linha-ic">' + I('pin') + '<span><b>' + L.endereco + '</b><br>' + L.bairro + ', ' + L.cidade + ' · CEP ' + L.cep + '</span></div>' +
+  '<div class="linha-ic">' + I('clock') + '<span><b>' + L.horarioLongo + '</b><br>Sábado, domingo e feriados: fechado</span></div>' +
+  '<div class="linha-ic">' + I('whatsapp') + '<span><b>' + L.whatsapp + '</b><br>WhatsApp de vendas</span></div>' +
+  '<div class="linha-ic">' + I('insta') + '<span><b>@matutomotospecas</b><br>204 mil seguidores</span></div>' +
+  '<a class="btn btn-zap" href="' + L.whatsLink + '">' + I('whatsapp') + 'Chamar no WhatsApp</a></div>';
+document.getElementById('rota').innerHTML = I('route') + 'Abrir rota no Google Maps';
+</script>
+</body>
+</html>

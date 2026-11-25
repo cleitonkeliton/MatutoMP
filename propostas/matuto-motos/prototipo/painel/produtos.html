@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Produtos — Painel Matuto Motos</title>
+<link rel="stylesheet" href="../assets/css/base.css">
+<link rel="stylesheet" href="../assets/css/painel.css">
+</head>
+<body class="painel" data-pagina="produtos" data-titulo="Produtos" data-base="../">
+<main class="conteudo" id="conteudo">
+  <div class="pg-topo">
+    <div><div class="migalha-adm so-desk"><a href="index.html">Início</a><span>/</span>Produtos</div><h1>Produtos</h1><p id="sub"></p></div>
+    <div class="pg-acoes" id="acoes"></div>
+  </div>
+
+  <section class="card">
+    <div class="ferramentas">
+      <label class="tb-busca">
+        <svg class="ic p" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
+        <input id="busca" placeholder="Buscar por nome, código ou código de barras" aria-label="Buscar produto"></label>
+      <select class="select" id="f-cat" aria-label="Categoria"></select>
+      <select class="select" id="f-marca" aria-label="Marca"></select>
+      <div class="chips-rol" id="chips" style="display:flex;gap:8px;flex-wrap:wrap"></div>
+    </div>
+    <table class="tab-adm so-desk">
+      <thead><tr><th style="width:36px"><input type="checkbox" aria-label="Selecionar todos"></th><th>Produto</th><th>Categoria</th><th class="num">Preço</th><th>Estoque</th><th>Status</th><th style="text-align:right">Ações</th></tr></thead>
+      <tbody id="linhas"></tbody>
+    </table>
+    <div class="cards-m" id="cards"></div>
+    <div class="paginacao-adm"><span id="pag-txt"></span><div class="pags"><span class="on">1</span><span>2</span><span>3</span></div></div>
+  </section>
+</main>
+
+<a class="fab-scan fixo-captura" href="produto-editar.html" id="fab"></a>
+
+<!-- Modal: importar planilha -->
+<div class="modal-fundo" id="modal-importar">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="mi-tit" style="max-width:820px">
+    <div class="modal-cab"><span class="mi" id="mi-ic"></span><div><h2 id="mi-tit">Importar planilha</h2><p>Cadastre ou atualize vários produtos de uma vez</p></div><button class="fechar" type="button" data-fechar aria-label="Fechar" id="mi-x"></button></div>
+    <div class="modal-corpo">
+      <div class="passos-imp" id="mi-passos"></div>
+      <div class="arquivo" id="mi-arq"></div>
+      <div class="valid-resumo">
+        <div class="vr-ok"><b>124</b>prontos para importar (98 novos · 26 atualizações)</div>
+        <div class="vr-av"><b>3</b>com aviso: sem foto (entram como rascunho)</div>
+        <div class="vr-er"><b>1</b>com erro: preço vazio na linha 57</div>
+      </div>
+      <div class="card" style="overflow:hidden">
+        <table class="tab-adm" id="mi-prev"></table>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <label class="check"><input type="checkbox" checked><span>Atualizar produtos que já existem (pelo código interno)</span></label>
+        <label class="check"><input type="checkbox"><span>Publicar tudo como rascunho para revisar antes</span></label>
+      </div>
+    </div>
+    <div class="modal-rodape"><a class="link" href="#" id="mi-modelo"></a><div style="display:flex;gap:10px"><button class="btn btn-claro btn-p" type="button" data-fechar>Cancelar</button><button class="btn btn-amarelo btn-p" type="button" id="mi-ok"></button></div></div>
+  </div>
+</div>
+
+<script src="../assets/js/dados.js"></script>
+<script src="../assets/js/icones.js"></script>
+<script src="../assets/js/painel.js"></script>
+<script>
+(function () {
+  const M = MATUTO, I = ICON, P = PN, porId = M.porId;
+  const comFoto = M.produtos.filter((p) => p.img).length;
+  document.getElementById('sub').textContent = M.produtos.length + ' produtos cadastrados · ' + comFoto + ' com foto · ' + M.produtos.filter((p) => p.status === 'ativo' && p.estoque > 0).length + ' à venda na loja';
+  document.getElementById('acoes').innerHTML =
+    '<button class="btn btn-claro btn-p" type="button" data-modal="importar">' + I('sheet') + 'Importar planilha</button>' +
+    '<button class="btn btn-claro btn-p so-desk" type="button">' + I('download') + 'Exportar</button>' +
+    '<a class="btn btn-amarelo btn-p so-desk" href="produto-editar.html">' + I('plus') + 'Novo produto</a>';
+  document.getElementById('fab').innerHTML = I('plus') + 'Novo produto';
+  document.getElementById('f-cat').innerHTML = '<option>Todas as categorias</option>' + M.categorias.map((c) => '<option>' + c.nome + '</option>').join('');
+  document.getElementById('f-marca').innerHTML = '<option>Todas as marcas</option>' + M.marcas.map((m) => '<option>' + m + '</option>').join('');
+  const n = (f) => M.produtos.filter(f).length;
+  document.getElementById('chips').innerHTML =
+    '<span class="chip-f">' + I('alert') + 'Estoque baixo <span class="n">' + n((p) => p.situacao === 'baixo') + '</span></span>' +
+    '<span class="chip-f">Sem estoque <span class="n">' + n((p) => p.situacao === 'zerado') + '</span></span>' +
+    '<span class="chip-f">' + I('imageOff') + 'Sem foto <span class="n">' + n((p) => !p.img) + '</span></span>' +
+    '<span class="chip-f">Rascunho <span class="n">' + n((p) => p.status === 'rascunho') + '</span></span>';
+
+  const ordem = ['protetor-titan160', 'protetor-bros160', 'rodas-titan160-2026', 'rodas-cg150-2014', 'kit-relacao-titan', 'kit-riffel', 'oleo-mobil-10w30', 'oleo-mobil-20w50',
+    'oleo-motul-5000', 'amortecedor-titan', 'pneu-traseiro-bros', 'retrovisor-f80', 'capacete-aberto', 'carenagem-lateral-titan', 'pastilha-cobreq'];
+  const lista = ordem.map((id) => porId[id]);
+  const barra = (p) => { const pct = p.estoque === 0 ? 4 : Math.min(100, Math.round(p.disponivel / (p.minimo * 3) * 100)); return '<div class="barra-est ' + (p.situacao === 'zerado' ? 'zero' : p.situacao) + '"><i style="width:' + pct + '%"></i></div>'; };
+  document.getElementById('linhas').innerHTML = lista.map((p, i) =>
+    '<tr class="' + (i === 0 ? 'sel' : '') + '"><td><input type="checkbox"' + (i === 0 ? ' checked' : '') + ' aria-label="Selecionar"></td>' +
+    '<td><div class="prod-cel">' + P.thumb(p) + '<div style="min-width:0"><b>' + p.nome + '</b><small>Cód. ' + p.cod + ' · EAN ' + p.ean + '</small></div></div></td>' +
+    '<td>' + P.catDe(p.cat).nome + '</td>' +
+    '<td class="num preco-cel">' + (p.promo ? '<s>' + P.fmt(p.preco) + '</s>' : '') + '<b>' + P.fmt(P.valor(p)) + '</b></td>' +
+    '<td class="est-cel"><b>' + p.disponivel + '</b> disponíveis<small>' + (p.reservado ? p.reservado + ' reservado' + (p.reservado > 1 ? 's' : '') + ' · ' : '') + p.estoque + ' em estoque</small>' + barra(p) + '</td>' +
+    '<td>' + P.situacao(p) + (p.situacao === 'baixo' ? '<br><span class="st st-baixo" style="margin-top:4px">Estoque baixo</span>' : '') + '</td>' +
+    '<td><div class="acoes-lin"><a class="ic-btn" href="produto-editar.html" title="Editar">' + I('edit') + '</a><span class="ic-btn" title="Duplicar">' + I('copy') + '</span><span class="ic-btn" title="' + (p.status === 'ativo' ? 'Desativar' : 'Ativar') + '">' + I(p.status === 'ativo' ? 'eyeOff' : 'eye') + '</span></div></td></tr>').join('');
+  document.getElementById('cards').innerHTML = lista.slice(0, 8).map((p) =>
+    '<div class="cm"><div class="cm-topo">' + P.thumb(p) + '<div><b>' + p.nome.split(' — ')[0] + '</b><small>Cód. ' + p.cod + ' · ' + P.catDe(p.cat).nome + '</small></div><span class="ic-btn">' + I('dots') + '</span></div>' +
+    '<div class="cm-info"><div><small>Preço</small><b>' + P.fmt(P.valor(p)) + '</b></div><div><small>Disponível</small><b>' + p.disponivel + '</b>' + (p.reservado ? ' <span class="fraco" style="font-size:11px">+' + p.reservado + ' res.</span>' : '') + '</div><div><small>Status</small>' + (p.status === 'rascunho' ? '<b>Rascunho</b>' : p.estoque === 0 ? '<b style="color:var(--vermelho-escuro)">Sem estoque</b>' : p.situacao === 'baixo' ? '<b style="color:#8A4B00">Baixo</b>' : '<b style="color:var(--verde)">Ativo</b>') + '</div></div></div>').join('');
+  document.getElementById('pag-txt').textContent = 'Mostrando 1–15 de ' + M.produtos.length + ' produtos';
+
+  /* modal importar */
+  document.getElementById('mi-ic').innerHTML = I('sheet');
+  document.getElementById('mi-x').innerHTML = I('close');
+  document.getElementById('mi-passos').innerHTML =
+    '<div class="passo-imp"><i>' + I('check') + '</i><div><b>Baixe o modelo</b>Planilha com as colunas certas</div></div>' +
+    '<div class="passo-imp"><i>' + I('check') + '</i><div><b>Envie o arquivo</b>.xlsx ou .csv, até 2.000 linhas</div></div>' +
+    '<div class="passo-imp atual"><i>3</i><div><b>Confira e importe</b>Veja o resumo antes de salvar</div></div>';
+  document.getElementById('mi-arq').innerHTML = '<span class="xls">XLS</span><div style="flex:1"><b>produtos-matuto-novembro.xlsx</b><small>128 linhas · 46 KB · enviado agora</small></div><button class="btn btn-claro btn-pp" type="button">Trocar arquivo</button>';
+  const prev = [
+    ['2', 'RD-0108', 'Jogo de rodas liga leve Fan 160 — disco nas duas', 'R$ 799,00', '4', '<span class="st st-ok">Novo</span>'],
+    ['3', 'PR-0401', 'Protetor de motor Titan 160', 'R$ 125,00', '+10', '<span class="st st-aguard">Atualizar</span>'],
+    ['4', 'TR-0207', 'Kit relação Fazer 250 aço 1045', 'R$ 89,90', '12', '<span class="st st-ok">Novo</span>'],
+    ['5', 'IL-1102', 'Lâmpada pisca LED 12V (par)', 'R$ 14,90', '30', '<span class="st st-baixo">Sem foto</span>'],
+    ['57', 'SP-0310', 'Amortecedor dianteiro Pop 110i', '—', '6', '<span class="st st-zero">Erro: preço vazio</span>'],
+  ];
+  document.getElementById('mi-prev').innerHTML = '<thead><tr><th>Linha</th><th>Código</th><th>Produto</th><th class="num">Preço</th><th class="num">Estoque</th><th>Situação</th></tr></thead><tbody>' +
+    prev.map((r) => '<tr><td class="num" style="text-align:left">' + r[0] + '</td><td class="nowrap">' + r[1] + '</td><td>' + r[2] + '</td><td class="num nowrap">' + r[3] + '</td><td class="num">' + r[4] + '</td><td>' + r[5] + '</td></tr>').join('') + '</tbody>';
+  document.getElementById('mi-modelo').innerHTML = 'Baixar modelo de planilha';
+  document.getElementById('mi-ok').innerHTML = I('upload') + 'Importar 127 produtos';
+})();
+</script>
+</body>
+</html>

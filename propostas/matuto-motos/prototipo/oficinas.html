@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oficinas e revendedores — Matuto Motos</title>
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/loja.css">
+</head>
+<body data-pagina="oficinas">
+<div id="topo"></div>
+
+<main><div class="wrap">
+  <nav class="migalhas"><a href="index.html">Início</a><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg><b>Oficinas e revendedores</b></nav>
+  <section class="oficinas" style="margin-top:18px">
+    <div class="of-txt">
+      <span class="kicker">Oficinas e revendedores</span>
+      <h2>Compre no CNPJ com preço de distribuidora</h2>
+      <p style="font-size:15px;max-width:520px">Cadastre sua oficina ou loja e veja o preço de atacado em todo o site. Faça o pedido de manhã e retire no balcão no mesmo dia.</p>
+      <ul class="of-lista" id="of-lista"></ul>
+    </div>
+    <div class="of-foto"><img src="assets/img/loja/prateleiras.jpg" alt="Prateleiras da loja"><span class="selo-tag">Atendimento para CNPJ</span></div>
+  </section>
+  <div class="login" style="margin-top:8px">
+    <section class="login-card">
+      <h2>Cadastro da oficina</h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <label class="campo" style="grid-column:1/-1"><span>CNPJ</span><input class="input" placeholder="00.000.000/0000-00"></label>
+        <label class="campo" style="grid-column:1/-1"><span>Razão social / nome da oficina</span><input class="input"></label>
+        <label class="campo"><span>Responsável</span><input class="input"></label>
+        <label class="campo"><span>WhatsApp</span><input class="input" placeholder="(81) 90000-0000"></label>
+        <label class="campo"><span>Tipo</span><select class="select"><option>Oficina mecânica</option><option>Loja de peças</option><option>Frota / empresa</option></select></label>
+        <label class="campo"><span>Cidade</span><input class="input" value="Recife/PE"></label>
+      </div>
+      <button class="btn btn-preto btn-g" type="button">Enviar cadastro para aprovação</button>
+      <p class="fraco" style="font-size:12.5px">A equipe confere os dados e libera o preço de atacado em até 1 dia útil.</p>
+    </section>
+    <section class="login-card">
+      <h2>Como funciona</h2>
+      <ul class="levar-lista" id="of-passos"></ul>
+    </section>
+  </div>
+</div></main>
+
+<div id="rodape"></div>
+<script src="assets/js/dados.js"></script>
+<script src="assets/js/icones.js"></script>
+<script src="assets/js/loja.js"></script>
+<script src="assets/js/inst.js"></script>
+<script>
+const I = ICON;
+document.getElementById('of-lista').innerHTML = ['Preço de atacado para CNPJ', 'Nota fiscal no CNPJ', 'Pedido separado na hora', 'Atendimento direto no WhatsApp'].map((t) => '<li>' + I('checkCircle') + t + '</li>').join('');
+document.getElementById('of-passos').innerHTML = [['idCard', 'Cadastre o CNPJ', 'Preencha os dados da oficina ou da loja.'], ['checkCircle', 'Aprovação em até 1 dia útil', 'Avisamos no WhatsApp quando o cadastro for liberado.'], ['tag', 'Preço de atacado no site', 'Entre com sua conta e veja os preços para revenda.'], ['store', 'Retire no balcão', 'Pedido pronto em até 2 h, com nota no CNPJ.']]
+  .map((l) => '<li><span class="li-ic">' + I(l[0]) + '</span><div><b>' + l[1] + '</b><span>' + l[2] + '</span></div></li>').join('');
+</script>
+</body>
+</html>
