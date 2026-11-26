@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Telas mobile — Proposta Matuto Motos</title>
+<link rel="stylesheet" href="../../prototipo/assets/css/base.css">
+<link rel="stylesheet" href="molduras.css">
+<style>
+  .palco { width: 2400px; height: 1160px; }
+  .topo { position: absolute; left: 90px; right: 90px; top: 60px; display: flex; align-items: center; gap: 22px; }
+  .topo .selo { width: 96px; }
+  .topo h1 { margin: 0; font-family: var(--f-titulo); font-weight: 800; font-style: italic; text-transform: uppercase; font-size: 60px; line-height: 1; }
+  .topo h1 em { color: #FCDD08; font-style: italic; }
+  .topo p { margin: 6px 0 0; font-size: 20px; color: rgba(255, 255, 255, .7); }
+  .topo .dir { margin-left: auto; text-align: right; font-size: 17px; color: rgba(255, 255, 255, .6); }
+  .fila { position: absolute; left: 90px; right: 90px; top: 210px; display: grid; grid-template-columns: repeat(6, 1fr); gap: 44px; }
+  .item { display: flex; flex-direction: column; gap: 22px; align-items: center; }
+  .item .celular { width: 330px; border-radius: 50px; padding: 12px; }
+  .item .celular .tela { border-radius: 39px; }
+  .listra { bottom: 0; }
+</style>
+</head>
+<body>
+<div class="palco">
+  <div class="topo"><div id="selo"></div><div><h1>Telas no celular · <em>primeira dobra</em></h1><p>Do banner ao código de retirada: a jornada completa do cliente pelo celular.</p></div><div class="dir">Proposta de loja virtual — Matuto Motos<br>[SEU NOME / EMPRESA] · novembro de 2026</div></div>
+  <div class="fila" id="fila"></div>
+  <div class="listra"></div>
+</div>
+<script src="../../prototipo/assets/js/icones.js"></script>
+<script>
+document.getElementById('selo').innerHTML = SELO();
+document.getElementById('fila').innerHTML = [['01', '01-home', 'Home'], ['02', '02-categoria', 'Categoria'], ['03', '03-produto', 'Produto'], ['04', '04-carrinho', 'Carrinho'], ['05', '05-checkout', 'Checkout'], ['06', '06-pedido-confirmado', 'Pedido confirmado']]
+  .map((t) => '<div class="item"><div class="celular"><div class="tela"><div class="sb"><span>10:42</span><span class="sb-ic"><svg viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1" fill="currentColor"/><rect x="5" y="5.5" width="3" height="6.5" rx="1" fill="currentColor"/><rect x="10" y="3" width="3" height="9" rx="1" fill="currentColor"/><rect x="15" y="0" width="3" height="12" rx="1" fill="currentColor"/></svg><svg viewBox="0 0 16 12"><path d="M8 11.5 10.2 9a3.2 3.2 0 0 0-4.4 0L8 11.5zM3.6 6.8l1.4 1.4a4.3 4.3 0 0 1 6 0l1.4-1.4a6.3 6.3 0 0 0-8.8 0zM.8 4l1.4 1.4a8.3 8.3 0 0 1 11.6 0L15.2 4A10.3 10.3 0 0 0 .8 4z" fill="currentColor"/></svg><svg viewBox="0 0 27 12"><rect x=".5" y=".5" width="23" height="11" rx="3" fill="none" stroke="currentColor" opacity=".45"/><rect x="2" y="2" width="17" height="8" rx="1.8" fill="currentColor"/><path d="M25 4v4a2 2 0 0 0 0-4z" fill="currentColor" opacity=".45"/></svg></span></div><img src="../../mockups/.dobras/mobile/' + t[1] + '.png" alt=""></div></div><span class="rotulo-tela"><b>' + t[0] + '</b>' + t[2] + '</span></div>').join('');
+</script>
+</body>
+</html>

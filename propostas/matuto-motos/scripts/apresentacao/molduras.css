@@ -1,0 +1,33 @@
+/* Molduras de navegador e celular para as imagens de apresentação */
+html, body { margin: 0; }
+body { font-family: var(--f-texto); color: #fff; background: #0d0d0d; overflow: hidden; }
+.palco { position: relative; overflow: hidden; isolation: isolate; }
+.palco::before { content: ''; position: absolute; inset: 0; z-index: -2; background: radial-gradient(ellipse 60% 70% at 80% 30%, rgba(252, 221, 8, .14), transparent 70%), radial-gradient(ellipse 50% 60% at 10% 90%, rgba(255, 255, 255, .05), transparent 70%), #0d0d0d; }
+.palco::after { content: ''; position: absolute; inset: 0; z-index: -1; background: repeating-linear-gradient(115deg, rgba(255, 255, 255, .025) 0 2px, transparent 2px 22px); }
+.listra { position: absolute; left: 0; right: 0; height: 14px; background: repeating-linear-gradient(-45deg, #FCDD08 0 18px, #111 18px 36px); }
+
+.navegador { background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 50px 100px -30px rgba(0, 0, 0, .85), 0 0 0 1px rgba(255, 255, 255, .08); }
+.nav-barra { height: 40px; background: #ECEAE5; display: flex; align-items: center; gap: 14px; padding: 0 16px; }
+.nav-barra .bolas { display: flex; gap: 7px; }
+.nav-barra .bolas i { width: 12px; height: 12px; border-radius: 50%; display: block; }
+.nav-barra .bolas i:nth-child(1) { background: #FF5F57; }
+.nav-barra .bolas i:nth-child(2) { background: #FEBC2E; }
+.nav-barra .bolas i:nth-child(3) { background: #28C840; }
+.nav-barra .url { flex: 1; max-width: 520px; margin: 0 auto; height: 26px; border-radius: 8px; background: #fff; color: #57544C; font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 6px; }
+.nav-barra .url svg { width: 12px; height: 12px; }
+.navegador img { display: block; width: 100%; }
+
+.celular { position: relative; background: #111; border-radius: 54px; padding: 13px; box-shadow: 0 50px 90px -24px rgba(0, 0, 0, .9), inset 0 0 0 2px #3a3a3a, 0 0 0 1px rgba(255, 255, 255, .12); }
+.celular::before { content: ''; position: absolute; left: 50%; top: 24px; transform: translateX(-50%); width: 30%; height: 26px; border-radius: 14px; background: #000; z-index: 2; }
+.celular::after { content: ''; position: absolute; right: -4px; top: 22%; width: 4px; height: 80px; border-radius: 0 3px 3px 0; background: #2b2b2b; }
+.celular .tela { border-radius: 42px; overflow: hidden; background: #fff; position: relative; }
+.celular .tela img { display: block; width: 100%; }
+.celular .status { position: absolute; left: 0; right: 0; top: 0; height: 0; }
+
+.rotulo-tela { font-family: var(--f-titulo); font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color: #fff; font-size: 26px; display: flex; align-items: center; gap: 10px; }
+.rotulo-tela b { color: #111; background: #FCDD08; border-radius: 6px; padding: 0 8px; font-size: 22px; }
+
+/* barra de status do celular (hora, sinal, bateria) */
+.sb { aspect-ratio: 390 / 46; background: var(--sb, #FCDD08); color: var(--sbt, #111); position: relative; display: flex; align-items: center; justify-content: space-between; padding: 0 8.5% 0 10%; font-family: var(--f-texto); font-weight: 650; font-size: 13.5px; letter-spacing: -.01em; }
+.sb .sb-ic { display: flex; align-items: center; gap: 5px; }
+.sb svg { height: 11px; width: auto; display: block; }
