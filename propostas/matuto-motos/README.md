@@ -46,9 +46,9 @@ Gera tudo em `mockups/`:
 
 Para gerar só uma tela: `node scripts/capturar.cjs --so 03` (prefixo do nome).
 
-A assinatura das imagens de apresentação usa a logo da Valdev: coloque o arquivo (SVG, ou PNG
-com fundo transparente) em `referencias/valdev/` e rode a captura de novo. Sem o arquivo, aparece
-o nome "Valdev" em texto. Se a logo for escura, ela ganha uma placa branca automaticamente.
+A assinatura das imagens de apresentação usa a logo da ValDev em `referencias/valdev/` (a primeira
+imagem da pasta). Sem arquivo, aparece o nome "ValDev" em texto. Se a logo for escura, ela ganha
+uma placa branca automaticamente.
 
 ### Fotos dos produtos (opcional)
 

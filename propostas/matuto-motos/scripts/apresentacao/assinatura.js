@@ -1,4 +1,4 @@
-/* Assinatura da proposta: logo da Valdev.
+/* Assinatura da proposta: logo da ValDev.
  * O script de captura (scripts/capturar.cjs) passa ?logo=<caminho> quando encontra um arquivo
  * de imagem em referencias/valdev/. Sem arquivo, mostra o nome em texto.
  * Se a logo for escura (pouco visível no fundo preto da apresentação), ganha uma placa branca. */
@@ -6,12 +6,12 @@
   const logo = new URLSearchParams(location.search).get('logo');
   document.querySelectorAll('[data-assinatura]').forEach((el) => {
     if (!logo) {
-      el.innerHTML = '<span class="valdev-txt">Valdev</span>';
+      el.innerHTML = '<span class="valdev-txt">ValDev</span>';
       return;
     }
     const img = new Image();
     img.className = 'valdev-logo';
-    img.alt = 'Valdev';
+    img.alt = 'ValDev';
     img.onload = () => {
       try {
         const c = document.createElement('canvas');

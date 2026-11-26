@@ -39,9 +39,10 @@ finalizado e profissional.
 - **Cidade/UF:** Recife/PE (confirmado pelo endereço).
 - **WhatsApp:** (81) 98164-4155 (do logo; a confirmar como número de vendas).
 - **Pagamentos aceitos:** não informados → placeholder.
-- **Assinatura da proposta (26/11/2026):** Valdev — "colocar a logo da Valdev na apresentação"
-  (capa, telas mobile e painel do lojista). Arquivo da logo a receber em `referencias/valdev/`;
-  até lá, o nome aparece em texto.
+- **Assinatura da proposta (26/11/2026):** ValDev — "colocar a logo da ValDev na apresentação"
+  (capa, telas mobile e painel do lojista). Logo enviada pelo cliente como print do site
+  valdev-tech.github.io ("V/" branco e ciano + "ValDev"); recortada e salva em
+  `referencias/valdev/valdev-logo.png`.
 - **OK para construir** dado pelo cliente após o resumo do inventário ("pode fazer"), sem
   objeções às propostas apresentadas:
   - paleta das artes (preto #111111, amarelo #FCDD08, vermelho #DC0405, dourado #BB9212, fundo

@@ -1,10 +1,13 @@
-# Logo da Valdev
+# Logo da ValDev
 
-Coloque aqui o arquivo da logo da Valdev (SVG, ou PNG com fundo transparente). Ela entra na
-assinatura das imagens de apresentação (`mockups/apresentacao/`).
+`valdev-logo.png` é a logo usada na assinatura das imagens de apresentação
+(`mockups/apresentacao/`). Ela foi recortada do print do site valdev-tech.github.io enviado em
+26/11/2026: fundo removido, cores do site (branco #F5F6FA e ciano #64D0EA) e ampliação para
+ficar nítida.
 
-- Qualquer nome de arquivo serve: o script usa a primeira imagem desta pasta.
-- O fundo da apresentação é preto. Se tiver uma versão clara (para fundo escuro), prefira ela.
-  Se a logo for escura, o script coloca automaticamente uma placa branca por trás.
+Para trocar pelo arquivo original (SVG, ou PNG com fundo transparente), apague o PNG atual e
+coloque o novo arquivo nesta pasta. O script usa a primeira imagem que encontrar aqui. Se a logo
+for escura, ela ganha automaticamente uma placa branca por trás, porque o fundo da apresentação
+é preto.
 
-Depois de adicionar, rode `node scripts/capturar.cjs` (a partir de `propostas/matuto-motos/`).
+Depois de trocar, rode `node scripts/capturar.cjs` a partir de `propostas/matuto-motos/`.

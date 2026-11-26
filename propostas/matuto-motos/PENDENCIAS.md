@@ -93,7 +93,7 @@ antes de publicar.
 
 | # | Item | No protótipo |
 |---|---|---|
-| 37 | Arquivo da logo da Valdev (SVG, ou PNG com fundo transparente; de preferência a versão para fundo escuro) | As imagens de apresentação já têm o espaço da logo. Enquanto o arquivo não chega, aparece o nome "Valdev" em texto. Basta colocar o arquivo em `referencias/valdev/` e rodar `node scripts/capturar.cjs` |
+| 37 | Logo da ValDev: aplicada nas três imagens de apresentação, recortada do print do site. Se tiver o arquivo original (SVG ou PNG grande), ele deixa a logo ainda mais nítida | `referencias/valdev/valdev-logo.png`. Para trocar, veja o LEIA-ME da pasta |
 
 ## 10. Para a versão real (fora do protótipo)
 
