@@ -124,7 +124,8 @@ async function capturarPagina(ctx, nome, pag, pasta, tipo, { inteira = true } = 
 }
 
 async function main() {
-  const browser = await chromium.launch();
+  // --allow-file-access-from-files: a assinatura lê os pixels da logo (placa branca se for escura)
+  const browser = await chromium.launch({ args: ['--allow-file-access-from-files'] });
   const relatorio = [];
   for (const [tipo, conf, pasta] of [['desktop', DESKTOP, path.join(SAIDA, 'desktop')], ['mobile', MOBILE, path.join(SAIDA, 'mobile')]]) {
     mkdir(pasta); mkdir(path.join(DOBRAS, tipo));
@@ -155,11 +156,16 @@ async function main() {
   if (!so) {
     mkdir(path.join(SAIDA, 'apresentacao'));
     const comps = [['capa', 1920, 1080], ['telas-mobile', 2400, 1090], ['painel-lojista', 2400, 1350]];
+    // logo da Valdev: primeiro arquivo de imagem em referencias/valdev/ (sem arquivo, vai o nome em texto)
+    const pastaLogo = path.join(RAIZ, 'referencias', 'valdev');
+    const logo = fs.existsSync(pastaLogo) ? fs.readdirSync(pastaLogo).filter((f) => /\.(svg|png|webp|jpe?g)$/i.test(f)).sort()[0] : null;
+    const qsLogo = logo ? '?logo=' + encodeURIComponent('../../referencias/valdev/' + logo) : '';
+    if (!logo) relatorio.push(['apresentação', 'logo Valdev', 'arquivo não encontrado em referencias/valdev/ — usado o nome em texto', []]);
     const ctx = await browser.newContext({ viewport: { width: 1920, height: 1080 }, deviceScaleFactor: 2 });
     for (const [nome, w, h] of comps) {
       const page = await ctx.newPage();
       await page.setViewportSize({ width: w, height: h });
-      await page.goto('file://' + path.join(APRES, nome + '.html'));
+      await page.goto('file://' + path.join(APRES, nome + '.html') + qsLogo);
       await preparar(page);
       const f = path.join(SAIDA, 'apresentacao', nome + '.png');
       await page.screenshot({ path: f });

@@ -17,8 +17,9 @@
   .chips { display: flex; flex-wrap: wrap; gap: 10px; }
   .chips span { display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 16px; border-radius: 999px; background: rgba(255, 255, 255, .08); border: 1px solid rgba(255, 255, 255, .12); font-size: 16px; font-weight: 600; }
   .chips svg { width: 18px; height: 18px; color: #FCDD08; }
-  .assinatura { position: absolute; left: 110px; bottom: 74px; font-size: 17px; color: rgba(255, 255, 255, .62); display: flex; flex-direction: column; gap: 4px; }
-  .assinatura b { color: #fff; font-size: 20px; }
+  .assinatura { position: absolute; left: 110px; bottom: 70px; font-size: 17px; color: rgba(255, 255, 255, .62); display: flex; flex-direction: column; gap: 10px; }
+  .ass-linha { display: flex; align-items: center; gap: 16px; }
+  .assinatura [data-assinatura] { --logo-h: 46px; }
   .nav-pos { position: absolute; left: 760px; top: 110px; width: 1060px; }
   .cel-pos { position: absolute; left: 1560px; top: 270px; width: 318px; }
   .listra { bottom: 0; }
@@ -33,12 +34,13 @@
     <p class="sub">Loja online completa, com retirada no balcão em Recife: o cliente compra pelo site, a gente separa e avisa no WhatsApp. Cuida e acelera!</p>
     <div class="chips" id="chips"></div>
   </div>
-  <div class="assinatura"><span>Proposta preparada por</span><b>[SEU NOME / EMPRESA]</b><span>Novembro de 2026 · protótipo visual</span></div>
+  <div class="assinatura"><div class="ass-linha"><span>Proposta preparada por</span><div data-assinatura></div></div><span>Novembro de 2026 · protótipo visual</span></div>
   <div class="navegador nav-pos"><div class="nav-barra"><span class="bolas"><i></i><i></i><i></i></span><span class="url"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7.5a4 4 0 0 1 8 0V11"/></svg>matutomotos.com.br</span></div><img src="../../mockups/.dobras/desktop/01-home.png" alt=""></div>
   <div class="celular cel-pos"><div class="tela"><div class="sb"><span>10:42</span><span class="sb-ic"><svg viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1" fill="currentColor"/><rect x="5" y="5.5" width="3" height="6.5" rx="1" fill="currentColor"/><rect x="10" y="3" width="3" height="9" rx="1" fill="currentColor"/><rect x="15" y="0" width="3" height="12" rx="1" fill="currentColor"/></svg><svg viewBox="0 0 16 12"><path d="M8 11.5 10.2 9a3.2 3.2 0 0 0-4.4 0L8 11.5zM3.6 6.8l1.4 1.4a4.3 4.3 0 0 1 6 0l1.4-1.4a6.3 6.3 0 0 0-8.8 0zM.8 4l1.4 1.4a8.3 8.3 0 0 1 11.6 0L15.2 4A10.3 10.3 0 0 0 .8 4z" fill="currentColor"/></svg><svg viewBox="0 0 27 12"><rect x=".5" y=".5" width="23" height="11" rx="3" fill="none" stroke="currentColor" opacity=".45"/><rect x="2" y="2" width="17" height="8" rx="1.8" fill="currentColor"/><path d="M25 4v4a2 2 0 0 0 0-4z" fill="currentColor" opacity=".45"/></svg></span></div><img src="../../mockups/.dobras/mobile/01-home.png" alt=""></div></div>
   <div class="listra"></div>
 </div>
 <script src="../../prototipo/assets/js/icones.js"></script>
+<script src="assinatura.js"></script>
 <script>
 document.getElementById('selo').innerHTML = SELO();
 document.getElementById('chips').innerHTML = [['store', 'Retirada na loja'], ['whatsapp', 'Aviso no WhatsApp'], ['box', 'Painel com estoque'], ['moto', 'Peças para a minha moto']].map((c) => '<span>' + ICON(c[0]) + c[1] + '</span>').join('');

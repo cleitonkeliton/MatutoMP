@@ -93,7 +93,7 @@ antes de publicar.
 
 | # | Item | No protótipo |
 |---|---|---|
-| 37 | Assinatura da proposta (seu nome ou empresa) | `[SEU NOME / EMPRESA]` |
+| 37 | Arquivo da logo da Valdev (SVG, ou PNG com fundo transparente; de preferência a versão para fundo escuro) | As imagens de apresentação já têm o espaço da logo. Enquanto o arquivo não chega, aparece o nome "Valdev" em texto. Basta colocar o arquivo em `referencias/valdev/` e rodar `node scripts/capturar.cjs` |
 
 ## 10. Para a versão real (fora do protótipo)
 

@@ -31,3 +31,9 @@ body { font-family: var(--f-texto); color: #fff; background: #0d0d0d; overflow: 
 .sb { aspect-ratio: 390 / 46; background: var(--sb, #FCDD08); color: var(--sbt, #111); position: relative; display: flex; align-items: center; justify-content: space-between; padding: 0 8.5% 0 10%; font-family: var(--f-texto); font-weight: 650; font-size: 13.5px; letter-spacing: -.01em; }
 .sb .sb-ic { display: flex; align-items: center; gap: 5px; }
 .sb svg { height: 11px; width: auto; display: block; }
+
+/* assinatura Valdev */
+[data-assinatura] { display: inline-flex; align-items: center; }
+.valdev-logo { display: block; height: var(--logo-h, 46px); width: auto; max-width: 300px; object-fit: contain; }
+.valdev-txt { font-family: var(--f-texto); font-weight: 800; font-size: var(--logo-txt, 30px); letter-spacing: -.02em; color: #fff; line-height: 1; }
+[data-assinatura].com-placa { background: #fff; border-radius: 12px; padding: 8px 14px; }
