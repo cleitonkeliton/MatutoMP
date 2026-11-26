@@ -268,7 +268,7 @@ body.painel { background: #F4F3EF; font-size: 14px; color: var(--texto); }
 .hist-cab .thumb { width: 40px; height: 40px; }
 
 /* modal */
-.modal-fundo { position: fixed; inset: 0; background: rgba(17, 17, 17, .55); z-index: 80; display: none; align-items: flex-start; justify-content: center; padding: 56px 20px; overflow: auto; }
+.modal-fundo { position: fixed; inset: 0; background: rgba(17, 17, 17, .55); z-index: 80; display: none; align-items: flex-start; justify-content: center; padding: 34px 20px; overflow: auto; }
 body.modal-aberto .modal-fundo { display: flex; }
 .modal { background: #fff; border-radius: 18px; width: 100%; max-width: 760px; box-shadow: 0 30px 80px -20px rgba(0, 0, 0, .5); overflow: hidden; }
 .modal-cab { display: flex; align-items: center; gap: 12px; padding: 18px 22px; border-bottom: 1px solid var(--borda); }
@@ -282,7 +282,7 @@ body.modal-aberto .modal-fundo { display: flex; }
 .modal-rodape .tot b { font-size: 20px; color: var(--texto); font-variant-numeric: tabular-nums; }
 .itens-ent .input { height: 38px; font-size: 13.5px; text-align: right; font-variant-numeric: tabular-nums; }
 .passos-imp { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-.passo-imp { display: flex; gap: 10px; align-items: center; padding: 12px; border-radius: 12px; border: 1px solid var(--borda); font-size: 13px; }
+.passo-imp { display: flex; gap: 10px; align-items: center; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--borda); font-size: 13px; line-height: 1.35; }
 .passo-imp i { width: 28px; height: 28px; border-radius: 50%; background: var(--verde); color: #fff; display: flex; align-items: center; justify-content: center; font-style: normal; font-weight: 800; flex: none; }
 .passo-imp i .ic { width: 15px; height: 15px; stroke-width: 2.6; }
 .passo-imp.atual { border-color: var(--preto); box-shadow: 0 0 0 2px var(--amarelo); }
@@ -320,6 +320,7 @@ body.modal-aberto .modal-fundo { display: flex; }
   .tb-mobile .tbm-acoes span { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; position: relative; }
   .tb-mobile .tbm-acoes .dot { position: absolute; top: 8px; right: 9px; width: 8px; height: 8px; border-radius: 50%; background: var(--vermelho); border: 2px solid var(--preto); }
   .conteudo { padding: 16px 14px 100px; gap: 14px; }
+  body:has(.fab-scan) .conteudo { padding-bottom: 156px; }
   .pg-topo { flex-direction: column; align-items: stretch; gap: 12px; }
   .pg-topo h1 { font-size: 30px; }
   .pg-acoes .btn { flex: 1; min-width: 0; padding: 0 12px; }
@@ -347,6 +348,7 @@ body.modal-aberto .modal-fundo { display: flex; }
   .cm-topo { display: flex; align-items: flex-start; gap: 12px; }
   .cm-topo .thumb { width: 56px; height: 56px; }
   .cm-topo > div { flex: 1; min-width: 0; }
+  .cm-topo > .thumbs { flex: none; }
   .cm-topo b { display: block; font-weight: 650; line-height: 1.3; }
   .cm-topo small { color: var(--texto-3); font-size: 12px; }
   .cm-info { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }

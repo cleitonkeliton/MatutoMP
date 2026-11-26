@@ -94,21 +94,20 @@
     '<td><div class="acoes-lin"><a class="ic-btn" href="produto-editar.html" title="Editar">' + I('edit') + '</a><span class="ic-btn" title="Duplicar">' + I('copy') + '</span><span class="ic-btn" title="' + (p.status === 'ativo' ? 'Desativar' : 'Ativar') + '">' + I(p.status === 'ativo' ? 'eyeOff' : 'eye') + '</span></div></td></tr>').join('');
   document.getElementById('cards').innerHTML = lista.slice(0, 8).map((p) =>
     '<div class="cm"><div class="cm-topo">' + P.thumb(p) + '<div><b>' + p.nome.split(' — ')[0] + '</b><small>Cód. ' + p.cod + ' · ' + P.catDe(p.cat).nome + '</small></div><span class="ic-btn">' + I('dots') + '</span></div>' +
-    '<div class="cm-info"><div><small>Preço</small><b>' + P.fmt(P.valor(p)) + '</b></div><div><small>Disponível</small><b>' + p.disponivel + '</b>' + (p.reservado ? ' <span class="fraco" style="font-size:11px">+' + p.reservado + ' res.</span>' : '') + '</div><div><small>Status</small>' + (p.status === 'rascunho' ? '<b>Rascunho</b>' : p.estoque === 0 ? '<b style="color:var(--vermelho-escuro)">Sem estoque</b>' : p.situacao === 'baixo' ? '<b style="color:#8A4B00">Baixo</b>' : '<b style="color:var(--verde)">Ativo</b>') + '</div></div></div>').join('');
-  document.getElementById('pag-txt').textContent = 'Mostrando 1–15 de ' + M.produtos.length + ' produtos';
+    '<div class="cm-info"><div><small>Preço</small><b>' + P.fmt(P.valor(p)) + '</b></div><div><small>Disponível</small><b>' + p.disponivel + '</b>' + (p.reservado ? ' <span class="fraco" style="font-size:11px">+' + p.reservado + ' res.</span>' : '') + '</div><div><small>Status</small>' + (p.status === 'rascunho' ? '<b>Rascunho</b>' : p.estoque === 0 ? '<b style="color:var(--vermelho-escuro)">Zerado</b>' : p.situacao === 'baixo' ? '<b style="color:#8A4B00">Baixo</b>' : '<b style="color:var(--verde)">Ativo</b>') + '</div></div></div>').join('');
+  document.getElementById('pag-txt').innerHTML = 'Mostrando 1–<span class="so-desk">15</span><span class="so-mob">8</span> de ' + M.produtos.length + ' produtos';
 
   /* modal importar */
   document.getElementById('mi-ic').innerHTML = I('sheet');
   document.getElementById('mi-x').innerHTML = I('close');
   document.getElementById('mi-passos').innerHTML =
-    '<div class="passo-imp"><i>' + I('check') + '</i><div><b>Baixe o modelo</b>Planilha com as colunas certas</div></div>' +
+    '<div class="passo-imp"><i>' + I('check') + '</i><div><b>Baixe o modelo</b>Colunas já prontas</div></div>' +
     '<div class="passo-imp"><i>' + I('check') + '</i><div><b>Envie o arquivo</b>.xlsx ou .csv, até 2.000 linhas</div></div>' +
     '<div class="passo-imp atual"><i>3</i><div><b>Confira e importe</b>Veja o resumo antes de salvar</div></div>';
   document.getElementById('mi-arq').innerHTML = '<span class="xls">XLS</span><div style="flex:1"><b>produtos-matuto-novembro.xlsx</b><small>128 linhas · 46 KB · enviado agora</small></div><button class="btn btn-claro btn-pp" type="button">Trocar arquivo</button>';
   const prev = [
     ['2', 'RD-0108', 'Jogo de rodas liga leve Fan 160 — disco nas duas', 'R$ 799,00', '4', '<span class="st st-ok">Novo</span>'],
     ['3', 'PR-0401', 'Protetor de motor Titan 160', 'R$ 125,00', '+10', '<span class="st st-aguard">Atualizar</span>'],
-    ['4', 'TR-0207', 'Kit relação Fazer 250 aço 1045', 'R$ 89,90', '12', '<span class="st st-ok">Novo</span>'],
     ['5', 'IL-1102', 'Lâmpada pisca LED 12V (par)', 'R$ 14,90', '30', '<span class="st st-baixo">Sem foto</span>'],
     ['57', 'SP-0310', 'Amortecedor dianteiro Pop 110i', '—', '6', '<span class="st st-zero">Erro: preço vazio</span>'],
   ];

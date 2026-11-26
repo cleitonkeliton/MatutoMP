@@ -71,8 +71,8 @@ PRODUTOS: dict[str, dict] = {
     # Protetores
     "protetor-titan160": dict(foto=5, caixa=(158, 383, 466, 602),
                               apagar=[(300, 368, 404, 399)],
-                              apagar_poli=[[(404, 383), (468, 383), (468, 472), (437, 468), (425, 459),
-                                            (415, 441), (405, 420)]]),
+                              apagar_poli=[[(386, 398), (386, 426), (405, 450), (428, 470), (440, 481),
+                                            (470, 481), (470, 383), (404, 383), (404, 398)]]),
     "protetor-bros160": dict(foto=6, caixa=(126, 338, 470, 568)),
     "protetor-tubular": dict(foto=4, caixa=(98, 383, 458, 700)),
     "protetor-carenagem-broly": dict(foto=12, caixa=(244, 0, 506, 302)),

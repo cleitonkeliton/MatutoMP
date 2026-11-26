@@ -34,7 +34,7 @@
   /* ---------- cabeçalho ---------- */
   function buscaHTML(id) {
     return '<form class="busca-form" role="search" action="' + BASE + 'categoria.html">' +
-      '<input id="' + id + '" name="q" type="search" autocomplete="off" placeholder="Busque por peça, código ou moto (ex.: protetor Titan 160)" aria-label="Buscar">' +
+      '<input id="' + id + '" name="q" type="search" autocomplete="off" placeholder="Busque por peça, código ou moto" aria-label="Buscar">' +
       '<button type="submit" aria-label="Buscar">' + I('search') + '</button></form>' +
       '<div class="sugestoes" role="listbox"></div>';
   }
@@ -153,7 +153,7 @@
       '</a>' +
       '<button class="cp-fav' + (M.cliente.favoritos.indexOf(p.id) >= 0 ? ' on' : '') + '" type="button" aria-label="Favoritar">' + I('heart') + '</button>' +
       '<div class="cp-info">' +
-        (p.compat ? '<span class="cp-compat">' + I('moto') + p.compat + '</span>' : '') +
+        (p.compat ? '<span class="cp-compat">' + I('moto') + '<span>' + p.compat + '</span></span>' : '') +
         '<a class="cp-nome" href="' + BASE + 'produto.html?id=' + p.id + '">' + p.nome + '</a>' +
         (p.aval ? '<span class="cp-aval">' + estrelas(p.aval) + nota(p.aval) + ' (' + p.navals + ')</span>' : '') +
         '<div class="cp-preco">' + (p.promo ? '<s>' + fmt(p.preco) + '</s>' : '') + '<b>' + fmt(v) + '</b></div>' +

@@ -106,7 +106,7 @@
     p({ id: 'kit-riffel', cat: 'transmissao', marca: 'Riffel', nome: 'Kit relação Riffel Titanium aço 1045 — coroa, pinhão e corrente',
       cod: 'TR-0203', codFab: 'RIFFEL-TITANIUM', ean: '789820420203', preco: 79.00, promo: 69.90,
       img: 'produtos/kit-riffel-caixa.webp', galeria: ['produtos/kit-riffel-caixa.webp', 'produtos/kit-riffel.webp', 'artes/arte-P1-20.jpg'],
-      motos: [['Honda', 'CG 160 Titan / Fan', '2016 a 2026'], ['Honda', 'NXR 160 Bros', '2015 a 2025'], ['Yamaha', 'Factor 150', '2016 a 2025'], ['Yamaha', 'Fazer 150', '2014 a 2022']], compat: 'Vários modelos — escolha a moto',
+      motos: [['Honda', 'CG 160 Titan / Fan', '2016 a 2026'], ['Honda', 'NXR 160 Bros', '2015 a 2025'], ['Yamaha', 'Factor 150', '2016 a 2025'], ['Yamaha', 'Fazer 150', '2014 a 2022']], compat: 'Titan, Bros, Factor e Fazer',
       estoque: 12, reservado: 0, minimo: 6, local: 'C1-3', custo: 44, atacado: 62.9, vendidos: 98, aval: 4.9, navals: 41, fonte: 'P1-20, P1-44' }),
     p({ id: 'kit-relacao-bros-xre', cat: 'transmissao', nome: 'Kit relação Bros 160 / XRE 190 aço 1045',
       cod: 'TR-0202', codFab: 'KR-B160-1045', ean: '789820420202', preco: 75.00, promo: 54.90,
@@ -248,7 +248,7 @@
       img: 'produtos/capacete-preto.webp', galeria: ['produtos/capacete-preto.webp', 'videos/story-capacete.jpg'],
       cores: [['Preto', 'capacete-preto', '#111'], ['Amarelo', 'capacete-amarelo', '#F4C400'], ['Branco', 'capacete-branco', '#F1F1F1'], ['Azul', 'capacete-azul', '#1D3FBF'],
         ['Grafite', 'capacete-grafite', '#3A3A3A'], ['Prata', 'capacete-prata', '#B9BCC0'], ['Vermelho', 'capacete-vermelho', '#C8141B'], ['Rosa', 'capacete-rosa', '#E0218A']],
-      motos: [], compat: 'Tamanhos 56 a 60 · certificado INMETRO',
+      motos: [], compat: 'Tamanhos 56 a 60 · INMETRO',
       estoque: 16, reservado: 1, minimo: 6, local: 'J1-1', custo: 54, atacado: 89, vendidos: 95, aval: 4.8, navals: 27, fonte: 'P1-09' }),
 
     /* ---------------- Exemplos sem foto (outras categorias) ---------------- */

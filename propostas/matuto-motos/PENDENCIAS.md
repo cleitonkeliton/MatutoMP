@@ -3,8 +3,9 @@
 Tudo o que no protótipo é placeholder, exemplo ou suposição e precisa de confirmação do cliente
 antes de publicar.
 
-> Versão inicial, escrita depois da análise das 46 fotos (25/11/2026). Será completada durante a
-> construção das telas.
+> Atualizado ao fim da construção do protótipo (26/11/2026). Os números entre colchetes, como
+> `[CNPJ]`, aparecem assim nas telas. Valores marcados como "exemplo" foram criados só para o
+> protótipo.
 
 ## 1. Dados da loja
 
@@ -59,8 +60,11 @@ antes de publicar.
 | 22 | Fotos da fachada, do balcão de retirada e da equipe | Não há nas fotos |
 | 23 | Foto do dono em boa resolução e autorização de uso da imagem; confirmar que é ele quem aparece nos stories (P1-07, P1-08, P1-09, P1-42) | Recortes dos stories |
 | 24 | Fotos de produto em alta resolução, de preferência com fundo branco | Recortes das artes do Instagram |
-| 25 | Usar ou não o bordão "Sou o mais barato de Recife!" no site | — |
-| 26 | Confirmar as marcas que a loja revende (Mobil, Motul, Riffel, Cobreq, Dabroy aparecem nas fotos) | Faixa de marcas com essas |
+| 25 | Usar ou não o bordão "Sou o mais barato de Recife!" no site | Não aparece nos textos do site, só dentro das artes usadas nas galerias de produto |
+| 26 | Confirmar as marcas que a loja revende (Mobil, Motul, Riffel, Cobreq, Dabroy aparecem nas fotos; NGK foi acrescentada como exemplo) | Faixa "Marcas que a gente trabalha" com os nomes em texto. Pedir autorização ou usar os logos oficiais |
+| 26a | Links reais dos vídeos para "Visto nos vídeos do Matuto" | As capas são recortes dos stories (P1-04 a P1-09, P1-24); os botões ainda não levam a vídeos |
+| 26b | Foto de perfil do dono em boa resolução para a seção do Instagram | Usamos o selo como avatar |
+| 26c | Domínio do site e textos institucionais (Sobre o Matuto: história, ano de fundação) | "matutomotos.com.br" aparece só na moldura da apresentação; o texto do Sobre é provisório |
 
 ## 7. Preços e produtos a confirmar
 
@@ -77,13 +81,24 @@ antes de publicar.
 
 | # | Item |
 |---|---|
-| 33 | Produtos das categorias sem foto nas imagens (motor, freios, elétrica, iluminação, carenagens, cabos e comandos, acessórios): nomes e preços de exemplo |
-| 34 | Compatibilidades (motos e anos) além das que aparecem nas artes |
-| 35 | Avaliações e depoimentos: nenhum real nas fotos, todos são exemplos |
-| 36 | Painel do lojista: códigos internos, códigos de barras, estoques, mínimos, locais na prateleira, custos e margens, pedidos, clientes, códigos de retirada, movimentações e vendas do dia |
+| 33 | Produtos criados como exemplo (não estão nas fotos), com nome e preço inventados: pastilha de freio Cobreq, óleo Motul 5000 20W-50, filtro de ar CG 160, vela NGK, bateria 12V 5Ah, lâmpada H4, cabo e manete de embreagem, carenagem lateral Titan 160, kit pistão Titan 160 e baú 41 L. O coxim da coroa e o patins de freio aparecem no combo da P1-44, mas o preço avulso é exemplo. Onze deles aparecem sem foto ("Foto em breve") |
+| 34 | Compatibilidades e anos que não estão nas artes (ex.: Titan 160 "2016 a 2026", Pop 110i "2016 a 2025") e medidas dos pneus (110/90-17 e 90/90-19) |
+| 35 | Avaliações e números de venda: nenhum real nas fotos. São exemplos as notas e quantidades de avaliações nos cards, os "vendidos" e os três depoimentos da página do produto (Rafael S., Joseane F., Edvaldo M.) |
+| 36 | Painel do lojista: códigos internos, códigos do fabricante, códigos de barras (fictícios, começam com 7898204), estoques, mínimos, locais na prateleira, custos, margens e preço de atacado, pedidos, clientes e oficinas, códigos de retirada, movimentações, fornecedor e notas fiscais, funcionário "Josué" e vendas do dia |
+| 36a | Cliente de exemplo da loja: Carlos Eduardo Lima, a garagem dele, favoritos, pedidos MT-10482, MT-10391, MT-10220, MT-10105 e o código 7K4-Q29 (o QR code é ilustrativo) |
+| 36b | Textos de produto: a descrição do protetor Titan 160 veio da arte (P1-05). "Itens inclusos: protetor + kit de fixação" e a garantia de "90 dias contra defeito de fabricação" são suposições |
+| 36c | Políticas exibidas como exemplo: troca em até 7 dias no balcão, cupom de desconto, prazo de 30 minutos para pagar o Pix, reserva de 1 dia útil no "pagar na retirada" |
 
 ## 9. Proposta
 
 | # | Item | No protótipo |
 |---|---|---|
 | 37 | Assinatura da proposta (seu nome ou empresa) | `[SEU NOME / EMPRESA]` |
+
+## 10. Para a versão real (fora do protótipo)
+
+| # | Item |
+|---|---|
+| 38 | Plataforma e hospedagem (loja própria ou plataforma pronta), meio de pagamento (Pix e cartão), emissão de nota fiscal |
+| 39 | Envio automático do aviso "pedido pronto" e do "avise-me quando chegar" pelo WhatsApp (API oficial ou ferramenta de terceiros) |
+| 40 | Leitura de código de barras e de QR code pela câmera no painel, importação de planilha e controle de acesso dos funcionários |

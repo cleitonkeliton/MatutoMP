@@ -154,7 +154,7 @@ async function main() {
   // composições de apresentação
   if (!so) {
     mkdir(path.join(SAIDA, 'apresentacao'));
-    const comps = [['capa', 1920, 1080], ['telas-mobile', 2400, 1160], ['painel-lojista', 2400, 1350]];
+    const comps = [['capa', 1920, 1080], ['telas-mobile', 2400, 1090], ['painel-lojista', 2400, 1350]];
     const ctx = await browser.newContext({ viewport: { width: 1920, height: 1080 }, deviceScaleFactor: 2 });
     for (const [nome, w, h] of comps) {
       const page = await ctx.newPage();
