@@ -155,7 +155,7 @@ async function main() {
   // composições de apresentação
   if (!so) {
     mkdir(path.join(SAIDA, 'apresentacao'));
-    const comps = [['capa', 1920, 1080], ['telas-mobile', 2400, 1090], ['painel-lojista', 2400, 1350]];
+    const comps = [['capa', 1920, 1080], ['telas-mobile', 2400, 1090], ['painel-lojista', 2400, 1350], ['por-que-investir', 1920, 1080], ['investimento', 1920, 1080]];
     // logo da Valdev: primeiro arquivo de imagem em referencias/valdev/ (sem arquivo, vai o nome em texto)
     const pastaLogo = path.join(RAIZ, 'referencias', 'valdev');
     const logo = fs.existsSync(pastaLogo) ? fs.readdirSync(pastaLogo).filter((f) => /\.(svg|png|webp|jpe?g)$/i.test(f)).sort()[0] : null;

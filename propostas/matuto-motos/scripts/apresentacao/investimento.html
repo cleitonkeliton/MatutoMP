@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Investimento — Proposta Matuto Motos</title>
+<link rel="stylesheet" href="../../prototipo/assets/css/base.css">
+<link rel="stylesheet" href="molduras.css">
+<style>
+  .palco { width: 1920px; height: 1080px; }
+  .topo { position: absolute; left: 80px; right: 80px; top: 50px; display: flex; align-items: center; gap: 20px; }
+  .topo .selo { width: 84px; }
+  .topo h1 { margin: 0; font-family: var(--f-titulo); font-weight: 800; font-style: italic; text-transform: uppercase; font-size: 54px; line-height: 1; }
+  .topo h1 em { color: #FCDD08; font-style: italic; }
+  .topo p { margin: 6px 0 0; font-size: 19px; color: rgba(255, 255, 255, .7); }
+  .topo .dir { margin-left: auto; display: flex; flex-direction: column; align-items: flex-end; gap: 8px; font-size: 15px; color: rgba(255, 255, 255, .6); text-align: right; }
+  .topo .dir [data-assinatura] { --logo-h: 42px; --logo-txt: 28px; }
+
+  .pacotes { position: absolute; left: 80px; right: 80px; top: 180px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; align-items: stretch; }
+  .pac { background: #fff; color: var(--texto); border-radius: 22px; overflow: hidden; display: flex; flex-direction: column; position: relative; box-shadow: 0 30px 60px -30px rgba(0, 0, 0, .9); }
+  .pac-topo { padding: 22px 26px 18px; border-bottom: 1px solid var(--borda); position: relative; }
+  .pac-nome { font-family: var(--f-titulo); font-weight: 800; font-style: italic; text-transform: uppercase; font-size: 38px; line-height: 1; }
+  .pac-sub { font-size: 15px; color: var(--texto-2); margin-top: 4px; }
+  .pac-preco { padding: 18px 26px 16px; display: grid; grid-template-columns: 1fr auto; gap: 4px 18px; align-items: end; border-bottom: 1px solid var(--borda); }
+  .rot { font-size: 12.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--texto-3); }
+  .valor { font-family: var(--f-texto); font-weight: 750; font-size: 44px; line-height: 1.05; letter-spacing: -.02em; white-space: nowrap; }
+  .valor small { font-size: 22px; font-weight: 700; margin-right: 4px; letter-spacing: 0; }
+  .mensal { text-align: right; }
+  .mensal b { display: block; font-family: var(--f-texto); font-weight: 750; font-size: 26px; letter-spacing: -.01em; white-space: nowrap; }
+  .mensal b span { font-size: 15px; font-weight: 600; color: var(--texto-2); }
+  .pac-prazo { grid-column: 1 / -1; display: flex; align-items: center; gap: 8px; font-size: 14.5px; color: var(--texto-2); margin-top: 6px; }
+  .pac-prazo .ic { width: 18px; height: 18px; color: var(--texto); }
+  .pac-itens { list-style: none; margin: 0; padding: 16px 26px 22px; display: flex; flex-direction: column; gap: 9px; }
+  .pac-itens li { display: flex; gap: 10px; align-items: flex-start; font-size: 15.5px; line-height: 1.35; }
+  .pac-itens li .ic { width: 19px; height: 19px; flex: none; color: var(--verde); margin-top: 1px; stroke-width: 2.4; }
+  .pac-itens li.mais { font-weight: 700; color: var(--texto); }
+  .pac-itens li.mais .ic { color: var(--texto-3); }
+  .pac.rec { outline: 4px solid #FCDD08; transform: translateY(-10px); }
+  .pac.rec .pac-topo { background: #FCDD08; }
+  .pac.rec .pac-sub { color: #4a3d00; }
+  .selo-rec { position: absolute; right: 22px; top: 22px; background: var(--preto); color: #FCDD08; font-family: var(--f-titulo); font-weight: 800; text-transform: uppercase; font-size: 15px; letter-spacing: .06em; padding: 5px 12px; border-radius: 999px; }
+
+  .rodape { position: absolute; left: 80px; right: 80px; top: 752px; display: grid; grid-template-columns: 1fr 1.15fr 1.45fr; gap: 26px; }
+  .caixa { border: 1px solid rgba(255, 255, 255, .14); background: rgba(255, 255, 255, .05); border-radius: 18px; padding: 18px 22px; }
+  .caixa h3 { margin: 0 0 10px; font-family: var(--f-titulo); font-weight: 800; text-transform: uppercase; font-size: 21px; letter-spacing: .03em; color: #FCDD08; display: flex; gap: 8px; align-items: center; }
+  .caixa h3 .ic { width: 20px; height: 20px; }
+  .caixa ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; font-size: 15.5px; line-height: 1.35; color: rgba(255, 255, 255, .85); }
+  .caixa ul.duas { display: grid; grid-template-columns: 1fr 1fr; gap: 5px 18px; }
+  .caixa li b { color: #fff; }
+  .caixa li { position: relative; padding-left: 16px; }
+  .caixa li::before { content: '•'; color: #FCDD08; position: absolute; left: 0; }
+  .nota { position: absolute; left: 80px; right: 80px; bottom: 30px; font-size: 13px; color: rgba(255, 255, 255, .5); }
+  .listra { bottom: 0; }
+</style>
+</head>
+<body>
+<div class="palco">
+  <div class="topo"><div id="selo"></div><div><h1>Investimento · <em>escolha o pacote</em></h1><p>Loja com retirada no balcão e painel do lojista, prontos para o Matuto vender pelo site.</p></div><div class="dir"><div data-assinatura></div><span>Proposta de loja virtual — Matuto Motos · novembro de 2026</span></div></div>
+  <div class="pacotes" id="pacotes"></div>
+  <div class="rodape" id="rodape"></div>
+  <div class="nota" id="nota"></div>
+  <div class="listra"></div>
+</div>
+<script src="../../prototipo/assets/js/icones.js"></script>
+<script src="proposta.js"></script>
+<script src="assinatura.js"></script>
+<script>
+(function () {
+  const P = window.PROPOSTA, I = window.ICON;
+  const brl = (v) => v.toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+  document.getElementById('selo').innerHTML = window.SELO();
+  document.getElementById('pacotes').innerHTML = P.pacotes.map((p) =>
+    '<div class="pac' + (p.recomendado ? ' rec' : '') + '">' +
+      '<div class="pac-topo">' + (p.recomendado ? '<span class="selo-rec">Recomendado</span>' : '') +
+        '<div class="pac-nome">' + p.nome + '</div><div class="pac-sub">' + p.sub + '</div></div>' +
+      '<div class="pac-preco"><div><div class="rot">Implantação</div><div class="valor"><small>R$</small>' + brl(p.implantacao) + '</div></div>' +
+        '<div class="mensal"><div class="rot">Mensal</div><b>R$ ' + brl(p.mensal) + '<span>/mês</span></b></div>' +
+        '<div class="pac-prazo">' + I('calendar') + 'Prazo de entrega: <b style="color:var(--texto)">' + p.prazo + '</b></div></div>' +
+      '<ul class="pac-itens">' + p.itens.map((t) => /mais:$/.test(t) ? '<li class="mais">' + I('plus') + t + '</li>' : '<li>' + I('check') + t + '</li>').join('') + '</ul>' +
+    '</div>').join('');
+  document.getElementById('rodape').innerHTML =
+    '<div class="caixa"><h3>' + I('shield') + 'A mensalidade inclui</h3><ul>' + P.mensalidadeInclui.map((t) => '<li>' + t + '</li>').join('') + '</ul></div>' +
+    '<div class="caixa"><h3>' + I('receipt') + 'Custos de terceiros</h3><ul>' + P.terceiros.map((t) => '<li><b>' + t[0] + ':</b> ' + t[1] + '</li>').join('') +
+      '<li>Pagos direto pela loja ao intermediador e à Meta</li></ul></div>' +
+    '<div class="caixa"><h3>' + I('card') + 'Condições</h3><ul>' + P.condicoes.map((t) => '<li>' + t + '</li>').join('') +
+      P.opcionais.map((o) => '<li><b>Opcional:</b> ' + o[0] + ' por R$ ' + brl(o[1]) + '</li>').join('') + '</ul></div>';
+  document.getElementById('nota').textContent = 'Valores em reais, válidos por ' + P.validade + '. Taxas de terceiros como referência (Pix e cartão: Mercado Pago; WhatsApp: tabela da Meta para o Brasil, out/2026).';
+})();
+</script>
+</body>
+</html>

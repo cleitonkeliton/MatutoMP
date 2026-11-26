@@ -4,6 +4,7 @@ Protótipo visual da loja online da Matuto Motos (compra pelo site, **retirada n
 e do painel do lojista, mais as imagens (PNG) para apresentar ao cliente.
 
 - Briefing: [`BRIEFING.md`](BRIEFING.md)
+- Proposta comercial (valores e justificativas): [`PROPOSTA-COMERCIAL.md`](PROPOSTA-COMERCIAL.md)
 - Pendências para o cliente confirmar: [`PENDENCIAS.md`](PENDENCIAS.md)
 - Inventário das fotos de referência: [`referencias/INVENTARIO.md`](referencias/INVENTARIO.md)
 
@@ -42,7 +43,12 @@ Gera tudo em `mockups/`:
 
 - `mockups/desktop/` — 1440×900, deviceScaleFactor 2 (páginas longas divididas em `-parte1`, `-parte2`…)
 - `mockups/mobile/` — 390×844, deviceScaleFactor 2
-- `mockups/apresentacao/` — `capa.png`, `telas-mobile.png` e `painel-lojista.png`
+- `mockups/apresentacao/` — `capa.png`, `telas-mobile.png`, `painel-lojista.png`,
+  `por-que-investir.png` e `investimento.png`
+
+Os valores dos dois últimos slides vêm de `scripts/apresentacao/proposta.js` (pacotes, preços,
+condições e premissas da simulação). A versão em texto da proposta está em
+[`PROPOSTA-COMERCIAL.md`](PROPOSTA-COMERCIAL.md).
 
 Para gerar só uma tela: `node scripts/capturar.cjs --so 03` (prefixo do nome).
 
@@ -66,7 +72,7 @@ Na primeira vez, o script baixa os modelos de IA (cerca de 300 MB).
 
 ```
 propostas/matuto-motos/
-├── BRIEFING.md · PENDENCIAS.md · README.md
+├── BRIEFING.md · PENDENCIAS.md · PROPOSTA-COMERCIAL.md · README.md
 ├── referencias/          prints do Instagram (P1-01 a P1-46) e inventário
 ├── prototipo/            loja (index, categoria, produto, carrinho, checkout…) e painel/
 │   └── assets/           css, js (dados, ícones, comportamento), fontes e imagens
